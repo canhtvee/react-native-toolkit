@@ -1,4 +1,4 @@
-package com.toolkit;
+package com.canhtvee.toolkit;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
