@@ -1,0 +1,107 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppButtonNormal should invoke onPressMock if pressed  1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onLayout={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 6,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "minHeight": undefined,
+          "minWidth": undefined,
+          "padding": 19.5,
+        },
+        Object {
+          "padding": 50,
+        },
+      ],
+      Object {
+        "opacity": 1,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        undefined,
+        Object {
+          "color": "#000000",
+          "fontSize": 28,
+        },
+      ]
+    }
+  >
+    AppButtonNormal Test
+  </Text>
+</View>
+`;
+
+exports[`AppButtonNormal should render correctly 1`] = `
+<View
+  accessible={true}
+  collapsable={false}
+  focusable={true}
+  onBlur={[Function]}
+  onClick={[Function]}
+  onFocus={[Function]}
+  onLayout={[Function]}
+  onResponderGrant={[Function]}
+  onResponderMove={[Function]}
+  onResponderRelease={[Function]}
+  onResponderTerminate={[Function]}
+  onResponderTerminationRequest={[Function]}
+  onStartShouldSetResponder={[Function]}
+  style={
+    Array [
+      Array [
+        Object {
+          "alignItems": "center",
+          "borderRadius": 6,
+          "flexDirection": "row",
+          "justifyContent": "center",
+          "minHeight": undefined,
+          "minWidth": undefined,
+          "padding": 19.5,
+        },
+        Object {
+          "padding": 50,
+        },
+      ],
+      Object {
+        "opacity": 1,
+      },
+    ]
+  }
+>
+  <Text
+    style={
+      Array [
+        undefined,
+        Object {
+          "color": "#000000",
+          "fontSize": 28,
+        },
+      ]
+    }
+  >
+    AppButtonNormal Test
+  </Text>
+</View>
+`;

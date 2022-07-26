@@ -1,0 +1,22 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppText should render correctly 1`] = `
+Array [
+  <Text
+    style={
+      Array [
+        Object {
+          "color": "#000000",
+          "fontSize": 28,
+        },
+        Object {
+          "color": "black",
+        },
+      ]
+    }
+  >
+    should render correctly
+  </Text>,
+  " ",
+]
+`;

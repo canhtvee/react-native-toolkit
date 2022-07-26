@@ -1,0 +1,36 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AppViewLoading should render correctly 1`] = `
+<View
+  style={
+    Array [
+      Object {
+        "alignItems": "center",
+        "flexDirection": "row",
+        "justifyContent": "center",
+        "paddingBottom": 20,
+        "paddingRight": 20,
+      },
+      Object {
+        "backgroundColor": "red",
+        "margin": 30,
+      },
+    ]
+  }
+>
+  <RNSpinkit
+    color={4278190335}
+    size={80}
+    style={
+      Array [
+        Object {
+          "height": 80,
+          "width": 80,
+        },
+        undefined,
+      ]
+    }
+    type="Circle"
+  />
+</View>
+`;
