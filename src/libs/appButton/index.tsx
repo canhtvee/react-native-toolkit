@@ -19,7 +19,6 @@ export interface AppButtonNormalProps extends Omit<AppTouchableProps, 'style'> {
   textLabelStyle?: StyleProp<TextStyle>;
   loadingLabel?: React.ReactNode;
   containerStyle?: StyleProp<Omit<ViewStyle, 'opacity'>>;
-  activeOpacity?: number;
   spinnerColor?: string;
   spinnerSize?: number;
   isLoading?: boolean;
@@ -34,6 +33,8 @@ export function AppButtonNormal({
   spinnerSize,
   disabled,
   isLoading,
+  activeOpacity,
+  activeBackgroundColor,
   ...touchProps
 }: AppButtonNormalProps) {
   const {Colors} = useAppContext();
@@ -64,11 +65,7 @@ export function AppButtonNormal({
       );
     }
     if (typeof label === 'string') {
-      return (
-        <Text style={[styles.textLabel, textLabelStyle, _textLabelStyle]}>
-          {label}
-        </Text>
-      );
+      return <Text style={[textLabelStyle, _textLabelStyle]}>{label}</Text>;
     }
     return label;
   };
@@ -80,6 +77,8 @@ export function AppButtonNormal({
         setSize({width: layout.width, height: layout.height});
       }}
       hitSlop
+      activeOpacity={activeOpacity}
+      activeBackgroundColor={activeBackgroundColor}
       disabled={isLoading || disabled}
       style={[styles.container, containerStyle, _containerStyle]}
       {...touchProps}>
@@ -94,18 +93,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     overflow: 'hidden',
-    borderRadius: Sizes.borderRadius,
-    marginTop: Sizes.paddingLess,
   },
-  textLabel: {
-    marginVertical: Sizes.paddingLess,
-    marginHorizontal: Sizes.padding * 2,
-  },
+
   loadingContainer: {
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row',
     position: 'absolute',
-    borderRadius: Sizes.borderRadius,
   },
 });

@@ -3,22 +3,27 @@ import {Text, View} from 'react-native';
 import {Sizes, useAppContext} from '../utils';
 import {AppButtonNormal} from './appButton';
 import {AppInputFieldArrayExample} from './appInputText';
-import {AppText, AppTextPressable} from './appText';
+import {AppText} from './appText';
 
 export function LibsPlayground() {
-  const {Colors} = useAppContext();
+  const {Colors, Styles} = useAppContext();
   const [state, setState] = useState(false);
 
   return (
     <View style={{alignItems: 'center'}}>
-      <AppButtonNormal label={'button'} isLoading={state} />
+      <AppButtonNormal
+        label={'button'}
+        isLoading={state}
+        activeOpacity
+        containerStyle={Styles.solidButtonContainer}
+      />
       <AppButtonNormal
         label={'Toggle'}
+        textLabelStyle={{color: Colors.text}}
         onPress={() => setState(prev => !prev)}
+        containerStyle={Styles.textButtonContainer}
+        activeBackgroundColor
       />
-      <AppTextPressable onPress={() => {}}>
-        kjsdkdshkjfhdskjfdsk
-      </AppTextPressable>
     </View>
   );
 }
