@@ -8,3 +8,7 @@ jest.mock('react-native-device-info', () =>
 jest.mock('@gorhom/bottom-sheet', () =>
   require('react-native-reanimated/mock'),
 );
+
+jest.mock('./src/utils/resources/images', () => {
+  return {getResourceImage: () => 0};
+});

@@ -11,7 +11,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 import {navigationRef, useAppContext} from '../utils';
-import {AppBottomSheetModal} from '../libs';
+import {AppBottomSheetModal} from '../commons';
 import * as AppScreens from '../screens';
 
 const StackRoot = createStackNavigator();

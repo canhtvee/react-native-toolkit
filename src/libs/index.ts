@@ -28,5 +28,4 @@ export * from './appInputImage';
 // export * from './AppInputDropDown';
 
 export * from './appSearch';
-export * from './appModal';
 export * from './LibsPlayground';

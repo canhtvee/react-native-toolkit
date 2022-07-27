@@ -1,5 +1,5 @@
 import React from 'react';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
 import {render, cleanup} from '@testing-library/react-native';
 
 import {AppImageLocal} from '../AppImageLocal';
@@ -15,15 +15,10 @@ describe('AppImageLocal', () => {
   test('should render correctly', () => {
     const tree = render(
       <View>
-        {/* <AppImageLocal
-          name="app_logo"
-          style={{
-            backgroundColor: 'red',
-            margin: 20,
-          }}
-        /> */}
+        <AppImageLocal name="app_logo" />
       </View>,
     );
+
     expect(tree).toMatchSnapshot();
   });
 });

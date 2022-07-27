@@ -7,7 +7,7 @@
     "ios": "react-native run-ios",
     "pod": "cd ios; pod install",
     "start": "react-native start",
-    "test": "jest",
+    "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -61,6 +61,7 @@
     "metro-react-native-babel-preset": "^0.67.0",
     "react-native-rename": "^2.9.0",
     "react-test-renderer": "17.0.2",
+    "ts-jest": "^28.0.0-next.3",
     "typescript": "^4.7.4"
   }
 }
