@@ -1,14 +1,14 @@
 import React, {useState} from 'react';
-import {View, Text, Platform} from 'react-native';
+import {View} from 'react-native';
 import {Controller, FieldError, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppIcon, MaskIcon} from '../appIcon';
+import {MaskIcon} from '../appIcon';
+import {AppText} from '../appText';
 
 import {ClearableTextInput} from './ClearableTextInput';
 import {AppInputFieldArrayProps} from './types';
 import {styles} from './styles';
-import {AppText} from '../appText';
 
 type ErrorType = Partial<FieldError>;
 
@@ -102,20 +102,7 @@ export function AppInputFieldArray({
             );
           }}
         />
-        {secureTextEntry && (
-          <AppIcon
-            onPress={() => {
-              setSecure(prev => !prev);
-            }}
-            size={Sizes.icon}
-            color={Colors.icon}
-            name={{feather: secure ? 'eye' : 'eye-off'}}
-            touchStyle={{
-              marginRight: Sizes.paddingLess1,
-            }}
-            hitSlop
-          />
-        )}
+        {secureTextEntry && <MaskIcon setSecure={setSecure} secure={secure} />}
         {rightChild}
       </View>
 

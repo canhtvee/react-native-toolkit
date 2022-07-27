@@ -64,7 +64,11 @@ export function AppButtonNormal({
       );
     }
     if (typeof label === 'string') {
-      return <Text style={[textLabelStyle, _textLabelStyle]}>{label}</Text>;
+      return (
+        <Text style={[styles.textLabel, textLabelStyle, _textLabelStyle]}>
+          {label}
+        </Text>
+      );
     }
     return label;
   };
@@ -90,10 +94,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     overflow: 'hidden',
-    paddingVertical: Sizes.paddingLess,
-    paddingHorizontal: Sizes.padding * 2,
     borderRadius: Sizes.borderRadius,
     marginTop: Sizes.paddingLess,
+  },
+  textLabel: {
+    marginVertical: Sizes.paddingLess,
+    marginHorizontal: Sizes.padding * 2,
   },
   loadingContainer: {
     alignItems: 'center',

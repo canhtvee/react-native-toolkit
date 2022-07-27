@@ -46,7 +46,7 @@ export function AppTextPressable({
   const {Colors} = useAppContext();
 
   const _backgroundColor = backgroundColor || Colors.background;
-  const _activeBackgroundColor = activeBackgroundColor || Colors.hover;
+  const _activeBackgroundColor = activeBackgroundColor || Colors.ripple;
 
   const _borderRadius =
     (containerStyle as ViewStyle)?.borderRadius || Sizes.borderRadius1 * 0.8;

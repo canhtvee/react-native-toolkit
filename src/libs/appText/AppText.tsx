@@ -7,17 +7,21 @@ export function AppText({
   style,
   ...props
 }: Omit<TextProps, 'onPress' | 'onPressIn' | 'onPressOut' | 'onLongPress'>) {
-  if (
-    props.hasOwnProperty('onPress') ||
-    props.hasOwnProperty('onPressIn') ||
-    props.hasOwnProperty('onPressOut') ||
-    props.hasOwnProperty('onLongPress')
-  ) {
-    throw new Error(
-      'AppText dost not support touch event, use AppTextPressable instead',
-    );
-  }
   const {Colors} = useAppContext();
+
+  if (__DEV__) {
+    if (
+      props.hasOwnProperty('onPress') ||
+      props.hasOwnProperty('onPressIn') ||
+      props.hasOwnProperty('onPressOut') ||
+      props.hasOwnProperty('onLongPress')
+    ) {
+      throw new Error(
+        'AppText does not support touch event, use AppTextPressable instead',
+      );
+    }
+    return null;
+  }
   return (
     <Text
       style={[{color: Colors.text, fontSize: Sizes.regular}, style]}

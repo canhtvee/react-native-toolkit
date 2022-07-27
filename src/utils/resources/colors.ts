@@ -46,6 +46,7 @@ const ColorsLight = {
   border: _addAlpha(Palette.black, 0.54),
   icon: _addAlpha(Palette.black, 0.87),
   hover: _addAlpha(Palette.black, 0.16),
+  ripple: _addAlpha(Palette.black, 0.1),
 };
 
 const ColorsDark = {
@@ -71,7 +72,8 @@ const ColorsDark = {
   placeholder: _addAlpha(Palette.black, 0.38),
   border: _addAlpha(Palette.black, 0.54),
   icon: _addAlpha(Palette.black, 0.87),
-  hover: _addAlpha(Palette.black, 0.14),
+  hover: _addAlpha(Palette.black, 0.16),
+  ripple: _addAlpha(Palette.black, 0.1),
 };
 
 export type ThemCodeType = 'dark' | 'light' | 'system-default';

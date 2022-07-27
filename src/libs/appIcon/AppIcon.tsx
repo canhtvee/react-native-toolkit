@@ -71,7 +71,7 @@ export function Icon({name, color, size, style}: IconProps) {
 
   switch (type as IconType) {
     case 'antDesign':
-      return <AntDesign {..._props} name={name.antDesign!} />;
+      return <AntDesign {..._props} />;
     case 'fontAwesome':
       return <FontAwesome {..._props} />;
     case 'fontAwesome5':
@@ -93,6 +93,9 @@ export function Icon({name, color, size, style}: IconProps) {
     case 'ionicons':
       return <Ionicons {..._props} />;
     default:
+      if (__DEV__) {
+        throw new Error('Please specify a correct icon name');
+      }
       return null;
   }
 }
