@@ -60,16 +60,17 @@ export interface IconProps {
 }
 
 export function Icon({name, color, size, style}: IconProps) {
-  const type = Object.keys(name).pop();
+  const _type = Object.keys(name).pop();
+  const _name = Object.values(name).pop();
 
   const _props = {
-    name: name[type as IconType]!,
+    name: _name!,
     color,
     style,
     size: size || Sizes.icon,
   };
 
-  switch (type as IconType) {
+  switch (_type as IconType) {
     case 'antDesign':
       return <AntDesign {..._props} />;
     case 'fontAwesome':

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import {Sizes, useAppContext} from '../utils';
 import {AppButtonNormal} from './appButton';
+import {AppIcon} from './appIcon';
 import {AppInputFieldArrayExample} from './appInputText';
 import {AppText} from './appText';
 
@@ -12,7 +13,7 @@ export function LibsPlayground() {
   return (
     <View style={{alignItems: 'center'}}>
       <AppButtonNormal
-        label={'button'}
+        label={<AppIcon name={{antDesign: 'API'}} />}
         isLoading={state}
         activeOpacity
         containerStyle={Styles.solidButtonContainer}
