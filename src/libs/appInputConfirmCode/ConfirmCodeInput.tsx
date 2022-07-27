@@ -10,7 +10,8 @@ import {
 } from 'react-native';
 
 import {ControllerRenderProps} from 'react-hook-form';
-import {Sizes} from '../../utils';
+import {useAppContext} from '../../utils';
+import {styles} from './styles';
 
 export interface ConfirmCodeInputProps
   extends Omit<ControllerRenderProps, 'name' | 'onBlur' | 'ref'> {
@@ -37,6 +38,7 @@ export function ConfirmCodeInput({
   codeInputProps,
   onDone,
 }: ConfirmCodeInputProps) {
+  const {Colors} = useAppContext();
   const [codeArr, setCodeArr] = useState(new Array(codeLength).fill(''));
   const [focusIndex, setFocusIndex] = useState(0);
   const codeInputRefs = useRef<Array<TextInput>>(new Array(codeLength));
@@ -120,16 +122,7 @@ export function ConfirmCodeInput({
           onChangeText={text => onInputCode(text, i)}
           maxLength={codeInputLength}
           keyboardType={'numeric'}
-          style={[
-            {
-              textAlign: 'center',
-              borderWidth: Sizes.borderWidth,
-              fontSize: Sizes.regular,
-              padding: Sizes.padding,
-              minWidth: Sizes.regular + Sizes.padding * 2,
-            },
-            codeInputStyle,
-          ]}
+          style={[styles.codeInput, {color: Colors.text}, codeInputStyle]}
           {...codeInputProps}
         />,
       );
@@ -138,17 +131,6 @@ export function ConfirmCodeInput({
   };
 
   return (
-    <View
-      style={[
-        {
-          alignItems: 'center',
-          justifyContent: 'space-between',
-          flexDirection: 'row',
-          paddingHorizontal: Sizes.padding,
-        },
-        containerStyle,
-      ]}>
-      {renderItems()}
-    </View>
+    <View style={[styles.container, containerStyle]}>{renderItems()}</View>
   );
 }

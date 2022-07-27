@@ -19,7 +19,7 @@ export interface AppContainerProps {
   edges?: EdgesType;
 }
 
-const edgesValue: EdgesValueType = {
+const _edgesValue: EdgesValueType = {
   'left-right': ['left', 'right'],
   'left-right-top': ['left', 'right', 'top'],
   'left-right-bottom': ['left', 'right', 'bottom'],
@@ -36,7 +36,7 @@ export function AppContainer({
 
   return (
     <SafeAreaView
-      edges={edgesValue[edges]}
+      edges={_edgesValue[edges]}
       style={[
         {
           flex: 1,

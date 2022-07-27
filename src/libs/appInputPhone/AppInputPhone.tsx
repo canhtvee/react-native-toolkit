@@ -1,22 +1,16 @@
 //import liraries
 import React from 'react';
-import {
-  View,
-  Omit,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  Text,
-  Platform,
-} from 'react-native';
+import {View, Omit, StyleProp, ViewStyle, TextStyle} from 'react-native';
 import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
+import {AppText} from '../appText';
 
 import {
   ClearablePhoneInput,
   ClearablePhoneInputProps,
 } from './ClearablePhoneInput';
+import {styles} from './styles';
 
 export interface AppInputPhoneProps
   extends UseControllerProps,
@@ -49,26 +43,17 @@ export function AppInputPhone({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <View
         style={[
+          styles.inputContainer,
           {
-            flexDirection: 'row',
-            borderWidth: Sizes.borderWidth,
             borderColor: Colors.border,
-            borderRadius: Sizes.borderRadius,
-            alignItems: 'center',
-            overflow: 'hidden',
           },
           phoneInputContainerStyle,
-          ,
         ]}>
         <Controller
           defaultValue={defaultValue}
@@ -88,17 +73,7 @@ export function AppInputPhone({
                   selectionColor: undefined,
                   ...textInputProps,
                 }}
-                textInputStyle={[
-                  {
-                    paddingVertical: Platform.select({
-                      ios: Sizes.padding,
-                      android: undefined,
-                    }),
-
-                    fontSize: Sizes.regular,
-                  },
-                  textInputStyle,
-                ]}
+                textInputStyle={[styles.textIput, textInputStyle]}
                 textContainerStyle={{
                   paddingVertical: 0,
                   paddingHorizontal: Sizes.paddingLess,
@@ -115,18 +90,17 @@ export function AppInputPhone({
         />
       </View>
 
-      {errors[name] && errors[name].message && (
-        <Text
+      {errors[name] && errors[name]?.message && (
+        <AppText
           style={[
             {
               color: Colors.error,
-              paddingTop: Sizes.paddingLess2 * 0.5,
-              fontSize: Sizes.regular,
+              marginTop: Sizes.paddingLess2,
             },
             errorStyle,
           ]}>
-          {errors[name].message}
-        </Text>
+          {errors[name]?.message as React.ReactNode}
+        </AppText>
       )}
     </View>
   );

@@ -1,8 +1,8 @@
-export function addAlpha(color: string, opacity: number): string {
+const _addAlpha = (color: string, opacity: number): string => {
   // coerce values so ti is between 0 and 1.
   const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
   return color + _opacity.toString(16).toUpperCase();
-}
+};
 
 const Palette = {
   // To use for light theme
@@ -37,13 +37,13 @@ const ColorsLight = {
   success: Palette.green_400,
 
   text: Palette.black,
-  textBlur1: addAlpha(Palette.black, 0.87),
-  textBLur2: addAlpha(Palette.black, 0.54),
+  textBlur1: _addAlpha(Palette.black, 0.87),
+  textBLur2: _addAlpha(Palette.black, 0.54),
 
-  placeholder: addAlpha(Palette.black, 0.38),
-  border: addAlpha(Palette.black, 0.54),
-  icon: addAlpha(Palette.black, 0.87),
-  hover: addAlpha(Palette.black, 0.16),
+  placeholder: _addAlpha(Palette.black, 0.38),
+  border: _addAlpha(Palette.black, 0.54),
+  icon: _addAlpha(Palette.black, 0.87),
+  hover: _addAlpha(Palette.black, 0.16),
 };
 
 const ColorsDark = {
@@ -61,13 +61,13 @@ const ColorsDark = {
   success: Palette.green_400,
 
   text: Palette.black,
-  textBlur1: addAlpha(Palette.black, 0.87),
-  textBLur2: addAlpha(Palette.black, 0.54),
+  textBlur1: _addAlpha(Palette.black, 0.87),
+  textBLur2: _addAlpha(Palette.black, 0.54),
 
-  placeholder: addAlpha(Palette.black, 0.38),
-  border: addAlpha(Palette.black, 0.54),
-  icon: addAlpha(Palette.black, 0.87),
-  hover: addAlpha(Palette.black, 0.16),
+  placeholder: _addAlpha(Palette.black, 0.38),
+  border: _addAlpha(Palette.black, 0.54),
+  icon: _addAlpha(Palette.black, 0.87),
+  hover: _addAlpha(Palette.black, 0.16),
 };
 
 export type ThemCodeType = 'dark' | 'light' | 'system-default';

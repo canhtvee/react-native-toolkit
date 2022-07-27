@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {TextInput, View} from 'react-native';
+import {StyleSheet, TextInput, View} from 'react-native';
 
 import {ClearIcon} from '../appIcon';
 import {ClearableTextInputProps} from './types';
@@ -14,14 +14,7 @@ export function ClearableTextInput({
   const [isFocused, setIsFocused] = useState(false);
 
   return (
-    <View
-      style={[
-        {
-          flex: 1,
-          flexDirection: 'row',
-          alignItems: 'center',
-        },
-      ]}>
+    <View style={styles.container}>
       <TextInput
         value={value}
         onChangeText={onChangeText}
@@ -36,3 +29,11 @@ export function ClearableTextInput({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+});

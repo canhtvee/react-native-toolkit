@@ -1,9 +1,10 @@
 //import liraries
 import React from 'react';
-import {Text, View, TextStyle, StyleProp, ViewStyle} from 'react-native';
+import {View, TextStyle, StyleProp, ViewStyle} from 'react-native';
 import {Controller, UseControllerProps, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
+import {AppText} from '../appText';
 
 import {Radios, RadiosProps} from './Radios';
 
@@ -33,13 +34,9 @@ export function AppInputRadios({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <Controller
         name={name}
@@ -54,18 +51,17 @@ export function AppInputRadios({
           />
         )}
       />
-      {errors[name] && errors[name].message && (
-        <Text
+      {errors[name] && errors[name]?.message && (
+        <AppText
           style={[
             {
               color: Colors.error,
               marginTop: Sizes.paddingLess2,
-              fontSize: Sizes.regular,
             },
             errorStyle,
           ]}>
-          {errors[name].message}
-        </Text>
+          {errors[name]?.message as React.ReactNode}
+        </AppText>
       )}
     </View>
   );

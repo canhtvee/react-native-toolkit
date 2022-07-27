@@ -1,19 +1,15 @@
 //import liraries
 import React, {useState} from 'react';
-import {
-  Text,
-  View,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-  Platform,
-} from 'react-native';
+import {View, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
 import MaskInput, {Masks, MaskInputProps} from 'react-native-mask-input';
 
 import {Sizes, useAppContext} from '../../utils';
 
-import {AppIcon} from '../appIcon';
+import {AppText} from '../appText';
+import {MaskIcon} from '../appIcon';
+
+import {styles} from './styles';
 
 type MasksType = keyof typeof Masks;
 
@@ -57,23 +53,15 @@ export function AppInputMask({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <View
         style={[
+          styles.inputContainer,
           {
-            flexDirection: 'row',
-            borderWidth: Sizes.borderWidth,
             borderColor: Colors.border,
-            borderRadius: Sizes.borderRadius,
-            alignItems: 'center',
-            overflow: 'hidden',
           },
           inputContainerStyle,
         ]}>
@@ -93,15 +81,9 @@ export function AppInputMask({
               autoCorrect={false}
               spellCheck={false}
               style={[
+                styles.input,
                 {
-                  flex: 1,
                   color: Colors.text,
-                  fontSize: Sizes.regular,
-                  paddingVertical: Platform.select({
-                    ios: Sizes.padding,
-                    android: undefined,
-                  }),
-                  paddingHorizontal: Sizes.paddingLess,
                 },
                 inputStyle,
               ]}
@@ -111,35 +93,21 @@ export function AppInputMask({
             />
           )}
         />
-        {secureTextEntry && (
-          <AppIcon
-            onPress={() => {
-              setSecure(prev => !prev);
-            }}
-            hitSlop
-            name={{feather: secure ? 'eye' : 'eye-off'}}
-            iconStyle={{
-              paddingRight: Sizes.paddingLess,
-            }}
-            size={Sizes.icon}
-            color={Colors.icon}
-          />
-        )}
+        {secureTextEntry && <MaskIcon setSecure={setSecure} secure={secure} />}
         {rightChild}
       </View>
 
-      {errors[name] && errors[name].message && (
-        <Text
+      {errors[name] && errors[name]?.message && (
+        <AppText
           style={[
             {
               color: Colors.error,
-              paddingTop: Sizes.paddingLess2,
-              fontSize: Sizes.regular,
+              marginTop: Sizes.paddingLess2,
             },
             errorStyle,
           ]}>
-          {errors[name].message}
-        </Text>
+          {errors[name]?.message as React.ReactNode}
+        </AppText>
       )}
     </View>
   );

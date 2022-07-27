@@ -1,12 +1,16 @@
 import React, {useState} from 'react';
 import {View, Text, Platform} from 'react-native';
-import {Controller, useFormState} from 'react-hook-form';
+import {Controller, FieldError, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppIcon} from '../appIcon';
+import {AppIcon, MaskIcon} from '../appIcon';
 
 import {ClearableTextInput} from './ClearableTextInput';
 import {AppInputFieldArrayProps} from './types';
+import {styles} from './styles';
+import {AppText} from '../appText';
+
+type ErrorType = Partial<FieldError>;
 
 export function AppInputFieldArray({
   control,
@@ -29,26 +33,42 @@ export function AppInputFieldArray({
   const {errors} = useFormState({control});
   const [secure, setSecure] = useState(secureTextEntry);
 
+  const renderError = () => {
+    const error = errors[fieldArrayName];
+    if (
+      error &&
+      Array.isArray(error) &&
+      error[fieldArrayItemIndex] &&
+      error[fieldArrayItemIndex][fieldArrayItemChildKey]
+    ) {
+      return (
+        <AppText
+          style={[
+            {
+              color: Colors.error,
+              marginTop: Sizes.paddingLess2,
+            },
+            errorStyle,
+          ]}>
+          {error[fieldArrayItemIndex]?.[fieldArrayItemChildKey]?.message}
+        </AppText>
+      );
+    }
+    return null;
+  };
+
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <View
         style={[
+          styles.inputContainer,
           {
-            flexDirection: 'row',
-            borderWidth: Sizes.borderWidth,
             borderColor: Colors.border,
-            borderRadius: Sizes.borderRadius,
-            alignItems: 'center',
-            overflow: 'hidden',
           },
           inputContainerStyle,
         ]}>
@@ -69,15 +89,9 @@ export function AppInputFieldArray({
                 autoCorrect={false}
                 spellCheck={false}
                 style={[
+                  styles.input,
                   {
                     color: Colors.text,
-                    fontSize: Sizes.regular,
-                    flex: 1,
-                    paddingHorizontal: Sizes.paddingLess,
-                    paddingVertical: Platform.select({
-                      ios: Sizes.padding,
-                      android: undefined,
-                    }),
                   },
                   inputStyle,
                 ]}
@@ -93,39 +107,19 @@ export function AppInputFieldArray({
             onPress={() => {
               setSecure(prev => !prev);
             }}
-            hitSlop
-            name={{feather: secure ? 'eye' : 'eye-off'}}
-            iconStyle={{
-              paddingRight: Sizes.paddingLess,
-            }}
             size={Sizes.icon}
             color={Colors.icon}
+            name={{feather: secure ? 'eye' : 'eye-off'}}
+            touchStyle={{
+              marginRight: Sizes.paddingLess1,
+            }}
+            hitSlop
           />
         )}
         {rightChild}
       </View>
 
-      {errors[fieldArrayName] &&
-        errors[fieldArrayName][fieldArrayItemIndex] &&
-        errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey] &&
-        errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey]
-          .message && (
-          <Text
-            style={[
-              {
-                color: Colors.error,
-                fontSize: Sizes.regular,
-                marginTop: Sizes.paddingLess2,
-              },
-              errorStyle,
-            ]}>
-            {
-              errors[fieldArrayName][fieldArrayItemIndex][
-                fieldArrayItemChildKey
-              ].message
-            }
-          </Text>
-        )}
+      {renderError()}
     </View>
   );
 }

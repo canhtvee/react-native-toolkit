@@ -2,14 +2,13 @@ import React from 'react';
 import {View} from 'react-native';
 import {useFieldArray, useForm} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes} from '../../utils';
 
 import {AppButtonNormal} from '../appButton';
 
 import {AppInputFieldArray} from './AppInputFieldArray';
 
 export function AppInputFieldArrayExample() {
-  const {Colors} = useAppContext();
   const {control, handleSubmit} = useForm({
     defaultValues: {
       arr1: [{firstName: '', lastName: ''}],
@@ -28,9 +27,10 @@ export function AppInputFieldArrayExample() {
               control={control}
               label={`firstName ${index}`}
               placeholder={`firstName ${index}`}
-              rules={{
-                required: {value: true, message: `require firstName ${index}`},
-              }}
+              // rules={{
+              //   required: {value: true, message: `require firstName ${index}`},
+              // }}
+              secureTextEntry
               containerStyle={{marginBottom: Sizes.padding}}
               fieldArrayName={'arr1'}
               fieldArrayItemIndex={index}
@@ -59,28 +59,12 @@ export function AppInputFieldArrayExample() {
       <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <AppButtonNormal
           label="Add Student"
-          textLabelStyle={{color: Colors.onPrimary, fontSize: Sizes.button}}
-          containerStyle={{
-            padding: Sizes.paddingLess,
-            backgroundColor: Colors.primary,
-            borderRadius: 4,
-            marginVertical: Sizes.padding,
-          }}
-          hitSlop
           onPress={() => {
             append({firstName: '', lastName: ''});
           }}
         />
         <AppButtonNormal
           label="Remove Student"
-          textLabelStyle={{color: Colors.onPrimary, fontSize: Sizes.button}}
-          containerStyle={{
-            padding: Sizes.paddingLess,
-            backgroundColor: Colors.primary,
-            borderRadius: 4,
-            marginVertical: Sizes.padding,
-          }}
-          hitSlop
           onPress={() => {
             remove(fields.length - 1);
           }}
@@ -89,14 +73,6 @@ export function AppInputFieldArrayExample() {
 
       <AppButtonNormal
         label="Submit"
-        textLabelStyle={{color: Colors.onPrimary, fontSize: Sizes.button}}
-        containerStyle={{
-          padding: Sizes.paddingLess,
-          backgroundColor: Colors.primary,
-          borderRadius: 4,
-          marginVertical: Sizes.padding,
-        }}
-        hitSlop
         onPress={handleSubmit(data => console.log('submit', data))}
       />
     </View>

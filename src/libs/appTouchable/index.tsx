@@ -12,6 +12,13 @@ export interface AppTouchableProps
   hitSlop?: Insets | number | boolean;
 }
 
+const _defaultHitSlop = {
+  top: Sizes.padding,
+  left: Sizes.padding,
+  right: Sizes.padding,
+  bottom: Sizes.padding,
+};
+
 export function AppTouchable({
   children,
   activeOpacity = 0.6,
@@ -19,15 +26,8 @@ export function AppTouchable({
   hitSlop,
   ...props
 }: AppTouchableProps) {
-  const hitSlopRendering =
-    hitSlop && typeof hitSlop === 'boolean'
-      ? {
-          top: Sizes.padding,
-          left: Sizes.padding,
-          right: Sizes.padding,
-          bottom: Sizes.padding,
-        }
-      : hitSlop;
+  const _hitSlop =
+    hitSlop && typeof hitSlop === 'boolean' ? _defaultHitSlop : hitSlop;
 
   return (
     <Pressable
@@ -37,7 +37,7 @@ export function AppTouchable({
           opacity: pressed ? activeOpacity : 1,
         },
       ]}
-      hitSlop={hitSlopRendering as HitSlopType}
+      hitSlop={_hitSlop as HitSlopType}
       {...props}>
       {children}
     </Pressable>

@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleProp, ViewStyle, TextStyle, View, Text} from 'react-native';
+import {StyleProp, ViewStyle, TextStyle, View} from 'react-native';
 
 import {Controller, UseControllerProps} from 'react-hook-form';
 
 import {Sizes} from '../../utils';
+import {AppText} from '../appText';
+
 import {ConfirmCodeInput, ConfirmCodeInputProps} from './ConfirmCodeInput';
 
 export interface AppInputConfirmCodeProps
@@ -30,13 +32,9 @@ export function AppInputConfirmCode({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <Controller
         name={name}

@@ -1,11 +1,19 @@
-import React, {useRef, useState} from 'react';
-import {StyleProp, Text, TextStyle, ViewStyle} from 'react-native';
+import React, {useState} from 'react';
+import {
+  LayoutRectangle,
+  StyleProp,
+  StyleSheet,
+  Text,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 import {AppViewLoading} from '../appViewLoading';
 
+type ContainerSizeType = Partial<LayoutRectangle>;
 export interface AppButtonNormalProps extends Omit<AppTouchableProps, 'style'> {
   label: string | JSX.Element;
   textLabelStyle?: StyleProp<TextStyle>;
@@ -29,38 +37,34 @@ export function AppButtonNormal({
   ...touchProps
 }: AppButtonNormalProps) {
   const {Colors} = useAppContext();
-  const [size, setSize] = useState<{
-    width?: number;
-    height?: number;
-  }>({width: undefined, height: undefined});
-  const compRef = useRef({init: true});
+  const [size, setSize] = useState<ContainerSizeType>();
 
-  const textColorRendering =
-    (textLabelStyle as TextStyle)?.color || Colors.text;
-  const textSizeRendering =
-    (textLabelStyle as TextStyle)?.fontSize || Sizes.regular;
+  const _textLabelStyle = {
+    color: (textLabelStyle as TextStyle)?.color || Colors.onPrimary,
+    fontSize: (textLabelStyle as TextStyle)?.fontSize || Sizes.button,
+  };
+
+  const _containerStyle = {
+    minWidth: size?.width,
+    minHeight: size?.height,
+    backgroundColor:
+      (containerStyle as ViewStyle)?.backgroundColor || Colors.primary,
+  };
 
   const renderContent = () => {
     if (isLoading) {
       return (
         loadingLabel || (
           <AppViewLoading
-            spinnerColor={spinnerColor || (textColorRendering as string)}
-            spinnerSize={spinnerSize || textSizeRendering}
+            spinnerColor={spinnerColor || (_textLabelStyle.color as string)}
+            spinnerSize={spinnerSize || _textLabelStyle.fontSize}
+            containerStyle={[styles.loadingContainer, _containerStyle]}
           />
         )
       );
     }
     if (typeof label === 'string') {
-      return (
-        <Text
-          style={[
-            textLabelStyle,
-            {color: textColorRendering, fontSize: textSizeRendering},
-          ]}>
-          {label}
-        </Text>
-      );
+      return <Text style={[textLabelStyle, _textLabelStyle]}>{label}</Text>;
     }
     return label;
   };
@@ -69,26 +73,32 @@ export function AppButtonNormal({
     <AppTouchable
       onLayout={({nativeEvent}) => {
         const {layout} = nativeEvent;
-        if (compRef.current.init) {
-          compRef.current.init = false;
-          setSize({width: layout.width, height: layout.height});
-        }
+        setSize({width: layout.width, height: layout.height});
       }}
+      hitSlop
       disabled={isLoading || disabled}
-      style={[
-        {
-          alignItems: 'center',
-          justifyContent: 'center',
-          flexDirection: 'row',
-          minWidth: size.width,
-          minHeight: size.height,
-          padding: Sizes.paddingLess,
-          borderRadius: Sizes.borderRadius,
-        },
-        containerStyle,
-      ]}
+      style={[styles.container, containerStyle, _containerStyle]}
       {...touchProps}>
       {renderContent()}
     </AppTouchable>
   );
 }
+
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    overflow: 'hidden',
+    padding: Sizes.paddingLess,
+    borderRadius: Sizes.borderRadius,
+    marginTop: Sizes.paddingLess,
+  },
+  loadingContainer: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexDirection: 'row',
+    position: 'absolute',
+    borderRadius: Sizes.borderRadius,
+  },
+});

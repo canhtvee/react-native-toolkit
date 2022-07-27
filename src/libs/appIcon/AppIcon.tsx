@@ -50,115 +50,48 @@ type IconType = keyof IconNameType;
 
 export interface IconProps {
   style?: StyleProp<TextStyle>; // vector-icons were built on top of text
+
+  /**
+   * The last icon name will be used to render vector icon
+   */
   name: IconNameType;
   size?: number;
   color?: ColorValue;
 }
 
-export function Icon({name, color, size = Sizes.icon, style}: IconProps) {
+export function Icon({name, color, size, style}: IconProps) {
   const type = Object.keys(name).pop();
+
+  const _props = {
+    name: name[type as IconType]!,
+    color,
+    style,
+    size: size || Sizes.icon,
+  };
 
   switch (type as IconType) {
     case 'antDesign':
-      return (
-        <AntDesign
-          name={name.antDesign!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <AntDesign {..._props} name={name.antDesign!} />;
     case 'fontAwesome':
-      return (
-        <FontAwesome
-          name={name.fontAwesome!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <FontAwesome {..._props} />;
     case 'fontAwesome5':
-      return (
-        <FontAwesome5
-          name={name.fontAwesome5!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <FontAwesome5 {..._props} />;
     case 'materialIcons':
-      return (
-        <MaterialIcons
-          name={name.materialIcons!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <MaterialIcons {..._props} />;
     case 'materialCommunityIcons':
-      return (
-        <MaterialCommunityIcons
-          name={name.materialCommunityIcons!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <MaterialCommunityIcons {..._props} />;
     case 'feather':
-      return (
-        <Feather name={name.feather!} color={color} size={size} style={style} />
-      );
-
+      return <Feather {..._props} />;
     case 'fontisto':
-      return (
-        <Fontisto
-          name={name.fontisto!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <Fontisto {..._props} />;
     case 'evilIcons':
-      return (
-        <EvilIcons
-          name={name.evilIcons!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <EvilIcons {..._props} />;
     case 'entypo':
-      return (
-        <Entypo name={name.entypo!} color={color} size={size} style={style} />
-      );
-
+      return <Entypo {..._props} />;
     case 'octicons':
-      return (
-        <Octicons
-          name={name.octicons!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <Octicons {..._props} />;
     case 'ionicons':
-      return (
-        <Ionicons
-          name={name.ionicons!}
-          color={color}
-          size={size}
-          style={style}
-        />
-      );
-
+      return <Ionicons {..._props} />;
     default:
       return null;
   }

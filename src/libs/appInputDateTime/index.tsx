@@ -1,12 +1,19 @@
 //import liraries
-import React, {useState} from 'react';
-import {StyleProp, View, ViewStyle, TextStyle, Text} from 'react-native';
+import React, {ReactNode, useState} from 'react';
+import {
+  StyleProp,
+  View,
+  ViewStyle,
+  TextStyle,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import {Controller, UseControllerProps, useFormState} from 'react-hook-form';
 import DatePicker, {DatePickerProps} from 'react-native-date-picker';
 import dayjs from 'dayjs';
 
 import {Sizes, useAppContext} from '../../utils';
-
+import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
@@ -49,24 +56,15 @@ export function AppInputDateTime({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <View
         style={[
+          styles.inputContainer,
           {
-            flexDirection: 'row',
-            alignItems: 'center',
-            borderWidth: Sizes.borderWidth,
             borderColor: Colors.border,
-            borderRadius: Sizes.borderRadius,
-            justifyContent: 'space-between',
-            overflow: 'hidden',
           },
           inputContainerStyle,
         ]}>
@@ -99,15 +97,7 @@ export function AppInputDateTime({
                   onPress={() => {
                     setOpen(true);
                   }}
-                  style={[
-                    {
-                      paddingVertical: Sizes.padding,
-                      paddingHorizontal: Sizes.paddingLess,
-                      flexDirection: 'row',
-                      justifyContent: 'space-between',
-                    },
-                    inputStyle,
-                  ]}>
+                  style={[styles.input, inputStyle]}>
                   {renderDate()}
                   {rightChild ? (
                     rightChild
@@ -143,19 +133,35 @@ export function AppInputDateTime({
         />
       </View>
 
-      {errors[name] && errors[name].message && (
-        <Text
+      {errors[name] && errors[name]?.message && (
+        <AppText
           style={[
             {
               color: Colors.error,
-              paddingTop: Sizes.paddingLess1,
-              fontSize: Sizes.regular,
+              marginTop: Sizes.paddingLess2,
             },
             errorStyle,
           ]}>
-          {errors[name].message}
-        </Text>
+          {errors[name]?.message as React.ReactNode}
+        </AppText>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    paddingVertical: Sizes.padding,
+    paddingHorizontal: Sizes.paddingLess,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: Sizes.borderWidth,
+    borderRadius: Sizes.borderRadius,
+    justifyContent: 'space-between',
+    overflow: 'hidden',
+  },
+});

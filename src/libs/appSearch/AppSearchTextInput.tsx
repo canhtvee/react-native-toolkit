@@ -3,6 +3,7 @@ import {Controller, UseControllerProps} from 'react-hook-form';
 import {
   Platform,
   StyleProp,
+  StyleSheet,
   TextInput,
   TextInputProps,
   TextStyle,
@@ -11,7 +12,7 @@ import {
 
 import {Sizes, useAppContext} from '../../utils';
 
-import {AppIcon} from '../appIcon';
+import {AppIcon, ClearIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
 export interface SearchTextInputProps
@@ -69,12 +70,9 @@ function SearchTextInput({
   return (
     <AppTouchable
       style={[
+        styles.container,
         {
-          flexDirection: 'row',
-          alignItems: 'center',
-          borderWidth: Sizes.borderWidth,
           borderColor: Colors.border,
-          borderRadius: Sizes.borderRadius1,
         },
         containerStyle,
       ]}
@@ -93,15 +91,9 @@ function SearchTextInput({
         autoCorrect={false}
         spellCheck={false}
         style={[
+          styles.input,
           {
-            flex: 1,
             color: Colors.text,
-            fontSize: Sizes.regular,
-            paddingHorizontal: Sizes.paddingLess,
-            paddingVertical: Platform.select({
-              ios: Sizes.paddingLess,
-              android: undefined,
-            }),
           },
           inputStyle,
         ]}
@@ -112,19 +104,7 @@ function SearchTextInput({
         {...inputProps}
       />
       {isFocused && !!textValue && textValue?.length > 0 && (
-        <AppIcon
-          name={{antDesign: 'close'}}
-          size={Sizes.caption}
-          iconStyle={{color: Colors.background}}
-          touchStyle={{
-            backgroundColor: Colors.placeholder,
-            padding: Sizes.paddingLess2 * 0.4,
-            borderRadius: Sizes.paddingLess,
-            marginRight: Sizes.paddingLess2,
-          }}
-          hitSlop
-          onPress={() => setTextValue('')}
-        />
+        <ClearIcon onPress={() => setTextValue('')} />
       )}
     </AppTouchable>
   );
@@ -157,3 +137,21 @@ export function AppSearchTextInput({
     />
   );
 }
+
+const styles = StyleSheet.create({
+  input: {
+    flex: 1,
+    fontSize: Sizes.regular,
+    paddingHorizontal: Sizes.paddingLess,
+    paddingVertical: Platform.select({
+      ios: Sizes.paddingLess,
+      android: undefined,
+    }),
+  },
+  container: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: Sizes.borderWidth,
+    borderRadius: Sizes.borderRadius1,
+  },
+});

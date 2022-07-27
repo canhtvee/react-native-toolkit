@@ -1,15 +1,17 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import FastImage, {
   FastImageProps,
   Priority,
   ResizeMode,
 } from 'react-native-fast-image';
 
-import {addAlpha, ResourceStatusType, useAppContext} from '../../utils';
+import {ResourceStatusType, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
+
+import {styles} from './styles';
 
 export type AppImageRemoteSourceType = {
   uri?: string;
@@ -31,7 +33,7 @@ export interface AppImageRemoteProps
   onError?: () => void;
 }
 
-const getResizeMode = (resizeMode?: ResizeMode) => {
+const _getResizeMode = (resizeMode?: ResizeMode) => {
   switch (resizeMode) {
     case 'contain':
       return FastImage.resizeMode.contain;
@@ -40,7 +42,7 @@ const getResizeMode = (resizeMode?: ResizeMode) => {
   }
 };
 /**image url **/
-const isValidUrl = (url: string) => {
+const _isValidUrl = (url: string) => {
   if (!url) {
     return false;
   }
@@ -64,29 +66,21 @@ export function AppImageRemote({
 }: AppImageRemoteProps) {
   const {Colors} = useAppContext();
   const [imageStatus, setImageStatus] = useState<ResourceStatusType>(() =>
-    source && source.uri && isValidUrl(source.uri) ? 'loading' : 'error',
+    source && source.uri && _isValidUrl(source.uri) ? 'loading' : 'error',
   );
 
   useEffect(() => {
     setImageStatus(
-      source && source.uri && isValidUrl(source.uri) ? 'loading' : 'error',
+      source && source.uri && _isValidUrl(source.uri) ? 'loading' : 'error',
     );
   }, [source]);
 
   if (imageStatus === 'loading' || imageStatus === 'successful' || isLoading) {
     return (
       <FastImage
-        style={[
-          {
-            width: 86,
-            height: 86,
-            justifyContent: 'center',
-            alignItems: 'center',
-          },
-          style,
-        ]}
+        style={[styles.image, style]}
         source={source}
-        resizeMode={getResizeMode(resizeMode)}
+        resizeMode={_getResizeMode(resizeMode)}
         onLoad={() => {
           setImageStatus('successful');
           onSuccess && onSuccess();
@@ -100,26 +94,14 @@ export function AppImageRemote({
           <AppViewLoading
             spinnerSize={spinnerSize}
             spinnerColor={spinnerColor}
-            containerStyle={[
-              {backgroundColor: addAlpha(Colors.surface, 0.54)},
-              style,
-            ]}
+            containerStyle={[{backgroundColor: Colors.hover}, style]}
           />
         )}
       </FastImage>
     );
   }
   return (
-    <View
-      style={[
-        {
-          justifyContent: 'center',
-          alignItems: 'center',
-          width: 86,
-          height: 86,
-        },
-        style,
-      ]}>
+    <View style={[styles.image, style]}>
       {placeholder ? (
         placeholder
       ) : (

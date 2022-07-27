@@ -1,14 +1,16 @@
 //import liraries
 import React, {useState} from 'react';
-import {View, Text, Platform} from 'react-native';
+import {View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {MaskIcon} from '../appIcon';
 
+import {styles} from './styles';
 import {AppInputTextProps} from './types';
 import {ClearableTextInput} from './ClearableTextInput';
+import {AppText} from '../appText';
 
 export function AppInputText({
   control,
@@ -33,23 +35,15 @@ export function AppInputText({
   return (
     <View style={containerStyle}>
       {label && (
-        <Text
-          style={[
-            {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
-            labelStyle,
-          ]}>
+        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
-        </Text>
+        </AppText>
       )}
       <View
         style={[
+          styles.inputContainer,
           {
-            flexDirection: 'row',
-            borderWidth: Sizes.borderWidth,
             borderColor: Colors.border,
-            borderRadius: Sizes.borderRadius1,
-            alignItems: 'center',
-            overflow: 'hidden',
           },
           inputContainerStyle,
         ]}>
@@ -70,15 +64,9 @@ export function AppInputText({
               autoCorrect={false}
               spellCheck={false}
               style={[
+                styles.input,
                 {
-                  flex: 1,
                   color: Colors.text,
-                  fontSize: Sizes.regular,
-                  paddingHorizontal: Sizes.paddingLess,
-                  paddingVertical: Platform.select({
-                    ios: Sizes.padding,
-                    android: undefined,
-                  }),
                 },
                 inputStyle,
               ]}
@@ -92,18 +80,17 @@ export function AppInputText({
         {rightChild}
       </View>
 
-      {errors[name] && errors[name].message && (
-        <Text
+      {errors[name] && errors[name]?.message && (
+        <AppText
           style={[
             {
               color: Colors.error,
-              fontSize: Sizes.regular,
               marginTop: Sizes.paddingLess2,
             },
             errorStyle,
           ]}>
-          {errors[name].message}
-        </Text>
+          {errors[name]?.message as React.ReactNode}
+        </AppText>
       )}
     </View>
   );

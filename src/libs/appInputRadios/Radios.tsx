@@ -1,16 +1,10 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleSheet,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import {View, Text, StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable} from '../appTouchable';
+import {styles} from './styles';
 
 export type RadiosDataItem = {
   id: number;
@@ -23,17 +17,26 @@ export interface RadiosProps {
   onValueChange: (id: number) => void;
   containerStyle?: StyleProp<ViewStyle>;
   style?: StyleProp<ViewStyle>;
+
+  /**
+   * Do not use margin props for alignment of item, use itemMargin instead
+   */
   itemStyle?: StyleProp<
     Omit<ViewStyle, 'marginRight' | 'marginBottom' | 'marginLeft' | 'marginTop'>
   >;
+
+  /**
+   * use itemMargin prop to align item in both vertical and horizontal directions
+   */
   itemMargin?: number;
+
   unselectedRadioStyle?: StyleProp<ViewStyle>;
   selectedRadioStyle?: StyleProp<ViewStyle>;
   labelStyle?: StyleProp<TextStyle>;
   activeOpacity?: number;
 }
 
-const Radios = ({
+export function Radios({
   data,
   value,
   onValueChange,
@@ -44,13 +47,11 @@ const Radios = ({
   selectedRadioStyle,
   labelStyle,
   activeOpacity,
-}: RadiosProps) => {
+}: RadiosProps) {
   const {Colors} = useAppContext();
 
-  const innerRadius = Sizes.paddingLess * 0.8;
-
-  const stylesRendering = {
-    labelStyle: [
+  const _styles = {
+    label: [
       {
         marginLeft: Sizes.padding,
         fontSize: Sizes.regular,
@@ -58,47 +59,39 @@ const Radios = ({
       },
       labelStyle,
     ],
-    unselectedRadioStyle: [
+    unselectedRadio: [
+      styles.unselectedRadio,
       {
-        height: innerRadius * 2.8,
-        width: innerRadius * 2.8,
-        borderRadius: innerRadius * 1.4,
-        borderWidth: 1,
         borderColor: Colors.border,
-        alignItems: 'center',
-        justifyContent: 'center',
       },
       unselectedRadioStyle,
-    ] as ViewStyle,
-    selectedRadioStyle: [
+    ],
+
+    selectedRadio: [
+      styles.selectedRadio,
       {
-        width: innerRadius * 2,
-        height: innerRadius * 2,
-        borderRadius: innerRadius,
         backgroundColor: Colors.primary,
       },
       selectedRadioStyle,
-    ] as ViewStyle,
+    ],
   };
 
   return (
     <View style={containerStyle}>
       {data.map((item, index) => {
-        let itemStyleRendering;
+        let _itemStyle;
         const flexDirection = (containerStyle as ViewStyle)?.flexDirection;
 
         if (flexDirection === 'row') {
-          itemStyleRendering = [
+          _itemStyle = [
             itemStyle,
             {
               marginLeft: itemMargin,
               marginTop: 0,
             },
           ];
-        }
-
-        if (!flexDirection || flexDirection === 'column') {
-          itemStyleRendering = [
+        } else {
+          _itemStyle = [
             itemStyle,
             {
               marginLeft: 0,
@@ -108,7 +101,7 @@ const Radios = ({
         }
 
         if (index === 0) {
-          itemStyleRendering = [
+          _itemStyle = [
             itemStyle,
             {
               marginLeft: 0,
@@ -120,28 +113,16 @@ const Radios = ({
         return (
           <AppTouchable
             key={`${item.id} - ${index}`}
-            style={[
-              {flexDirection: 'row'},
-              itemStyleRendering,
-              {marginBottom: 0, marginRight: 0, alignItems: 'center'},
-            ]}
+            style={[styles.item, _itemStyle]}
             onPress={() => onValueChange(item.id)}
             activeOpacity={activeOpacity}>
-            <View
-              style={[
-                stylesRendering.unselectedRadioStyle,
-                unselectedRadioStyle,
-              ]}>
-              {value === item.id && (
-                <View style={[stylesRendering.selectedRadioStyle]} />
-              )}
+            <View style={_styles.unselectedRadio}>
+              {value === item.id && <View style={_styles.selectedRadio} />}
             </View>
-            <Text style={[stylesRendering.labelStyle]}>{item.label}</Text>
+            <Text style={[_styles.label]}>{item.label}</Text>
           </AppTouchable>
         );
       })}
     </View>
   );
-};
-
-export {Radios};
+}
