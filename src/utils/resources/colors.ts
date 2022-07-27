@@ -28,6 +28,8 @@ const ColorsLight = {
   surface: Palette.white,
   error: Palette.red_500,
 
+  primaryDark: Palette.blue_500_dark,
+
   onPrimary: Palette.white,
   onBackground: Palette.black,
   onSurface: Palette.black,
@@ -52,6 +54,8 @@ const ColorsDark = {
   surface: Palette.white,
   error: Palette.red_500,
 
+  primaryDark: Palette.blue_500_dark,
+
   onPrimary: Palette.white,
   onBackground: Palette.black,
   onSurface: Palette.black,
@@ -67,7 +71,7 @@ const ColorsDark = {
   placeholder: _addAlpha(Palette.black, 0.38),
   border: _addAlpha(Palette.black, 0.54),
   icon: _addAlpha(Palette.black, 0.87),
-  hover: _addAlpha(Palette.black, 0.16),
+  hover: _addAlpha(Palette.black, 0.14),
 };
 
 export type ThemCodeType = 'dark' | 'light' | 'system-default';

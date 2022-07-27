@@ -1,26 +1,24 @@
 import React, {useState} from 'react';
-import {View} from 'react-native';
-import {useAppContext} from '../utils';
+import {Text, View} from 'react-native';
+import {Sizes, useAppContext} from '../utils';
 import {AppButtonNormal} from './appButton';
 import {AppInputFieldArrayExample} from './appInputText';
-import {AppText} from './appText';
+import {AppText, AppTextPressable} from './appText';
 
 export function LibsPlayground() {
   const {Colors} = useAppContext();
   const [state, setState] = useState(false);
 
   return (
-    <View style={{flex: 1}}>
-      <AppButtonNormal
-        label={'button'}
-        textLabelStyle={{color: Colors.onPrimary}}
-        isLoading={state}
-      />
+    <View style={{alignItems: 'center'}}>
+      <AppButtonNormal label={'button'} isLoading={state} />
       <AppButtonNormal
         label={'Toggle'}
         onPress={() => setState(prev => !prev)}
-        textLabelStyle={{color: Colors.onPrimary}}
       />
+      <AppTextPressable onPress={() => {}}>
+        kjsdkdshkjfhdskjfdsk
+      </AppTextPressable>
     </View>
   );
 }

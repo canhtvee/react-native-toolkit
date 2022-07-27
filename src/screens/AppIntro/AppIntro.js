@@ -1,10 +1,10 @@
 import React from 'react';
+import {Text} from 'react-native';
 import {AppContainer, AppText, LibsPlayground} from '../../libs';
 
 export function AppIntro() {
   return (
-    <AppContainer style={{alignItems: 'center', justifyContent: 'center'}}>
-      <AppText>AppIntro</AppText>
+    <AppContainer style={{justifyContent: 'center'}}>
       <LibsPlayground />
     </AppContainer>
   );
