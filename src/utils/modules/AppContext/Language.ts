@@ -23,11 +23,11 @@ const LanguageService = {
   },
 };
 
-function useAppLanguage() {
+function useLanguage() {
   const [code, setCode] = useMMKVStorage<LanguageCodeType>(mmkvKey, MMKVwithID);
 
   let Strings = getResourceStrings(code || 'english') as StringsType;
 
   return {Strings, setLanguageCode: setCode};
 }
-export {useAppLanguage, LanguageService};
+export {useLanguage, LanguageService};

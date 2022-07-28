@@ -2,7 +2,7 @@ import React from 'react';
 import {StyleProp, View, TextStyle, Text} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppIcon} from '../../libs';
+import {AppIcon} from '../libs';
 
 import {useAppBottomSheetModal} from './AppBottomSheetModal';
 

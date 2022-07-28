@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {Appearance} from 'react-native';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 
@@ -20,7 +20,7 @@ const ThemeService = {
     (MMKVwithID.getString(`${mmkvKey}`) || 'system-default') as ThemCodeType,
 };
 
-const convertCodeToTheme = (code: ThemCodeType) => {
+const _convertCodeToTheme = (code: ThemCodeType) => {
   if (code === 'system-default') {
     const scheme = Appearance.getColorScheme() || 'light';
     return scheme;
@@ -28,26 +28,24 @@ const convertCodeToTheme = (code: ThemCodeType) => {
   return code;
 };
 
-const onUpdateTheme = (
-  code: ThemCodeType,
-  setCurrentTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>,
-) => {
-  const convertTheme = convertCodeToTheme(code);
-  setCurrentTheme(convertTheme);
-  // To not update if currentTheme === currentCode
-  // setCurrentTheme(prev => {
-  //   if (prev === convertTheme) {
-  //     return prev;
-  //   } else {
-  //     return convertTheme;
-  //   }
-  // });
-};
+// const _onUpdateTheme = (
+//   code: ThemCodeType,
+//   setCurrentTheme: React.Dispatch<React.SetStateAction<'light' | 'dark'>>,
+// ) => {
+//   const convertTheme = _convertCodeToTheme(code);
+//   setCurrentTheme(prev => {
+//     if (prev === convertTheme) {
+//       return prev;
+//     } else {
+//       return convertTheme;
+//     }
+//   });
+// };
 
 function useAppTheme() {
   const [code] = useMMKVStorage<ThemCodeType>(mmkvKey, MMKVwithID);
   const [currentTheme, setCurrentTheme] = useState(() =>
-    convertCodeToTheme(code || 'system-default'),
+    _convertCodeToTheme(code || 'system-default'),
   );
   const themeRef = useRef<any>();
 
@@ -56,14 +54,14 @@ function useAppTheme() {
       themeRef.current();
     }
 
-    // To only listen to scheme if code ==='system-default'
+    // To listen to scheme if code ==='system-default'
     if (!code || code === 'system-default') {
       const listener = () => {
-        onUpdateTheme('system-default', setCurrentTheme);
+        setCurrentTheme(_convertCodeToTheme('system-default'));
       };
       themeRef.current = Appearance.addChangeListener(listener);
     } else {
-      onUpdateTheme(code, setCurrentTheme);
+      setCurrentTheme(_convertCodeToTheme(code));
     }
 
     return () => {

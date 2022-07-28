@@ -1,4 +1,4 @@
-import {NavigationService, AccountService} from '../modules';
+import {NavigationService} from '../modules';
 
 const ResetFunction = {
   //fix crash when navigatio is not ready

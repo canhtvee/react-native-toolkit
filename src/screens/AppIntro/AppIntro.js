@@ -1,6 +1,6 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {AppContainer, AppText, LibsPlayground} from '../../libs';
+import {AppContainer, AppText, LibsPlayground} from '../../commons/libs';
 
 export function AppIntro() {
   return (
