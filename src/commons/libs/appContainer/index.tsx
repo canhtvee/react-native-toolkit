@@ -3,7 +3,6 @@ import {StyleProp, ViewStyle} from 'react-native';
 import {Edge, SafeAreaView} from 'react-native-safe-area-context';
 import {useInteractionManager} from '@react-native-community/hooks';
 
-import {Sizes} from '../../../utils';
 import {AppViewLoading} from '../appViewLoading';
 
 type EdgesType =
@@ -16,6 +15,7 @@ type EdgesValueType = Record<EdgesType, Array<Edge>>;
 export interface AppContainerProps {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
+  loadingStyle?: StyleProp<ViewStyle>;
   edges?: EdgesType;
 }
 
@@ -31,6 +31,7 @@ export function AppContainer({
   children,
   style,
   edges = 'left-right-top',
+  loadingStyle,
 }: AppContainerProps) {
   const interaction = useInteractionManager();
 
@@ -47,7 +48,7 @@ export function AppContainer({
       {interaction ? (
         children
       ) : (
-        <AppViewLoading containerStyle={{marginTop: Sizes.padding * 2}} />
+        <AppViewLoading containerStyle={loadingStyle} />
       )}
     </SafeAreaView>
   );

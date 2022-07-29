@@ -1,6 +1,6 @@
 import React from 'react';
-import {useAppLanguage} from './Language';
-import {useAppTheme} from './Theme';
+import {useLanguage} from './Language';
+import {useTheme} from './Theme';
 import {
   ColorsType,
   getResourceStyles,
@@ -23,8 +23,8 @@ type AppContextType = {
 const AppContext = React.createContext<AppContextType | undefined>(undefined);
 
 export function AppContextProvider({children}: {children: React.ReactNode}) {
-  const {Colors} = useAppTheme();
-  const {Strings, setLanguageCode} = useAppLanguage();
+  const {Colors} = useTheme();
+  const {Strings, setLanguageCode} = useLanguage();
 
   const Styles = getResourceStyles(Colors);
 

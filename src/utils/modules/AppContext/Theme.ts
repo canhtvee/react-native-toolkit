@@ -42,7 +42,7 @@ const _convertCodeToTheme = (code: ThemCodeType) => {
 //   });
 // };
 
-function useAppTheme() {
+function useTheme() {
   const [code] = useMMKVStorage<ThemCodeType>(mmkvKey, MMKVwithID);
   const [currentTheme, setCurrentTheme] = useState(() =>
     _convertCodeToTheme(code || 'system-default'),
@@ -74,4 +74,4 @@ function useAppTheme() {
   const Colors = getResourceColors(currentTheme) as ColorsType;
   return {Colors};
 }
-export {useAppTheme, ThemeService};
+export {useTheme, ThemeService};
