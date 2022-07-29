@@ -1,7 +1,8 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
+import {Sizes, useAppContext} from '../../../utils';
 
-import {ClearIcon} from '../appIcon';
+import {AppIcon} from '../appIcon';
 import {ClearableTextInputProps} from './types';
 
 export function ClearableTextInput({
@@ -11,6 +12,7 @@ export function ClearableTextInput({
   onChangeText,
   ...inputProps
 }: ClearableTextInputProps) {
+  const {Colors} = useAppContext();
   const [isFocused, setIsFocused] = useState(false);
 
   return (
@@ -24,7 +26,15 @@ export function ClearableTextInput({
         {...inputProps}
       />
       {showClearIcon && isFocused && !!value && value?.length > 0 && (
-        <ClearIcon onPress={() => onChangeText!('')} />
+        <AppIcon
+          name={'closecircle'}
+          size={Sizes.regular}
+          iconStyle={{color: Colors.placeholder}}
+          iconContainerStyle={{
+            marginRight: Sizes.paddingLess1,
+          }}
+          onPress={() => onChangeText!('')}
+        />
       )}
     </View>
   );

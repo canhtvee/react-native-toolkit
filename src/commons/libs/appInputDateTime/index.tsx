@@ -102,7 +102,7 @@ export function AppInputDateTime({
                     rightChild
                   ) : (
                     <AppIcon
-                      name={{feather: 'calendar'}}
+                      name="calendar"
                       size={Sizes.icon}
                       iconStyle={{
                         paddingLeft: Sizes.paddingLess,

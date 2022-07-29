@@ -4,8 +4,9 @@ import {View} from 'react-native';
 import PhoneNumberInput, {
   PhoneInputProps,
 } from 'react-native-phone-number-input';
+import {Sizes, useAppContext} from '../../../utils';
 
-import {ClearIcon} from '../appIcon';
+import {AppIcon, ClearIcon} from '../appIcon';
 
 export interface ClearablePhoneInputProps extends PhoneInputProps {
   showClearIcon?: boolean;
@@ -18,6 +19,8 @@ export function ClearablePhoneInput({
   textInputProps,
   ...phoneInputProps
 }: ClearablePhoneInputProps) {
+  const {Colors} = useAppContext();
+
   const [isFocused, setIsFocused] = useState(false);
   const [textValue, setTextValue] = useState('');
 
@@ -43,7 +46,13 @@ export function ClearablePhoneInput({
         {...phoneInputProps}
       />
       {showClearIcon && isFocused && !!textValue && textValue?.length > 0 && (
-        <ClearIcon
+        <AppIcon
+          name={'closecircle'}
+          size={Sizes.regular}
+          iconStyle={{color: Colors.placeholder}}
+          iconContainerStyle={{
+            marginRight: Sizes.paddingLess1,
+          }}
           onPress={() => {
             const resetPhoneValue = value?.substring(
               0,
