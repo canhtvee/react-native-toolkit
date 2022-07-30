@@ -13,7 +13,7 @@ export function LibsPlayground() {
   return (
     <View style={{alignItems: 'center'}}>
       <AppButtonNormal
-        label={<AppIcon name={{antDesign: 'API'}} />}
+        label={<AppIcon name={'closecircleo'} />}
         isLoading={state}
         activeOpacity
         containerStyle={Styles.solidButtonContainer}

@@ -10,10 +10,10 @@ export function ClearIcon({
   const {Colors} = useAppContext();
   return (
     <AppIcon
-      name={{antDesign: 'closecircle'}}
+      name={'closecircle'}
       size={size || Sizes.regular}
       iconStyle={[{color: Colors.placeholder}, iconStyle]}
-      touchStyle={{
+      iconContainerStyle={{
         marginRight: Sizes.paddingLess1,
       }}
       hitSlop

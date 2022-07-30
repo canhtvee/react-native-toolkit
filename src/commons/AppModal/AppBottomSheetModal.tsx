@@ -112,7 +112,7 @@ export function AppBottomSheetModal() {
           disappearsOnIndex={-1}
         />
       )}
-      snapPoints={['60%', '80%']}
+      snapPoints={['90%']}
       enableOverDrag={false}
       style={[
         Styles.shadow,

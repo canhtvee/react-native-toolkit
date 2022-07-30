@@ -79,7 +79,7 @@ function SearchTextInput({
       activeOpacity={1}
       onPress={() => inputRef.current?.focus()}>
       <AppIcon
-        name={{antDesign: 'search1'}}
+        name={'search'}
         color={Colors.placeholder}
         iconStyle={{marginLeft: Sizes.paddingLess2}}
       />

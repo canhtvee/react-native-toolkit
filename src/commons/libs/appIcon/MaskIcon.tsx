@@ -17,8 +17,8 @@ export function MaskIcon({
       }}
       size={Sizes.icon}
       color={Colors.icon}
-      name={{feather: secure ? 'eye' : 'eye-off'}}
-      touchStyle={{
+      name={secure ? 'eye' : 'eye-off'}
+      iconContainerStyle={{
         marginRight: Sizes.paddingLess1,
       }}
       hitSlop
