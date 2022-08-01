@@ -12,7 +12,7 @@ import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
 
 import {navigationRef, useAppContext} from '../utils';
 import {AppBottomSheetModal} from '../commons';
-import * as AppScreens from '../screens';
+import * as AppScreens from '../routes';
 
 const StackRoot = createStackNavigator();
 
