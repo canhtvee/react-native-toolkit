@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {Text, View} from 'react-native';
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '../utils';
 import {AppButtonNormal} from './appButton';
 import {AppIcon} from './appIcon';
 import {AppInputFieldArrayExample} from './appInputText';

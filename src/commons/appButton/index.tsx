@@ -8,7 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 import {AppViewLoading} from '../appViewLoading';
