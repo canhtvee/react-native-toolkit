@@ -2,6 +2,7 @@ import React from 'react';
 import {Omit, StyleProp, TextStyle, View, ViewStyle} from 'react-native';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
+
 import {VectorIcon, VectorIconNameType, VectorIconProps} from './VectorIcon';
 import {AppIconNames} from './AppIconNames';
 

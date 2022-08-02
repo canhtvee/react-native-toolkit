@@ -3,7 +3,7 @@ import React from 'react';
 import {View, TextStyle, StyleProp, ViewStyle} from 'react-native';
 import {Controller, UseControllerProps, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 import {AppText} from '../appText';
 
 import {Radios, RadiosProps} from './Radios';

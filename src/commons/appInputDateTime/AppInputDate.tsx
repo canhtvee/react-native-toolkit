@@ -16,7 +16,7 @@ import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-export interface AppInputDateTimeProps
+export interface AppInputDateProps
   extends UseControllerProps,
     Omit<DatePickerProps, 'style' | 'date'> {
   label?: string;
@@ -29,7 +29,7 @@ export interface AppInputDateTimeProps
   rightChild?: JSX.Element;
 }
 
-export function AppInputDateTime({
+export function AppInputDate({
   control,
   name,
   rules,
@@ -45,7 +45,7 @@ export function AppInputDateTime({
   modal = true,
   minimumDate = new Date(),
   rightChild,
-}: AppInputDateTimeProps) {
+}: AppInputDateProps) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
 

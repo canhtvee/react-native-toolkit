@@ -20,7 +20,7 @@ export * from './appViewLoading';
 export * from './appInputText';
 export * from './appInputMask';
 export * from './appInputPhone';
-export * from './appInputRadios';
+export * from './appInputRadio';
 export * from './appInputConfirmCode';
 export * from './appInputDateTime';
 export * from './appInputImage';
