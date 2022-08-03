@@ -2,7 +2,7 @@ import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {ControllerRenderProps, UseControllerProps} from 'react-hook-form';
 import {ImageStyle} from 'react-native-fast-image';
 
-import {ResourceType} from '../../../utils';
+import {ResourceType} from '../../utils';
 import {AppImageRemoteProps} from '../appImage';
 
 export type ImageResourceType = ResourceType<unknown>;

@@ -2,7 +2,7 @@ import React from 'react';
 import {Text} from 'react-native';
 import {launchCamera} from 'react-native-image-picker';
 
-import {FetchApi, Sizes, useAppContext} from '../../../utils';
+import {FetchApi, Sizes, useAppContext} from '../../utils';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 

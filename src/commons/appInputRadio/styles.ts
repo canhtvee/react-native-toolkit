@@ -1,5 +1,5 @@
 import {StyleSheet} from 'react-native';
-import {Sizes} from '../../../utils';
+import {Sizes} from '../../utils';
 
 const _innerRadius = Sizes.paddingLess * 0.8;
 

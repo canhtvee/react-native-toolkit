@@ -4,7 +4,7 @@ import {View} from 'react-native';
 import PhoneNumberInput, {
   PhoneInputProps,
 } from 'react-native-phone-number-input';
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppIcon, ClearIcon} from '../appIcon';
 

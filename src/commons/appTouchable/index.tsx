@@ -2,7 +2,7 @@ import React from 'react';
 import {Pressable, Insets} from 'react-native';
 
 import {PressableProps, StyleProp, ViewStyle} from 'react-native';
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 type HitSlopType = Insets | number | undefined | null;
 export interface AppTouchableProps

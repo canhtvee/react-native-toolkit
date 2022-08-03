@@ -4,7 +4,7 @@ import {ImageStyle} from 'react-native-fast-image';
 import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';

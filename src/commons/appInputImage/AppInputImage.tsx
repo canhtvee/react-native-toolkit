@@ -2,8 +2,7 @@ import React from 'react';
 import {Text, View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../../utils';
-
+import {Sizes, useAppContext} from '../../utils';
 import {AppInputImageProps} from './types';
 import {ImageInput} from './ImageInput';
 

@@ -1,5 +1,5 @@
 import {Platform, StyleSheet} from 'react-native';
-import {Sizes} from '../../../utils';
+import {Sizes} from '../../utils';
 
 export const styles = StyleSheet.create({
   label: {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},

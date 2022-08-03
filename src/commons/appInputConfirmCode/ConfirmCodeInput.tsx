@@ -10,7 +10,7 @@ import {
 } from 'react-native';
 
 import {ControllerRenderProps} from 'react-hook-form';
-import {useAppContext} from '../../../utils';
+import {useAppContext} from '../../utils';
 import {styles} from './styles';
 
 export interface ConfirmCodeInputProps

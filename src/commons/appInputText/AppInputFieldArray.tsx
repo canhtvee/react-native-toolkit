@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Controller, FieldError, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 import {MaskIcon} from '../appIcon';
 import {AppText} from '../appText';
 

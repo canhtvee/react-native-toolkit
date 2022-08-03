@@ -14,8 +14,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 
-import {Sizes} from '../../../utils';
-
+import {Sizes} from '../../utils';
 import {
   AntDesignGlyphs,
   EntypoGlyphs,

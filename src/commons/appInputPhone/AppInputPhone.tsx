@@ -3,7 +3,7 @@ import React from 'react';
 import {View, Omit, StyleProp, ViewStyle, TextStyle} from 'react-native';
 import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 import {AppText} from '../appText';
 
 import {

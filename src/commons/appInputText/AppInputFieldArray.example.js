@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {useFieldArray, useForm} from 'react-hook-form';
 
-import {Sizes} from '../../../utils';
+import {Sizes} from '../../utils';
 
 import {AppButtonNormal} from '../appButton';
 

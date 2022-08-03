@@ -6,7 +6,7 @@ import FastImage, {
   ResizeMode,
 } from 'react-native-fast-image';
 
-import {ResourceStatusType, useAppContext} from '../../../utils';
+import {ResourceStatusType, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';

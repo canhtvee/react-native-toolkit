@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import {StyleSheet, TextInput, View} from 'react-native';
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {ClearableTextInputProps} from './types';

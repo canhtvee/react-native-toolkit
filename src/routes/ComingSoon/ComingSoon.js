@@ -1,5 +1,5 @@
 import React from 'react';
-import {AppContainer, AppText} from '../../commons/libs';
+import {AppContainer, AppText} from '../../commons';
 
 export function ComingSoon() {
   return (

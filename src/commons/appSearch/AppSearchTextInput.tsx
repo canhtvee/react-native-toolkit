@@ -10,7 +10,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppIcon, ClearIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';

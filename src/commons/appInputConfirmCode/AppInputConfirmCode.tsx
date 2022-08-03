@@ -3,7 +3,7 @@ import {StyleProp, ViewStyle, TextStyle, View} from 'react-native';
 
 import {Controller, UseControllerProps} from 'react-hook-form';
 
-import {Sizes} from '../../../utils';
+import {Sizes} from '../../utils';
 import {AppText} from '../appText';
 
 import {ConfirmCodeInput, ConfirmCodeInputProps} from './ConfirmCodeInput';

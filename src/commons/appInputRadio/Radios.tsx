@@ -1,7 +1,7 @@
 import React from 'react';
 import {View, Text, StyleProp, TextStyle, ViewStyle} from 'react-native';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable} from '../appTouchable';
 import {styles} from './styles';

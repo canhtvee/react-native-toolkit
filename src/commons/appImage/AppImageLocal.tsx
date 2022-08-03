@@ -1,6 +1,6 @@
 import React from 'react';
 import {Image, ImageProps} from 'react-native';
-import {getResourceImage, ResourceImageNameType} from '../../../utils';
+import {getResourceImage, ResourceImageNameType} from '../../utils';
 import {styles} from './styles';
 
 export interface AppImageLocalProps extends Omit<ImageProps, 'source'> {

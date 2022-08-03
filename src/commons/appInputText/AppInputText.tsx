@@ -3,7 +3,7 @@ import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 import {MaskIcon} from '../appIcon';
 
