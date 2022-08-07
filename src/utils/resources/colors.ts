@@ -39,8 +39,6 @@ const ColorsLight = {
   success: Palette.green_400,
 
   text: Palette.black,
-  textBlur1: _addAlpha(Palette.black, 0.87),
-  textBLur2: _addAlpha(Palette.black, 0.54),
 
   placeholder: _addAlpha(Palette.black, 0.38),
   border: _addAlpha(Palette.black, 0.54),
@@ -66,8 +64,6 @@ const ColorsDark = {
   success: Palette.green_400,
 
   text: Palette.black,
-  textBlur1: _addAlpha(Palette.black, 0.87),
-  textBLur2: _addAlpha(Palette.black, 0.54),
 
   placeholder: _addAlpha(Palette.black, 0.38),
   border: _addAlpha(Palette.black, 0.54),
@@ -84,6 +80,11 @@ const getResourceColors = (code: ThemCodeType) => {
       return ColorsLight;
     case 'dark':
       return ColorsDark;
+    default:
+      if (__DEV__) {
+        throw new Error('Invalid theme code');
+      }
+      return null;
   }
 };
 

@@ -9,12 +9,7 @@ export function AppText({
 }: Omit<TextProps, 'onPress' | 'onPressIn' | 'onPressOut' | 'onLongPress'>) {
   const {Colors} = useAppContext();
 
-  if (
-    props.hasOwnProperty('onPress') ||
-    props.hasOwnProperty('onPressIn') ||
-    props.hasOwnProperty('onPressOut') ||
-    props.hasOwnProperty('onLongPress')
-  ) {
+  if (props.hasOwnProperty('onPress')) {
     if (__DEV__) {
       throw new Error(
         'AppText does not support touch event, use AppButton instead, it support borderRadius and activeBackgroundColor props',

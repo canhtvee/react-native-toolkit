@@ -1,10 +1,9 @@
-import React from 'react';
-import {Pressable, Insets} from 'react-native';
+import React, {useRef} from 'react';
+import {Pressable, Insets, View} from 'react-native';
 
 import {PressableProps, StyleProp, ViewStyle} from 'react-native';
 import {Sizes, useAppContext} from '../../utils';
 
-type HitSlopType = Insets | number | undefined | null;
 export interface AppTouchableProps
   extends Omit<PressableProps, 'style' | 'hitSlop'> {
   style?: StyleProp<ViewStyle>;
@@ -30,8 +29,9 @@ export function AppTouchable({
 }: AppTouchableProps) {
   const {Colors} = useAppContext();
 
-  const _hitSlop =
-    hitSlop && typeof hitSlop === 'boolean' ? _defaultHitSlop : hitSlop;
+  const ref = useRef<View>(null);
+
+  const _hitSlop = typeof hitSlop === 'boolean' ? _defaultHitSlop : hitSlop;
 
   if (activeBackgroundColor) {
     return (
@@ -46,7 +46,7 @@ export function AppTouchable({
               : (style as ViewStyle)?.backgroundColor || Colors.background,
           },
         ]}
-        hitSlop={_hitSlop as HitSlopType}
+        hitSlop={_hitSlop}
         {...props}>
         {children}
       </Pressable>
@@ -55,6 +55,7 @@ export function AppTouchable({
 
   return (
     <Pressable
+      ref={ref}
       style={({pressed}) => [
         style,
         {
@@ -65,7 +66,7 @@ export function AppTouchable({
             : 1,
         },
       ]}
-      hitSlop={_hitSlop as HitSlopType}
+      hitSlop={_hitSlop}
       {...props}>
       {children}
     </Pressable>

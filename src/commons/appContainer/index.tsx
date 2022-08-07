@@ -5,11 +5,7 @@ import {useInteractionManager} from '@react-native-community/hooks';
 
 import {AppViewLoading} from '../appViewLoading';
 
-type EdgesType =
-  | 'left-right'
-  | 'left-right-top'
-  | 'left-right-bottom'
-  | 'left-right-top-bottom';
+type EdgesType = 'lr' | 'lrt' | 'lrb' | 'lrtb';
 type EdgesValueType = Record<EdgesType, Array<Edge>>;
 
 export interface AppContainerProps {
@@ -20,17 +16,17 @@ export interface AppContainerProps {
 }
 
 const _edgesValue: EdgesValueType = {
-  'left-right': ['left', 'right'],
-  'left-right-top': ['left', 'right', 'top'],
-  'left-right-bottom': ['left', 'right', 'bottom'],
-  'left-right-top-bottom': ['left', 'right', 'top', 'bottom'],
+  lr: ['left', 'right'],
+  lrt: ['left', 'right', 'top'],
+  lrb: ['left', 'right', 'bottom'],
+  lrtb: ['left', 'right', 'top', 'bottom'],
 };
 
 //TODO: include AppKeyBoardAccessory as default
 export function AppContainer({
   children,
   style,
-  edges = 'left-right-top',
+  edges = 'lrt',
   loadingStyle,
 }: AppContainerProps) {
   const interaction = useInteractionManager();

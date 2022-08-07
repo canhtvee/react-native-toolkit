@@ -7,12 +7,15 @@ import {
   AppSearchTextInput,
   useAppBottomSheetModal,
 } from '../../commons';
-import {Sizes} from '../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 export function AppIntro() {
+  const {Styles, Colors} = useAppContext();
   const {control} = useForm();
   const [searching, setSearching] = useState();
   const [isFocused, setIsFocused] = useState();
+
+  console.log('searching', searching);
 
   return (
     <AppContainer
@@ -24,7 +27,6 @@ export function AppIntro() {
         control={control}
         name={'searchTerm'}
         render={({field: {value, onChange, onBlur, ref}, fieldState}) => {
-          console.log('fieldState', fieldState);
           return (
             <View>
               {fieldState.isDirty && fieldState.isTouched && <Text>FOcus</Text>}
@@ -46,25 +48,20 @@ export function AppIntro() {
           );
         }}
       />
-      <Controller
-        control={control}
-        name={'pass'}
-        render={({field: {value, onChange, onBlur}}) => {
-          console.log('isFocused', isFocused);
-          return (
-            <TextInput
-              value={value}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              style={{
-                borderColor: 'grey',
-                borderWidth: 0.5,
-                borderRadius: 4,
-                paddingVertical: 10,
-              }}
-            />
-          );
-        }}
+      <AppButtonNormal
+        label={'Button Normal'}
+        containerStyle={Styles.solidButtonContainer}
+        isLoading={searching}
+      />
+      <AppButtonNormal
+        label={'Button Normal'}
+        textLabelStyle={{color: Colors.text}}
+        activeBackgroundColor
+        containerStyle={[
+          Styles.textButtonContainer,
+          {alignSelf: 'center', marginVertical: Sizes.padding},
+        ]}
+        onPress={() => setSearching(prev => !prev)}
       />
     </AppContainer>
   );

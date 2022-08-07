@@ -36,6 +36,11 @@ const getResourceStrings = (code: LanguageCodeType) => {
       return StringsVietnamese;
     case 'english':
       return StringsEnglish;
+    default:
+      if (__DEV__) {
+        throw new Error('Invalid language code');
+      }
+      return null;
   }
 };
 

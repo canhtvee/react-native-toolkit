@@ -21,7 +21,8 @@ export function getResourceStyles(Colors: ColorsType) {
     solidButtonContainer: {
       paddingVertical: Sizes.paddingLess,
       paddingHorizontal: Sizes.padding * 2,
-      borderRadius: Sizes.borderRadius,
+      borderRadius: Sizes.borderRadius1,
+      backgroundColor: Colors.primary,
     },
     textButtonContainer: {
       paddingVertical: Sizes.paddingLess1,
