@@ -2,64 +2,42 @@ import React, {useEffect, useRef} from 'react';
 import {View} from 'react-native';
 import {useBackHandler, useKeyboard} from '@react-native-community/hooks';
 import {BottomSheetModal, BottomSheetBackdrop} from '@gorhom/bottom-sheet';
-import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 
 import {useAppContext, useRerender} from '../../utils';
-
-import {
-  AppBottomSheetModalContextType,
-  AppBottomSheetModalProps,
-} from './types';
 
 /**
  * To expose only onOpenModal and onCloseModal methods to other components
  */
-let modalContext: AppBottomSheetModalContextType = {
-  onOpenModal: (_: AppBottomSheetModalProps) => null,
-  onCloseModal: () => null,
+const modalContext = {
+  onOpenModal: undefined,
+  onCloseModal: undefined,
 };
-
 export function useAppBottomSheetModal() {
   return modalContext;
 }
 
 /**
- * To use ContentContainer umount effect to update modalContext everytime modal closed
- * in cases of onPress on backdrop or back navigation event
+ *
  */
-function AppBottomSheetModalContentContainer({
-  children,
-  onUnmount,
-}: {
-  children?: JSX.Element | null;
-  onUnmount: () => void;
-}) {
-  useEffect(() => {
-    return () => {
-      onUnmount();
-    };
-  }, []);
-  return <View style={{flex: 1}}>{children}</View>;
-}
-
 export function AppBottomSheetModal() {
   const {Styles} = useAppContext();
   const rerender = useRerender();
-  const modalRef = useRef<BottomSheetModalMethods>(null);
-  const modalStateRef = useRef<AppBottomSheetModalProps>({
+  const modalRef = useRef(null);
+  const modalStateRef = useRef({
     isOpen: false,
     config: {},
     children: null,
   });
   const keyboard = useKeyboard();
 
-  const resetModalState = () => {
+  const _resetModalState = () => {
     modalStateRef.current = {isOpen: false, config: {}, children: null};
     console.log('modalState', modalStateRef.current);
   };
 
-  useEffect(() => {
-    const onOpenModal = (props: AppBottomSheetModalProps) => {
+  // To init modal context
+  if (modalContext.onOpenModal === undefined) {
+    modalContext.onOpenModal = props => {
       modalStateRef.current = {
         ...modalStateRef.current,
         ...props,
@@ -70,17 +48,16 @@ export function AppBottomSheetModal() {
       modalRef?.current?.present();
     };
 
-    const onCloseModal = () => {
+    modalContext.onCloseModal = () => {
       modalRef?.current?.dismiss();
     };
+  }
 
-    modalContext = {onOpenModal, onCloseModal};
-
+  useEffect(() => {
+    // To reset modal context if unmount
     return () => {
-      modalContext = {
-        onOpenModal: (_: AppBottomSheetModalProps) => null,
-        onCloseModal: () => null,
-      };
+      modalContext.onOpenModal = undefined;
+      modalContext.onCloseModal = undefined;
     };
   }, []);
 
@@ -122,9 +99,22 @@ export function AppBottomSheetModal() {
         },
       ]}
       {...modalStateRef.current.config}>
-      <AppBottomSheetModalContentContainer onUnmount={resetModalState}>
+      <AppBottomSheetModalContentContainer onUnmount={_resetModalState}>
         {modalStateRef.current.children}
       </AppBottomSheetModalContentContainer>
     </BottomSheetModal>
   );
+}
+
+/**
+ * To use ContentContainer umount effect to update modalContext everytime modal closed
+ * in cases of onPress on backdrop or back navigation event
+ */
+function AppBottomSheetModalContentContainer({children, onUnmount}) {
+  useEffect(() => {
+    return () => {
+      onUnmount();
+    };
+  }, []);
+  return <View style={{flex: 1}}>{children}</View>;
 }

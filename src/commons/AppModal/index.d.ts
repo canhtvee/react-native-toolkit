@@ -1,8 +1,9 @@
+import {StyleProp, TextStyle} from 'react-native';
+import {BottomSheetModalProps} from '@gorhom/bottom-sheet';
+
 /**
  * To define types related to AppBottomSheetModal usage
  */
-
-import {BottomSheetModalProps} from '@gorhom/bottom-sheet';
 
 export interface AppBottomSheetModalConfigProps
   extends Partial<Omit<BottomSheetModalProps, 'children'>> {}
@@ -17,3 +18,16 @@ export type AppBottomSheetModalContextType = {
   onOpenModal?: (props: AppBottomSheetModalProps) => void;
   onCloseModal?: () => void;
 };
+
+/**
+ *
+ */
+export interface AppBottomSheetModalTopBarProps {
+  title?: string;
+  titleStyle?: StyleProp<TextStyle>;
+  showIcon?: boolean;
+}
+
+export function AppBottomSheetModalTopBar(
+  props: AppBottomSheetModalTopBarProps,
+): JSX.Element;
