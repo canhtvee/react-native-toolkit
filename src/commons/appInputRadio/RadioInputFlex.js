@@ -1,32 +1,8 @@
 import React from 'react';
-import {
-  View,
-  Text,
-  StyleProp,
-  TextStyle,
-  ViewStyle,
-  StyleSheet,
-} from 'react-native';
+import {View, Text, StyleSheet} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppTouchable, AppTouchableProps} from '../appTouchable';
-
-export type RadioDataItem = {
-  id: number | string;
-  label: string;
-};
-
-export interface RadioInputProps
-  extends Pick<AppTouchableProps, 'activeOpacity' | 'activeBackgroundColor'> {
-  data: Array<RadioDataItem>;
-  value: number;
-  onValueChange: (id: number | string) => void;
-  itemStyle?: StyleProp<ViewStyle>;
-  radioContainerStyle?: StyleProp<ViewStyle>;
-  radioLabelStyle?: StyleProp<TextStyle>;
-  unselectedRadioStyle?: StyleProp<ViewStyle>;
-  selectedRadioStyle?: StyleProp<ViewStyle>;
-}
+import {AppTouchable} from '../appTouchable';
 
 export function RadioInput({
   data,
@@ -37,7 +13,7 @@ export function RadioInput({
   radioContainerStyle,
   unselectedRadioStyle,
   selectedRadioStyle,
-}: RadioInputProps) {
+}) {
   const {Colors} = useAppContext();
 
   return (

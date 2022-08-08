@@ -1,42 +1,12 @@
 import React from 'react';
-import {View, Text, StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {View, Text} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable} from '../appTouchable';
 import {styles} from './styles';
 
-export type RadiosDataItem = {
-  id: number;
-  label: string;
-};
-
-export interface RadiosProps {
-  data: Array<RadiosDataItem>;
-  value: number;
-  onValueChange: (id: number) => void;
-  containerStyle?: StyleProp<ViewStyle>;
-  style?: StyleProp<ViewStyle>;
-
-  /**
-   * Do not use margin props for alignment of item, use itemMargin instead
-   */
-  itemStyle?: StyleProp<
-    Omit<ViewStyle, 'marginRight' | 'marginBottom' | 'marginLeft' | 'marginTop'>
-  >;
-
-  /**
-   * use itemMargin prop to align item in both vertical and horizontal directions
-   */
-  itemMargin?: number;
-
-  unselectedRadioStyle?: StyleProp<ViewStyle>;
-  selectedRadioStyle?: StyleProp<ViewStyle>;
-  labelStyle?: StyleProp<TextStyle>;
-  activeOpacity?: number;
-}
-
-export function Radios({
+export function RadioInput({
   data,
   value,
   onValueChange,
@@ -47,7 +17,7 @@ export function Radios({
   selectedRadioStyle,
   labelStyle,
   activeOpacity,
-}: RadiosProps) {
+}) {
   const {Colors} = useAppContext();
 
   const _styles = {
@@ -80,7 +50,7 @@ export function Radios({
     <View style={containerStyle}>
       {data.map((item, index) => {
         let _itemStyle;
-        const flexDirection = (containerStyle as ViewStyle)?.flexDirection;
+        const flexDirection = containerStyle?.flexDirection;
 
         if (flexDirection === 'row') {
           _itemStyle = [

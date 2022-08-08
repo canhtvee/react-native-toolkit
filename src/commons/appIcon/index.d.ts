@@ -1,6 +1,6 @@
 import {ColorValue, StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {AppTouchableProps} from '../appTouchable';
-import {AppIconNamesType} from './AppIconNames';
+import {AppIconNames} from './AppIcon';
 
 import {
   AntDesignGlyphs,
@@ -14,7 +14,7 @@ import {
   MaterialCommunityIconsGlyphs,
   MaterialIconsGlyphs,
   OcticonsGlyphs,
-} from './VectorIconNames';
+} from './Glyphs';
 
 export type VectorIconNameType = {
   antDesign?: AntDesignGlyphs;
@@ -40,6 +40,7 @@ export interface VectorIconProps {
   color?: ColorValue;
 }
 
+export type AppIconNamesType = keyof typeof AppIconNames;
 export interface AppIconProps
   extends Omit<VectorIconProps, 'style' | 'name'>,
     Omit<AppTouchableProps, 'style'> {

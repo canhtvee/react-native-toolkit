@@ -1,5 +1,3 @@
-export * from './types';
-
 export * from './ClearableTextInput';
 export * from './AppInputText';
 export * from './AppInputFieldArray';

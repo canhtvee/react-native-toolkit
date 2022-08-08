@@ -12,16 +12,6 @@ import {
 } from './ClearablePhoneInput';
 import {styles} from './styles';
 
-export interface AppInputPhoneProps
-  extends UseControllerProps,
-    Omit<ClearablePhoneInputProps, 'containerStyle' | 'defaultValue'> {
-  label?: string;
-  labelStyle?: StyleProp<TextStyle>;
-  errorStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  phoneInputContainerStyle?: StyleProp<ViewStyle>;
-}
-
 export function AppInputPhone({
   control,
   name,
@@ -36,7 +26,7 @@ export function AppInputPhone({
   containerStyle,
   defaultCode = 'SG',
   ...phoneInputProps
-}: AppInputPhoneProps) {
+}) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
 
@@ -90,7 +80,7 @@ export function AppInputPhone({
         />
       </View>
 
-      {errors[name] && errors[name]?.message && (
+      {errors[name] && errors[name]?.message ? (
         <AppText
           style={[
             {
@@ -99,9 +89,9 @@ export function AppInputPhone({
             },
             errorStyle,
           ]}>
-          {errors[name]?.message as React.ReactNode}
+          {errors[name]?.message}
         </AppText>
-      )}
+      ) : null}
     </View>
   );
 }

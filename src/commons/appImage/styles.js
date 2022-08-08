@@ -1,6 +1,6 @@
 import {StyleSheet} from 'react-native';
 
-const styles = StyleSheet.create({
+export const styles = StyleSheet.create({
   image: {
     width: 86,
     height: 86,
@@ -8,5 +8,3 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
-
-export {styles};

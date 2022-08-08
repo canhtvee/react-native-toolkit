@@ -24,3 +24,9 @@ export interface AppInputFieldArrayProps extends AppInputTextProps {
   fieldArrayItemIndex: number;
   fieldArrayItemChildKey: string;
 }
+
+export declare function AppInputText(props: AppInputTextProps): JSX.Element;
+
+export declare function AppInputFieldArray(
+  props: AppInputFieldArrayProps,
+): JSX.Element;

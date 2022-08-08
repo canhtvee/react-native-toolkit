@@ -1,39 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
-import FastImage, {
-  FastImageProps,
-  Priority,
-  ResizeMode,
-} from 'react-native-fast-image';
+import FastImage from 'react-native-fast-image';
 
-import {ResourceStatusType, useAppContext} from '../../utils';
+import {useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
 
 import {styles} from './styles';
 
-export type AppImageRemoteSourceType = {
-  uri?: string;
-  headers?: {
-    [key: string]: string;
-  };
-  priority?: Priority;
-  cache?: 'immutable' | 'web' | 'cacheOnly';
-};
-
-export interface AppImageRemoteProps
-  extends Omit<FastImageProps, 'source' | 'onLoad' | 'onError'> {
-  source: AppImageRemoteSourceType;
-  spinnerSize?: number;
-  spinnerColor?: string;
-  placeholder?: JSX.Element;
-  isLoading?: boolean;
-  onSuccess?: () => void;
-  onError?: () => void;
-}
-
-const _getResizeMode = (resizeMode?: ResizeMode) => {
+const _getResizeMode = resizeMode => {
   switch (resizeMode) {
     case 'contain':
       return FastImage.resizeMode.contain;
@@ -41,15 +17,16 @@ const _getResizeMode = (resizeMode?: ResizeMode) => {
       return FastImage.resizeMode.cover;
   }
 };
-/**image url **/
-const _isValidUrl = (url: string) => {
-  if (!url) {
+
+/**image source validation **/
+const _isValidSource = source => {
+  if (!source || !source?.uri) {
     return false;
   }
   // if (url.substring(0, 4) !== 'http') {
   //   return false;
   // }
-  return url.match(/\.(jpeg|jpg|gif|png|JPEG|JPG|PNG)$/) !== null;
+  return source.uri.match(/\.(jpeg|jpg|gif|png|JPEG|JPG|PNG)$/) !== null;
 };
 
 export function AppImageRemote({
@@ -63,16 +40,14 @@ export function AppImageRemote({
   onSuccess,
   onError,
   ...imageProps
-}: AppImageRemoteProps) {
+}) {
   const {Colors} = useAppContext();
-  const [imageStatus, setImageStatus] = useState<ResourceStatusType>(() =>
-    source && source.uri && _isValidUrl(source.uri) ? 'loading' : 'error',
+  const [imageStatus, setImageStatus] = useState(() =>
+    _isValidSource(source) ? 'loading' : 'error',
   );
 
   useEffect(() => {
-    setImageStatus(
-      source && source.uri && _isValidUrl(source.uri) ? 'loading' : 'error',
-    );
+    setImageStatus(_isValidSource(source) ? 'loading' : 'error');
   }, [source]);
 
   if (imageStatus === 'loading' || imageStatus === 'successful' || isLoading) {
@@ -105,7 +80,7 @@ export function AppImageRemote({
       {placeholder ? (
         placeholder
       ) : (
-        <AppIcon name={{feather: 'alert-triangle'}} size={24} />
+        <AppIcon name={'alert-triangle'} size={24} />
       )}
     </View>
   );

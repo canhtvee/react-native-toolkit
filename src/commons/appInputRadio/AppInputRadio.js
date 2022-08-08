@@ -1,24 +1,15 @@
 //import liraries
 import React from 'react';
-import {View, TextStyle, StyleProp, ViewStyle} from 'react-native';
-import {Controller, UseControllerProps, useFormState} from 'react-hook-form';
+import {View} from 'react-native';
+import {Controller, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
+
 import {AppText} from '../appText';
 
-import {Radios, RadiosProps} from './Radios';
+import {RadioInput} from './RadioInput';
 
-export interface AppInputRadiosProps
-  extends Omit<RadiosProps, 'value' | 'onValueChange' | 'containerStyle'>,
-    UseControllerProps {
-  label?: string;
-  labelStyle?: StyleProp<TextStyle>;
-  errorStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  radiosContainerStyle?: StyleProp<ViewStyle>;
-}
-
-export function AppInputRadios({
+export function AppInputRadio({
   control,
   name,
   rules,
@@ -28,13 +19,13 @@ export function AppInputRadios({
   containerStyle,
   radiosContainerStyle,
   ...radiosProps
-}: AppInputRadiosProps) {
+}) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -43,7 +34,7 @@ export function AppInputRadios({
         control={control}
         rules={rules}
         render={({field: {onChange, value}}) => (
-          <Radios
+          <RadioInput
             value={value}
             onValueChange={onChange}
             containerStyle={radiosContainerStyle}
@@ -51,7 +42,7 @@ export function AppInputRadios({
           />
         )}
       />
-      {errors[name] && errors[name]?.message && (
+      {errors[name] && errors[name]?.message ? (
         <AppText
           style={[
             {
@@ -60,9 +51,9 @@ export function AppInputRadios({
             },
             errorStyle,
           ]}>
-          {errors[name]?.message as React.ReactNode}
+          {errors[name]?.message}
         </AppText>
-      )}
+      ) : null}
     </View>
   );
 }

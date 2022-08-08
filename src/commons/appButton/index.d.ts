@@ -8,7 +8,6 @@ export interface AppButtonNormalProps extends Omit<AppTouchableProps, 'style'> {
   textLabelStyle?: StyleProp<TextStyle>;
   loadingLabel?: JSX.Element;
   containerStyle?: StyleProp<Omit<ViewStyle, 'opacity'>>;
-  spinnerColor?: string;
   spinnerSize?: number;
   isLoading?: boolean;
 }

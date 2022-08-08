@@ -8,7 +8,7 @@ export function AppText({children, style, ...props}) {
   if (props.hasOwnProperty('onPress')) {
     if (__DEV__) {
       throw new Error(
-        'AppText does not support touch event, use AppTextTouchable instead, it support borderRadius and activeBackgroundColor props',
+        'AppText does not support touch event, use AppTextTouchable instead, it supports borderRadius and activeBackgroundColor props',
       );
     }
     return null;

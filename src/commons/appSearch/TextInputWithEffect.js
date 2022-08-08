@@ -1,33 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Controller, UseControllerProps} from 'react-hook-form';
-import {
-  Platform,
-  StyleProp,
-  StyleSheet,
-  TextInput,
-  TextInputProps,
-  TextStyle,
-  ViewStyle,
-} from 'react-native';
+import {Platform, StyleSheet, TextInput} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
-import {AppIcon, ClearIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
+import {AppIcon} from '../appIcon';
 
-export interface SearchTextInputProps
-  extends Omit<
-    TextInputProps,
-    'style' | 'defaultValue' | 'onChange' | 'onChangeText'
-  > {
-  containerStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<TextStyle>;
-  debounce?: number;
-  onChangeValue: (_?: string) => void;
-  onDebounce?: (_?: boolean) => void;
-}
-
-function SearchTextInput({
+export function TextInputWithEffect({
   onChangeValue,
   value,
   debounce = 0,
@@ -35,25 +14,24 @@ function SearchTextInput({
   containerStyle,
   onDebounce,
   ...inputProps
-}: SearchTextInputProps) {
+}) {
   const {Colors, Strings} = useAppContext();
-  const [isFocused, setIsFocused] = useState(false);
-  const [textValue, setTextValue] = useState<string | undefined>();
-  const timeOutRef = useRef<NodeJS.Timeout>();
-  const inputRef = useRef<TextInput>(null);
+  const [textValue, setTextValue] = useState('');
+  const timeOutRef = useRef();
+  const inputRef = useRef(null);
 
   useEffect(() => {
     onDebounce && onDebounce(true);
     if (!textValue || textValue === '' || !debounce || debounce === 0) {
       onChangeValue(textValue);
-      onDebounce && onDebounce(false);
+      onDebounce && onDebounce();
     } else {
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current);
       }
       timeOutRef.current = setTimeout(() => {
         onChangeValue(textValue);
-        onDebounce && onDebounce(false);
+        onDebounce && onDebounce();
       }, debounce);
     }
     return () => {
@@ -64,7 +42,7 @@ function SearchTextInput({
   }, [textValue]);
 
   useEffect(() => {
-    setTextValue(value);
+    setTextValue(value || '');
   }, [value]);
 
   return (
@@ -80,7 +58,8 @@ function SearchTextInput({
       onPress={() => inputRef.current?.focus()}>
       <AppIcon
         name={'search'}
-        color={Colors.placeholder}
+        color={Colors.border}
+        size={Sizes.subtitle}
         iconStyle={{marginLeft: Sizes.paddingLess2}}
       />
       <TextInput
@@ -97,44 +76,19 @@ function SearchTextInput({
           },
           inputStyle,
         ]}
-        onFocus={() => setIsFocused(true)}
-        onBlur={() => setIsFocused(false)}
         placeholderTextColor={Colors.placeholder}
         placeholder={Strings.Search}
         {...inputProps}
       />
-      {isFocused && !!textValue && textValue?.length > 0 && (
-        <ClearIcon onPress={() => setTextValue('')} />
-      )}
-    </AppTouchable>
-  );
-}
-
-export interface AppSearchTextInputProps
-  extends UseControllerProps,
-    Omit<SearchTextInputProps, 'onChangeValue'> {}
-
-export function AppSearchTextInput({
-  control,
-  name,
-  debounce,
-  onDebounce,
-  ...searchInputProps
-}: AppSearchTextInputProps) {
-  return (
-    <Controller
-      name={name}
-      control={control}
-      render={({field: {onChange, value}}) => (
-        <SearchTextInput
-          onChangeValue={onChange}
-          value={value}
-          debounce={debounce}
-          onDebounce={onDebounce}
-          {...searchInputProps}
+      {textValue && textValue !== '' ? (
+        <AppIcon
+          name="closecircle"
+          color={Colors.border}
+          iconContainerStyle={{paddingRight: Sizes.paddingLess2}}
+          onPress={() => setTextValue('')}
         />
-      )}
-    />
+      ) : null}
+    </AppTouchable>
   );
 }
 

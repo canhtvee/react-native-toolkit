@@ -1,16 +1,14 @@
-//import liraries
 import React, {useState} from 'react';
 import {View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
 
-import {MaskIcon} from '../appIcon';
+import {AppText} from '../appText';
+import {AppIcon} from '../appIcon';
 
 import {styles} from './styles';
-import {AppInputTextProps} from './types';
 import {ClearableTextInput} from './ClearableTextInput';
-import {AppText} from '../appText';
 
 export function AppInputText({
   control,
@@ -27,7 +25,7 @@ export function AppInputText({
   leftChild,
   rightChild,
   ...textInputProps
-}: AppInputTextProps) {
+}) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
   const [secure, setSecure] = useState(secureTextEntry);
@@ -35,7 +33,7 @@ export function AppInputText({
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -55,9 +53,7 @@ export function AppInputText({
           rules={rules}
           render={({field: {onChange, value}}) => (
             <ClearableTextInput
-              maxLength={
-                (rules?.maxLength as {value: number; message: string})?.value
-              }
+              maxLength={rules?.maxLength?.value}
               autoCapitalize={'none'}
               onChangeText={onChange}
               value={value}
@@ -76,11 +72,17 @@ export function AppInputText({
             />
           )}
         />
-        {secureTextEntry && <MaskIcon setSecure={setSecure} secure={secure} />}
+        {secureTextEntry && (
+          <AppIcon
+            name={secure ? 'eye' : 'eye-off'}
+            iconContainerStyle={{paddingRight: Sizes.paddingLess2}}
+            onPress={() => setSecure(prev => !prev)}
+          />
+        )}
         {rightChild}
       </View>
 
-      {errors[name] && errors[name]?.message && (
+      {errors[name] && errors[name]?.message ? (
         <AppText
           style={[
             {
@@ -89,9 +91,9 @@ export function AppInputText({
             },
             errorStyle,
           ]}>
-          {errors[name]?.message as React.ReactNode}
+          {errors[name]?.message}
         </AppText>
-      )}
+      ) : null}
     </View>
   );
 }

@@ -10,7 +10,6 @@ export function AppButtonNormal({
   textLabelStyle,
   containerStyle,
   loadingLabel,
-  spinnerColor,
   spinnerSize,
   disabled,
   isLoading,
@@ -27,12 +26,21 @@ export function AppButtonNormal({
     android: Sizes.h5,
   });
 
+  let _textLabelStyle = textLabelStyle;
+
+  if (Array.isArray(textLabelStyle)) {
+    _textLabelStyle = textLabelStyle.reduce((prev, curr) => ({
+      ...prev,
+      ...curr,
+    }));
+  }
+
   const renderContent = () => {
     if (isLoading) {
       return (
         loadingLabel || (
           <ActivityIndicator
-            color={spinnerColor || Colors.onPrimary}
+            color={_textLabelStyle?.color || Colors.onPrimary}
             size={spinnerSize || _spinnerSize}
           />
         )
@@ -40,7 +48,13 @@ export function AppButtonNormal({
     }
     if (typeof label === 'string') {
       return (
-        <Text style={[{color: Colors.onPrimary}, textLabelStyle]}>{label}</Text>
+        <Text
+          style={[
+            {color: _textLabelStyle?.color || Colors.onPrimary},
+            textLabelStyle,
+          ]}>
+          {label}
+        </Text>
       );
     }
     return label;

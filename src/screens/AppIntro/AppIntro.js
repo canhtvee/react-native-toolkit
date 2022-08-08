@@ -1,9 +1,15 @@
 import React, {useRef, useState} from 'react';
 import {Text, View, TextInput, ActivityIndicator} from 'react-native';
-import {AppViewLoading} from '../../commons';
+import {AppSearchTextInput, AppViewLoading} from '../../commons';
+import {TextInputWithEffect} from '../../commons/appSearch/TextInputWithEffect';
 import {Sizes} from '../../utils';
+import {useForm} from 'react-hook-form';
 
 export function AppIntro() {
+  const {control, watch} = useForm({defaultValues: {searchTerm: ''}});
+
+  console.log('searchTerm', watch('searchTerm'));
+
   return (
     <View
       style={{
@@ -11,7 +17,11 @@ export function AppIntro() {
         justifyContent: 'center',
         flex: 1,
       }}>
-      <AppViewLoading spinnerSize={'small'} />
+      <AppSearchTextInput
+        control={control}
+        name={'searchTerm'}
+        debounce={1000}
+      />
     </View>
   );
 }

@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Text, View} from 'react-native';
 import {Sizes, useAppContext} from '../utils';
 import {AppButtonNormal} from './appButton';
+import {VectorIcon} from './appIcon';
 import {AppIcon} from './appIcon';
 import {AppInputFieldArrayExample} from './appInputText';
 import {AppText} from './appText';
@@ -18,13 +19,8 @@ export function LibsPlayground() {
         activeOpacity
         containerStyle={Styles.solidButtonContainer}
       />
-      <AppButtonNormal
-        label={'Toggle'}
-        textLabelStyle={{color: Colors.text}}
-        onPress={() => setState(prev => !prev)}
-        containerStyle={Styles.textButtonContainer}
-        activeBackgroundColor
-      />
+      <AppIcon name="arrow-down" />
+      <VectorIcon name={{antDesign: 'API'}} />
     </View>
   );
 }

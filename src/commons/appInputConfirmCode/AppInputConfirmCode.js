@@ -1,21 +1,13 @@
 import React from 'react';
-import {StyleProp, ViewStyle, TextStyle, View} from 'react-native';
+import {View} from 'react-native';
 
-import {Controller, UseControllerProps} from 'react-hook-form';
+import {Controller} from 'react-hook-form';
 
 import {Sizes} from '../../utils';
+
 import {AppText} from '../appText';
 
-import {ConfirmCodeInput, ConfirmCodeInputProps} from './ConfirmCodeInput';
-
-export interface AppInputConfirmCodeProps
-  extends UseControllerProps,
-    Omit<ConfirmCodeInputProps, 'containerStyle' | 'onChange' | 'value'> {
-  label?: string;
-  labelStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  inputContainerStyle?: StyleProp<ViewStyle>;
-}
+import {ConfirmCodeInput} from './ConfirmCodeInput';
 
 export function AppInputConfirmCode({
   control,
@@ -27,12 +19,12 @@ export function AppInputConfirmCode({
   labelStyle,
   containerStyle,
   inputContainerStyle,
-  ...confirmCodeInputProps
-}: AppInputConfirmCodeProps) {
+  ...inputProps
+}) {
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -47,7 +39,7 @@ export function AppInputConfirmCode({
             value={value}
             onChange={onChange}
             containerStyle={inputContainerStyle}
-            {...confirmCodeInputProps}
+            {...inputProps}
           />
         )}
       />

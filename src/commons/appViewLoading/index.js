@@ -6,7 +6,7 @@ import {
   Platform,
   StyleSheet,
 } from 'react-native';
-import {Sizes} from '../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 export function AppViewLoading({
   loadingText,
@@ -15,18 +15,31 @@ export function AppViewLoading({
   spinnerColor,
   spinnerSize,
 }) {
-  const _spinnerSize = Platform.select({
-    ios: Sizes.button,
-    android: Sizes.h4,
-  });
+  const {Colors} = useAppContext();
 
+  const _spinnerColor = spinnerColor || Colors.onBackground;
   return (
-    <View style={[styles.container, containerStyle]}>
+    <View
+      style={[
+        styles.container,
+        {backgroundColor: Colors.background},
+        containerStyle,
+      ]}>
       <ActivityIndicator
-        size={spinnerSize || _spinnerSize}
-        color={spinnerColor}
+        size={
+          spinnerSize ||
+          Platform.select({
+            ios: Sizes.button,
+            android: Sizes.h4,
+          })
+        }
+        color={_spinnerColor}
       />
-      {!!loadingText && <Text style={loadingTextStyle}>{loadingText}</Text>}
+      {!!loadingText && (
+        <Text style={[loadingTextStyle, {color: _spinnerColor}]}>
+          {loadingText}
+        </Text>
+      )}
     </View>
   );
 }

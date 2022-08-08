@@ -1,31 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {
-  View,
-  TextInput,
-  StyleProp,
-  ViewStyle,
-  TextStyle,
-  TextInputProps,
-  TextInputKeyPressEventData,
-} from 'react-native';
+import {View, TextInput, StyleSheet} from 'react-native';
 
-import {ControllerRenderProps} from 'react-hook-form';
-import {useAppContext} from '../../utils';
-import {styles} from './styles';
-
-export interface ConfirmCodeInputProps
-  extends Omit<ControllerRenderProps, 'name' | 'onBlur' | 'ref'> {
-  codeInputLength: number;
-  codeLength: number;
-  containerStyle?: StyleProp<ViewStyle>;
-  codeInputStyle?: StyleProp<TextStyle>;
-  codeInputProps?: Omit<
-    TextInputProps,
-    'autoFocus' | 'secureTextEntry' | 'defaultValue'
-  >;
-  secureTextEntry?: boolean;
-  onDone?: () => void;
-}
+import {Sizes, useAppContext} from '../../utils';
 
 export function ConfirmCodeInput({
   codeLength,
@@ -33,15 +9,15 @@ export function ConfirmCodeInput({
   onChange,
   value,
   secureTextEntry,
-  containerStyle,
+  inputContainerStyle,
   codeInputStyle,
   codeInputProps,
   onDone,
-}: ConfirmCodeInputProps) {
+}) {
   const {Colors} = useAppContext();
   const [codeArr, setCodeArr] = useState(new Array(codeLength).fill(''));
   const [focusIndex, setFocusIndex] = useState(0);
-  const codeInputRefs = useRef<Array<TextInput>>(new Array(codeLength));
+  const codeInputRefs = useRef(new Array(codeLength));
 
   // To update if form value changed
   useEffect(() => {
@@ -68,7 +44,7 @@ export function ConfirmCodeInput({
   }, [focusIndex]);
 
   // To handle input change
-  const onInputCode = (text: string, index: number) => {
+  const onInputCode = (text, index) => {
     let newCodeArr = [...codeArr];
     newCodeArr[index] = text;
     onChange && onChange(newCodeArr.join(''));
@@ -92,10 +68,7 @@ export function ConfirmCodeInput({
   };
 
   //To handle backspace press
-  const handleKeyPress = (
-    index: number,
-    nativeEvent: TextInputKeyPressEventData,
-  ) => {
+  const handleKeyPress = (index, nativeEvent) => {
     console.log('key', nativeEvent.key);
     if (nativeEvent.key === 'Backspace') {
       if (codeArr[index].length === 0 && index > 0) {
@@ -111,7 +84,7 @@ export function ConfirmCodeInput({
       codeInputs.push(
         <TextInput
           key={`${i}`}
-          ref={ref => (codeInputRefs.current[i] = ref!)}
+          ref={ref => (codeInputRefs.current[i] = ref)}
           value={codeArr[i]}
           autoFocus={i === 0}
           editable={i === focusIndex}
@@ -131,6 +104,22 @@ export function ConfirmCodeInput({
   };
 
   return (
-    <View style={[styles.container, containerStyle]}>{renderItems()}</View>
+    <View style={[styles.container, inputContainerStyle]}>{renderItems()}</View>
   );
 }
+
+export const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+    paddingHorizontal: Sizes.padding,
+  },
+  codeInput: {
+    textAlign: 'center',
+    borderWidth: Sizes.borderWidth,
+    fontSize: Sizes.regular,
+    padding: Sizes.padding,
+    minWidth: Sizes.regular + Sizes.padding * 2,
+  },
+});
