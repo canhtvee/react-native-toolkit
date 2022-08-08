@@ -1,23 +1,7 @@
-import React, {useRef} from 'react';
-import {Pressable, Insets, View} from 'react-native';
+import React from 'react';
+import {Pressable} from 'react-native';
 
-import {PressableProps, StyleProp, ViewStyle} from 'react-native';
 import {Sizes, useAppContext} from '../../utils';
-
-export interface AppTouchableProps
-  extends Omit<PressableProps, 'style' | 'hitSlop'> {
-  style?: StyleProp<ViewStyle>;
-  activeOpacity?: number | boolean;
-  activeBackgroundColor?: string | boolean;
-  hitSlop?: Insets | number | boolean;
-}
-
-const _defaultHitSlop = {
-  top: Sizes.padding,
-  left: Sizes.padding,
-  right: Sizes.padding,
-  bottom: Sizes.padding,
-};
 
 export function AppTouchable({
   children,
@@ -26,14 +10,16 @@ export function AppTouchable({
   style,
   hitSlop,
   ...props
-}: AppTouchableProps) {
+}) {
   const {Colors} = useAppContext();
 
-  const ref = useRef<View>(null);
-
-  const _hitSlop = typeof hitSlop === 'boolean' ? _defaultHitSlop : hitSlop;
+  const _hitSlop = typeof hitSlop === 'boolean' ? Sizes.paddingLess : hitSlop;
 
   if (activeBackgroundColor) {
+    let _style = style;
+    if (Array.isArray(style)) {
+      _style = style.reduce((prev, curr) => ({...prev, ...curr}));
+    }
     return (
       <Pressable
         style={({pressed}) => [
@@ -43,7 +29,7 @@ export function AppTouchable({
               ? typeof activeBackgroundColor === 'string'
                 ? activeBackgroundColor
                 : Colors.ripple
-              : (style as ViewStyle)?.backgroundColor || Colors.background,
+              : _style?.backgroundColor || Colors.background,
           },
         ]}
         hitSlop={_hitSlop}
@@ -55,7 +41,6 @@ export function AppTouchable({
 
   return (
     <Pressable
-      ref={ref}
       style={({pressed}) => [
         style,
         {

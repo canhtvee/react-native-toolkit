@@ -1,6 +1,6 @@
 import React from 'react';
 import {render, cleanup} from '@testing-library/react-native';
-import {AppViewLoading} from '../index';
+import {AppViewLoading} from './index';
 
 /**
  * Run test command

@@ -10,6 +10,7 @@ export function getResourceStyles(Colors: ColorsType) {
       shadowOpacity: 0.4,
       shadowRadius: 4,
       elevation: 4,
+      overflow: 'visible',
     },
     border: {
       borderRadius: Sizes.borderRadius,
@@ -24,10 +25,20 @@ export function getResourceStyles(Colors: ColorsType) {
       borderRadius: Sizes.borderRadius1,
       backgroundColor: Colors.primary,
     },
-    textButtonContainer: {
-      paddingVertical: Sizes.paddingLess1,
-      paddingHorizontal: Sizes.paddingLess1,
-      borderRadius: Sizes.borderRadius1 * 0.8,
+    solidButtonLabel: {
+      color: Colors.onPrimary,
+    },
+
+    borderButtonContainer: {
+      paddingVertical: Sizes.paddingLess - 1.5,
+      paddingHorizontal: Sizes.padding * 2 - 1.5,
+      borderRadius: Sizes.borderRadius1,
+      backgroundColor: Colors.background,
+      borderWidth: 1.5,
+      borderColor: Colors.primary,
+    },
+    borderButtonLabel: {
+      color: Colors.primary,
     },
   });
 }

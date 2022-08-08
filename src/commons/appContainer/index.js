@@ -1,21 +1,10 @@
 import React from 'react';
-import {StyleProp, ViewStyle} from 'react-native';
-import {Edge, SafeAreaView} from 'react-native-safe-area-context';
+import {SafeAreaView} from 'react-native-safe-area-context';
 import {useInteractionManager} from '@react-native-community/hooks';
 
 import {AppViewLoading} from '../appViewLoading';
 
-type EdgesType = 'lr' | 'lrt' | 'lrb' | 'lrtb';
-type EdgesValueType = Record<EdgesType, Array<Edge>>;
-
-export interface AppContainerProps {
-  children?: React.ReactNode;
-  style?: StyleProp<ViewStyle>;
-  loadingStyle?: StyleProp<ViewStyle>;
-  edges?: EdgesType;
-}
-
-const _edgesValue: EdgesValueType = {
+const _edgesValue = {
   lr: ['left', 'right'],
   lrt: ['left', 'right', 'top'],
   lrb: ['left', 'right', 'bottom'],
@@ -23,12 +12,7 @@ const _edgesValue: EdgesValueType = {
 };
 
 //TODO: include AppKeyBoardAccessory as default
-export function AppContainer({
-  children,
-  style,
-  edges = 'lrt',
-  loadingStyle,
-}: AppContainerProps) {
+export function AppContainer({children, style, edges = 'lrt', loadingStyle}) {
   const interaction = useInteractionManager();
 
   return (

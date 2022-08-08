@@ -1,18 +1,14 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
+import {Text} from 'react-native';
 import {Sizes, useAppContext} from '../../utils';
 
-export function AppText({
-  children,
-  style,
-  ...props
-}: Omit<TextProps, 'onPress' | 'onPressIn' | 'onPressOut' | 'onLongPress'>) {
+export function AppText({children, style, ...props}) {
   const {Colors} = useAppContext();
 
   if (props.hasOwnProperty('onPress')) {
     if (__DEV__) {
       throw new Error(
-        'AppText does not support touch event, use AppButton instead, it support borderRadius and activeBackgroundColor props',
+        'AppText does not support touch event, use AppTextTouchable instead, it support borderRadius and activeBackgroundColor props',
       );
     }
     return null;

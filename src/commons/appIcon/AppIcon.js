@@ -1,19 +1,10 @@
 import React from 'react';
-import {Omit, StyleProp, TextStyle, View, ViewStyle} from 'react-native';
+import {View} from 'react-native';
 
-import {AppTouchable, AppTouchableProps} from '../appTouchable';
+import {AppTouchable} from '../appTouchable';
 
-import {VectorIcon, VectorIconNameType, VectorIconProps} from './VectorIcon';
+import {VectorIcon} from './VectorIcon';
 import {AppIconNames} from './AppIconNames';
-
-type AppIconNameType = keyof typeof AppIconNames;
-export interface AppIconProps
-  extends Omit<VectorIconProps, 'style' | 'name'>,
-    Omit<AppTouchableProps, 'style'> {
-  iconStyle?: StyleProp<TextStyle>;
-  iconContainerStyle?: StyleProp<ViewStyle>;
-  name: AppIconNameType;
-}
 
 export function AppIcon({
   iconStyle,
@@ -23,8 +14,8 @@ export function AppIcon({
   hitSlop = true,
   name,
   ...iconProps
-}: AppIconProps) {
-  const _name = AppIconNames[name] as VectorIconNameType;
+}) {
+  const _name = AppIconNames[name];
 
   if (onPress) {
     return (

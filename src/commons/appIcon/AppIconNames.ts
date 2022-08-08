@@ -1,3 +1,8 @@
+/**
+ *
+ * To use AppIconNames interface to simplify icon refactoring
+ */
+
 export const AppIconNames = {
   'eye-off': {feather: 'eye-off'},
   eye: {feather: 'eye'},
@@ -8,3 +13,5 @@ export const AppIconNames = {
   calendar: {feather: 'calendar'},
   search: {antDesign: 'search1'},
 };
+
+export type AppIconNamesType = keyof typeof AppIconNames;
