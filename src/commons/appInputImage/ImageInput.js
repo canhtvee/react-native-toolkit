@@ -1,18 +1,15 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
-import {ImageStyle} from 'react-native-fast-image';
 import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
-import {BottomSheetModalMethods} from '@gorhom/bottom-sheet/lib/typescript/types';
 
-import {Sizes, useAppContext} from '../../utils';
+import {CONSTANTS, Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
-import {AppImageRemote, AppImageRemoteSourceType} from '../appImage';
+import {AppImageRemote} from '../appImage';
 
 import {ImageInputSourceCamera} from './ImageInputSourceCamera';
 import {ImageInputSourceGallery} from './ImageInputSourceGallery';
-import {ImageInputProps, ImageResourceType} from './types';
 
 export function ImageInput({
   inputContainerStyle,
@@ -22,10 +19,10 @@ export function ImageInput({
   value,
   imageStyle,
   ...imageProps
-}: ImageInputProps) {
+}) {
   const {Colors, Styles} = useAppContext();
-  const [imageResource, setImageResource] = useState<ImageResourceType>();
-  const bottomSheetRef = useRef<BottomSheetModalMethods>(null);
+  const [imageResource, setImageResource] = useState(null);
+  const bottomSheetRef = useRef(null);
 
   const onOpenImagePicker = () => bottomSheetRef?.current?.present();
   const onCloseImagePicker = () => bottomSheetRef?.current?.close();
@@ -34,11 +31,11 @@ export function ImageInput({
   console.log('value', value);
 
   useEffect(() => {
-    if (imageResource?.status === 'successful') {
+    if (imageResource?.status === CONSTANTS.STATUS.SUCCESSFUL) {
       onChange(imageResource.data);
       return;
     }
-    if (imageResource?.status === 'error') {
+    if (imageResource?.status === CONSTANTS.STATUS.ERROR) {
       onChange();
     }
   }, [imageResource]);
@@ -47,25 +44,33 @@ export function ImageInput({
     <View style={inputContainerStyle}>
       <AppTouchable
         onPress={onOpenImagePicker}
-        disabled={imageResource?.status === 'loading'}>
+        disabled={imageResource?.status === CONSTANTS.STATUS.LOADING}>
         <AppImageRemote
-          source={imageResource?.data as AppImageRemoteSourceType}
+          source={imageResource?.data}
           placeholder={
             placeholder || (
               <AppIcon
-                name={{antDesign: 'pluscircleo'}}
+                name={'pluscircleo'}
                 size={Sizes.h6}
                 color={Colors.border}
               />
             )
           }
-          isLoading={imageResource?.status === 'loading'}
+          isLoading={imageResource?.status === CONSTANTS.STATUS.LOADING}
           onSuccess={() =>
-            setImageResource(prev => ({...prev, status: 'successful'}))
+            setImageResource(prev => ({
+              ...prev,
+              status: CONSTANTS.STATUS.SUCCESSFUL,
+            }))
           }
-          onError={() => setImageResource(prev => ({...prev, status: 'error'}))}
+          onError={() =>
+            setImageResource(prev => ({
+              ...prev,
+              status: CONSTANTS.STATUS.ERROR,
+            }))
+          }
           style={[
-            Styles.border as ImageStyle,
+            Styles.border,
             {width: Sizes.width(25), height: Sizes.width(25)},
             imageStyle,
           ]}
@@ -74,7 +79,7 @@ export function ImageInput({
       </AppTouchable>
       {!!value && imageResource?.data && showClearIcon && (
         <AppIcon
-          name={{antDesign: 'closecircle'}}
+          name={'closecircle'}
           size={Sizes.subtitle}
           touchStyle={[
             Styles.shadow,

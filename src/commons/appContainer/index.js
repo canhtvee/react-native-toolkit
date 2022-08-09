@@ -4,7 +4,7 @@ import {useInteractionManager} from '@react-native-community/hooks';
 
 import {AppViewLoading} from '../appViewLoading';
 
-const _edgesValue = {
+const EdgesValues = {
   lr: ['left', 'right'],
   lrt: ['left', 'right', 'top'],
   lrb: ['left', 'right', 'bottom'],
@@ -12,12 +12,17 @@ const _edgesValue = {
 };
 
 //TODO: include AppKeyBoardAccessory as default
-export function AppContainer({children, style, edges = 'lrt', loadingStyle}) {
+export function AppContainer({
+  children,
+  style,
+  edges = 'lrt',
+  ...loadingProps
+}) {
   const interaction = useInteractionManager();
 
   return (
     <SafeAreaView
-      edges={_edgesValue[edges]}
+      edges={EdgesValues[edges]}
       style={[
         {
           flex: 1,
@@ -25,11 +30,7 @@ export function AppContainer({children, style, edges = 'lrt', loadingStyle}) {
         },
         style,
       ]}>
-      {interaction ? (
-        children
-      ) : (
-        <AppViewLoading containerStyle={loadingStyle} />
-      )}
+      {interaction ? children : <AppViewLoading {...loadingProps} />}
     </SafeAreaView>
   );
 }

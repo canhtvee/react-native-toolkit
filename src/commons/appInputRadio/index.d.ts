@@ -1,5 +1,6 @@
-import {UseControllerProps} from 'react-hook-form';
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {UseControllerProps} from 'react-hook-form';
+
 import {AppTouchableProps} from '../appTouchable';
 
 export type RadioDataItem = {
@@ -19,7 +20,7 @@ export interface RadioInputFlexProps
   selectedRadioStyle?: StyleProp<ViewStyle>;
 }
 
-export interface RadiosProps {
+export interface RadiosInputProps {
   data: Array<RadioDataItem>;
   value: number;
   onValueChange: (id: number) => void;
@@ -45,7 +46,7 @@ export interface RadiosProps {
 }
 
 export interface AppInputRadiosProps
-  extends Omit<RadiosProps, 'value' | 'onValueChange' | 'containerStyle'>,
+  extends Omit<RadiosInputProps, 'value' | 'onValueChange' | 'containerStyle'>,
     UseControllerProps {
   label?: string;
   labelStyle?: StyleProp<TextStyle>;
@@ -53,3 +54,7 @@ export interface AppInputRadiosProps
   containerStyle?: StyleProp<ViewStyle>;
   radiosContainerStyle?: StyleProp<ViewStyle>;
 }
+
+export declare function RadioInputFlex(props: RadioInputFlexProps): JSX.Element;
+export declare function RadioInput(props: RadioInputFlexProps): JSX.Element;
+export declare function AppInputRadio(props: AppInputRadiosProps): JSX.Element;

@@ -1,7 +1,7 @@
 import React, {useRef, useState} from 'react';
 import {ActivityIndicator, Platform, StyleSheet, Text} from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {getStyleObject, Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable} from '../appTouchable';
 
@@ -22,17 +22,13 @@ export function AppButtonNormal({
   const btnRef = useRef({init: true});
 
   const _spinnerSize = Platform.select({
-    ios: Sizes.button,
+    ios: 'small',
     android: Sizes.h5,
   });
 
-  let _textLabelStyle = textLabelStyle;
-
-  if (Array.isArray(textLabelStyle)) {
-    _textLabelStyle = textLabelStyle.reduce((prev, curr) => ({
-      ...prev,
-      ...curr,
-    }));
+  const _textStyle = getStyleObject(textLabelStyle);
+  if (!_textStyle?.color) {
+    _textStyle.color = Colors.onPrimary;
   }
 
   const renderContent = () => {
@@ -40,22 +36,14 @@ export function AppButtonNormal({
       return (
         loadingLabel || (
           <ActivityIndicator
-            color={_textLabelStyle?.color || Colors.onPrimary}
+            color={_textStyle.color}
             size={spinnerSize || _spinnerSize}
           />
         )
       );
     }
     if (typeof label === 'string') {
-      return (
-        <Text
-          style={[
-            {color: _textLabelStyle?.color || Colors.onPrimary},
-            textLabelStyle,
-          ]}>
-          {label}
-        </Text>
-      );
+      return <Text style={[styles.text, _textStyle]}>{label}</Text>;
     }
     return label;
   };
@@ -89,4 +77,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  text: {fontSize: Sizes.button},
 });

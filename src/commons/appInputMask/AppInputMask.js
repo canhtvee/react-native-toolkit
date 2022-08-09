@@ -1,31 +1,13 @@
 //import liraries
 import React, {useState} from 'react';
-import {View, StyleProp, TextStyle, ViewStyle} from 'react-native';
+import {View, StyleProp, TextStyle, ViewStyle, StyleSheet} from 'react-native';
 import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
 import MaskInput, {Masks, MaskInputProps} from 'react-native-mask-input';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {AppText} from '../appText';
-import {MaskIcon} from '../appIcon';
-
-import {styles} from './styles';
-
-type MasksType = keyof typeof Masks;
-
-export interface AppInputMaskProps
-  extends UseControllerProps,
-    Omit<MaskInputProps, 'style' | 'defaultValue' | 'mask' | 'value'> {
-  label?: string;
-  labelStyle?: StyleProp<TextStyle>;
-  errorStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
-  inputContainerStyle?: StyleProp<ViewStyle>;
-  inputStyle?: StyleProp<TextStyle>;
-  leftChild?: JSX.Element;
-  rightChild?: JSX.Element;
-  mask: MasksType;
-}
+import {AppIcon} from '../appIcon';
 
 export function AppInputMask({
   control,
@@ -42,18 +24,18 @@ export function AppInputMask({
   leftChild,
   rightChild,
   ...maskInputProps
-}: AppInputMaskProps) {
+}) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
   const [secure, setSecure] = useState(secureTextEntry);
 
   // TODO: To update maskrendering
-  const maskRendering = Masks[mask];
+  const _maskRendering = Masks[mask];
 
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -72,7 +54,7 @@ export function AppInputMask({
           rules={rules}
           render={({field: {onChange, value}}) => (
             <MaskInput
-              mask={maskRendering}
+              mask={_maskRendering}
               autoCapitalize={'none'}
               onChangeText={(masked, unmasked) => {
                 onChange(unmasked);
@@ -93,7 +75,13 @@ export function AppInputMask({
             />
           )}
         />
-        {secureTextEntry && <MaskIcon setSecure={setSecure} secure={secure} />}
+        {secureTextEntry && (
+          <AppIcon
+            name={secure ? 'eye' : 'eye-off'}
+            iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
+            onPress={() => setSecure(prev => !prev)}
+          />
+        )}
         {rightChild}
       </View>
 
@@ -106,9 +94,29 @@ export function AppInputMask({
             },
             errorStyle,
           ]}>
-          {errors[name]?.message as React.ReactNode}
+          {errors[name]?.message}
         </AppText>
       )}
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    overflow: 'hidden',
+    borderWidth: Sizes.borderWidth,
+    borderRadius: Sizes.borderRadius1,
+  },
+  input: {
+    flex: 1,
+    fontSize: Sizes.regular,
+    paddingHorizontal: Sizes.paddingLess,
+    paddingVertical: Sizes.textInputPaddingVertical,
+  },
+  error: {
+    fontSize: Sizes.regular,
+    marginTop: Sizes.paddingLess2,
+  },
+});

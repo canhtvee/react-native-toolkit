@@ -64,6 +64,11 @@ const Sizes = {
   button: wp(3.9), //15
   caption: wp(3.2), //12
   overline: wp(2.6), //10
+
+  textInputPaddingVertical: Platform.select({
+    ios: wp(2.6),
+    android: undefined,
+  }),
 };
 
 export {Sizes};

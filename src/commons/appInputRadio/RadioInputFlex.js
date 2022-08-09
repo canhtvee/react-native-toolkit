@@ -2,9 +2,10 @@ import React from 'react';
 import {View, Text, StyleSheet} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
+
 import {AppTouchable} from '../appTouchable';
 
-export function RadioInput({
+export function RadioInputFlex({
   data,
   value,
   onValueChange,

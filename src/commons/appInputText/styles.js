@@ -1,4 +1,4 @@
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Sizes} from '../../utils';
 
 export const styles = StyleSheet.create({
@@ -13,9 +13,6 @@ export const styles = StyleSheet.create({
     flex: 1,
     fontSize: Sizes.regular,
     paddingHorizontal: Sizes.paddingLess,
-    paddingVertical: Platform.select({
-      ios: Sizes.padding,
-      android: undefined,
-    }),
+    paddingVertical: Sizes.textInputPaddingVertical,
   },
 });

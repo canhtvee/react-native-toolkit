@@ -1,43 +1,37 @@
 import React from 'react';
 import {Text} from 'react-native';
-import {launchImageLibrary} from 'react-native-image-picker';
+import {launchCamera} from 'react-native-image-picker';
 
-import {FetchApi, Sizes, useAppContext} from '../../utils';
+import {CONSTANTS, FetchApi, Sizes, useAppContext} from '../../utils';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-import {ImageInputSourceProps} from './types';
-
-export function ImageInputSourceGallery({
-  onCloseImagePicker,
-  setImageResource,
-}: ImageInputSourceProps) {
+export function ImageInputSourceCamera({onCloseImagePicker, setImageResource}) {
   const {Colors, Strings} = useAppContext();
 
   const onPress = async () => {
     onCloseImagePicker();
     try {
-      const {assets} = await launchImageLibrary({
+      const {assets} = await launchCamera({
         mediaType: 'photo',
         includeBase64: false,
       });
-      console.log('onPressLaunchGallery', assets);
+      console.log('onPressLanchCamera', assets);
       if (assets && assets.length) {
-        setImageResource({status: 'loading'});
+        setImageResource({status: CONSTANTS.STATUS.LOADING});
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
         });
-
         console.log('resultUpload', resultUpload);
         setImageResource({
-          status: 'loading',
+          status: CONSTANTS.STATUS.LOADING,
           data: {...assets[0], imageToServer: resultUpload?.data},
         });
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource({status: 'error'});
+      setImageResource({status: CONSTANTS.STATUS.ERROR});
     }
   };
 
@@ -53,13 +47,13 @@ export function ImageInputSourceGallery({
         padding: Sizes.padding,
         minWidth: Sizes.width(25),
       }}>
-      <AppIcon name={{feather: 'image'}} color={Colors.icon} size={Sizes.h4} />
+      <AppIcon name={'camera'} color={Colors.icon} size={Sizes.h4} />
       <Text
         style={{
           color: Colors.icon,
           fontSize: Sizes.regular,
         }}>
-        {Strings.Gallery}
+        {Strings.Camera}
       </Text>
     </AppTouchable>
   );

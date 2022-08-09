@@ -76,7 +76,7 @@ export function AppInputFieldArray({
         {secureTextEntry && (
           <AppIcon
             name={secure ? 'eye' : 'eye-off'}
-            iconContainerStyle={{paddingRight: Sizes.paddingLess2}}
+            iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
             onPress={() => setSecure(prev => !prev)}
           />
         )}

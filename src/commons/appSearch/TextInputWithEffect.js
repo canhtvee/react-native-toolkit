@@ -60,7 +60,7 @@ export function TextInputWithEffect({
         name={'search'}
         color={Colors.border}
         size={Sizes.subtitle}
-        iconStyle={{marginLeft: Sizes.paddingLess2}}
+        iconStyle={{marginLeft: Sizes.paddingLess1}}
       />
       <TextInput
         ref={inputRef}
@@ -84,7 +84,7 @@ export function TextInputWithEffect({
         <AppIcon
           name="closecircle"
           color={Colors.border}
-          iconContainerStyle={{paddingRight: Sizes.paddingLess2}}
+          iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
           onPress={() => setTextValue('')}
         />
       ) : null}
@@ -97,15 +97,12 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Sizes.regular,
     paddingHorizontal: Sizes.paddingLess,
-    paddingVertical: Platform.select({
-      ios: Sizes.paddingLess,
-      android: undefined,
-    }),
+    paddingVertical: Sizes.textInputPaddingVertical,
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: Sizes.borderWidth,
-    borderRadius: Sizes.borderRadius1,
+    borderRadius: Sizes.borderRadius,
   },
 });

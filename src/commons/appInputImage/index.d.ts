@@ -1,25 +1,10 @@
 import {StyleProp, TextStyle, ViewStyle} from 'react-native';
 import {ControllerRenderProps, UseControllerProps} from 'react-hook-form';
-import {ImageStyle} from 'react-native-fast-image';
-
-import {ResourceType} from '../../utils';
-import {AppImageRemoteProps} from '../appImage';
-
-export type ImageResourceType = ResourceType<unknown>;
-export interface ImageInputSourceProps {
-  onCloseImagePicker: () => void;
-  setImageResource: React.Dispatch<
-    React.SetStateAction<ImageResourceType | undefined>
-  >;
-}
+import {FastImageProps, ImageStyle} from 'react-native-fast-image';
 
 export interface ImageInputProps
-  extends Omit<AppImageRemoteProps, 'style' | 'source'>,
-    Pick<ControllerRenderProps, 'value' | 'onChange'>,
-    Omit<
-      ImageInputSourceProps,
-      'onChooseImage' | 'setIsLoading' | 'onCloseImagePicker'
-    > {
+  extends Omit<FastImageProps, 'style' | 'source'>,
+    Pick<ControllerRenderProps, 'value' | 'onChange'> {
   inputContainerStyle?: StyleProp<ImageStyle>;
   imageStyle?: StyleProp<ImageStyle>;
   showClearIcon?: boolean;

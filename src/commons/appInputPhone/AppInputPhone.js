@@ -1,15 +1,11 @@
-//import liraries
 import React from 'react';
-import {View, Omit, StyleProp, ViewStyle, TextStyle} from 'react-native';
-import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
+import {View} from 'react-native';
+import {Controller, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
 import {AppText} from '../appText';
 
-import {
-  ClearablePhoneInput,
-  ClearablePhoneInputProps,
-} from './ClearablePhoneInput';
+import {ClearablePhoneInput} from './ClearablePhoneInput';
 import {styles} from './styles';
 
 export function AppInputPhone({
@@ -33,7 +29,7 @@ export function AppInputPhone({
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{paddingBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -64,11 +60,12 @@ export function AppInputPhone({
                   ...textInputProps,
                 }}
                 textInputStyle={[styles.textIput, textInputStyle]}
-                textContainerStyle={{
-                  paddingVertical: 0,
-                  paddingHorizontal: Sizes.paddingLess,
-                  backgroundColor: Colors.background,
-                }}
+                textContainerStyle={[
+                  styles.textContainerStyle,
+                  {
+                    backgroundColor: Colors.background,
+                  },
+                ]}
                 containerStyle={{
                   flex: 1,
                 }}

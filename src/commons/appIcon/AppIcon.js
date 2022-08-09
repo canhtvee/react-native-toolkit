@@ -53,4 +53,7 @@ export const AppIconNames = {
   calendar: {feather: 'calendar'},
   search: {antDesign: 'search1'},
   'alert-triangle': {feather: 'alert-triangle'},
+  pluscircleo: {antDesign: 'pluscircleo'},
+  camera: {feather: 'camera'},
+  image: {feather: 'image'},
 };

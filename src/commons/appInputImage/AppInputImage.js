@@ -3,7 +3,6 @@ import {Text, View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppInputImageProps} from './types';
 import {ImageInput} from './ImageInput';
 
 export function AppInputImage({
@@ -14,7 +13,7 @@ export function AppInputImage({
   containerStyle,
   inputContainerStyle,
   ...imageInputProps
-}: AppInputImageProps) {
+}) {
   const {Colors} = useAppContext();
   const {errors} = useFormState({control, name});
 

@@ -3,7 +3,7 @@ import {StyleProp, ViewStyle, TextStyle} from 'react-native';
 export interface AppViewLoadingProps {
   loadingText?: string;
   loadingTextStyle?: StyleProp<TextStyle>;
-  containerStyle?: StyleProp<ViewStyle>;
+  loadingContainerStyle?: StyleProp<ViewStyle>;
   spinnerColor?: string;
   spinnerSize?: number;
 }

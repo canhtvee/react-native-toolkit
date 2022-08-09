@@ -17,7 +17,12 @@ export function AppViewLoading({
 }) {
   const {Colors} = useAppContext();
 
-  const _spinnerColor = spinnerColor || Colors.onBackground;
+  const _spinnerColor =
+    spinnerColor ||
+    Platform.select({
+      ios: Colors.onBackground,
+      android: Colors.primary,
+    });
   return (
     <View
       style={[
@@ -29,7 +34,7 @@ export function AppViewLoading({
         size={
           spinnerSize ||
           Platform.select({
-            ios: Sizes.button,
+            ios: 'small',
             android: Sizes.h4,
           })
         }

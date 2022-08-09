@@ -1,8 +1,7 @@
-import {Platform, StyleSheet} from 'react-native';
+import {StyleSheet} from 'react-native';
 import {Sizes} from '../../utils';
 
 export const styles = StyleSheet.create({
-  label: {paddingBottom: Sizes.paddingLess1, fontSize: Sizes.regular},
   inputContainer: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -11,15 +10,11 @@ export const styles = StyleSheet.create({
     borderRadius: Sizes.borderRadius1,
   },
   textIput: {
-    paddingVertical: Platform.select({
-      ios: Sizes.padding,
-      android: undefined,
-    }),
-
+    paddingVertical: Sizes.textInputPaddingVertical,
     fontSize: Sizes.regular,
   },
-  error: {
-    fontSize: Sizes.regular,
-    marginTop: Sizes.paddingLess2,
+  textContainerStyle: {
+    paddingVertical: 0,
+    paddingHorizontal: Sizes.paddingLess,
   },
 });

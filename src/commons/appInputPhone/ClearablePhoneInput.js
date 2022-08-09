@@ -45,7 +45,7 @@ export function ClearablePhoneInput({
           size={Sizes.regular}
           iconStyle={{color: Colors.placeholder}}
           iconContainerStyle={{
-            paddingRight: Sizes.paddingLess2,
+            paddingRight: Sizes.paddingLess1,
           }}
           onPress={() => {
             const _resetPhoneValue = value?.substring(

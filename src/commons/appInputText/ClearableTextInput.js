@@ -28,7 +28,7 @@ export function ClearableTextInput({
         <AppIcon
           name="closecircle"
           color={Colors.border}
-          iconContainerStyle={{paddingRight: Sizes.paddingLess2}}
+          iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
           onPress={() => onChangeText('')}
         />
       )}

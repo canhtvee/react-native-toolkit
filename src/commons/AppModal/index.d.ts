@@ -19,6 +19,8 @@ export type AppBottomSheetModalContextType = {
   onCloseModal?: () => void;
 };
 
+export declare function AppBottomSheetModal(): JSX.Element;
+
 /**
  *
  */
@@ -28,6 +30,6 @@ export interface AppBottomSheetModalTopBarProps {
   showIcon?: boolean;
 }
 
-export function AppBottomSheetModalTopBar(
+export declare function AppBottomSheetModalTopBar(
   props: AppBottomSheetModalTopBarProps,
 ): JSX.Element;

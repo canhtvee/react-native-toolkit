@@ -1,4 +1,3 @@
-//import liraries
 import React from 'react';
 import {View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';

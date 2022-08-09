@@ -1,12 +1,12 @@
 import React from 'react';
 import {StyleProp, ViewStyle} from 'react-native';
+import {AppViewLoadingProps} from '../appViewLoading';
 
 type EdgesType = 'lr' | 'lrt' | 'lrb' | 'lrtb';
 
-export interface AppContainerProps {
+export interface AppContainerProps extends AppViewLoadingProps {
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
-  loadingStyle?: StyleProp<ViewStyle>;
   edges?: EdgesType;
 }
 
