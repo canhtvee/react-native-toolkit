@@ -9,7 +9,7 @@ import {AppIcon} from '../appIcon';
 export function TextInputWithEffect({
   onChangeValue,
   value,
-  debounce = 0,
+  debounce = 200,
   inputStyle,
   containerStyle,
   onDebounce,

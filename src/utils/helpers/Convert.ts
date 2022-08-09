@@ -6,5 +6,5 @@ export function getStyleObject(style?: Array<object> | object) {
     return style;
   }
 
-  return undefined;
+  return {};
 }

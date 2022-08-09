@@ -8,6 +8,8 @@ import {CONSTANTS, FetchApi, Sizes, useAppContext} from '../../utils';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
+ImageInputSource = React.forwardRef(ImageInputSource);
+
 export function ImageInputSource({setImageResource}, ref) {
   const {Colors, Strings} = useAppContext();
   const bottomSheetRef = useRef(null);
@@ -71,6 +73,14 @@ export function ImageInputSource({setImageResource}, ref) {
     }
   };
 
+  const _styles = {
+    sourceContainer: {borderColor: Colors.border},
+    sourceTitle: {
+      color: Colors.icon,
+      fontSize: Sizes.regular,
+    },
+  };
+
   return (
     <BottomSheetModal
       ref={bottomSheetRef}
@@ -85,27 +95,17 @@ export function ImageInputSource({setImageResource}, ref) {
       snapPoints={['30%']}
       enablePanDownToClose>
       <View style={styles.container}>
-        <AppTouchable onPress={onPressCamera} style={styles.sourceContainer}>
-          <AppIcon name={'camera'} color={Colors.icon} size={Sizes.h4} />
-          <Text
-            style={{
-              color: Colors.icon,
-              fontSize: Sizes.regular,
-            }}>
-            {Strings.Camera}
-          </Text>
+        <AppTouchable
+          onPress={onPressCamera}
+          style={[styles.sourceContainer, _styles.sourceContainer]}>
+          <AppIcon name={'camera'} size={Sizes.h4} />
+          <Text style={_styles.sourceTitle}>{Strings.Camera}</Text>
         </AppTouchable>
         <AppTouchable
           onPress={onPressGallery}
-          style={[styles.sourceContainer, {borderColor: Colors.border}]}>
-          <AppIcon name={'image'} color={Colors.icon} size={Sizes.h4} />
-          <Text
-            style={{
-              color: Colors.icon,
-              fontSize: Sizes.regular,
-            }}>
-            {Strings.Gallery}
-          </Text>
+          style={[styles.sourceContainer, _styles.sourceContainer]}>
+          <AppIcon name={'image'} size={Sizes.h4} />
+          <Text style={_styles.sourceTitle}>{Strings.Gallery}</Text>
         </AppTouchable>
       </View>
     </BottomSheetModal>

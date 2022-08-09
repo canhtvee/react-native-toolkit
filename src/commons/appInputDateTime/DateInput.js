@@ -13,6 +13,7 @@ export function DateInput({
   textStyle,
   textContainerStyle,
   placeholder = 'YYYY年DD日MM月',
+  placeholderColor,
   mode = 'date',
   modal = true,
   locale = 'ja',
@@ -25,20 +26,40 @@ export function DateInput({
   const {Colors, Strings} = useAppContext();
   const [open, setOpen] = useState(false);
 
-  const _date = dayjs(value).isValid()
-    ? dayjs(value).format('YYYY/MM/DD')
-    : placeholder;
+  const renderDate = () => {
+    if (value) {
+      return (
+        <Text style={[styles.text, {color: Colors.text}, textStyle]}>
+          {dayjs(value).format('YYYY/MM/DD')}
+        </Text>
+      );
+    }
+
+    return (
+      <Text
+        style={[
+          styles.text,
+          textStyle,
+          {color: placeholderColor || Colors.placeholder},
+        ]}>
+        {placeholder}
+      </Text>
+    );
+  };
 
   return (
-    <View style={[textContainerStyle, styles.textContainer]}>
+    <View
+      style={[
+        styles.textContainer,
+        {borderColor: Colors.border},
+        textContainerStyle,
+      ]}>
       <AppTouchable
         onPress={() => {
           setOpen(true);
         }}
         style={{flexDirection: 'row'}}>
-        <Text style={[styles.text, {color: Colors.placeholder}, textStyle]}>
-          {_date}
-        </Text>
+        {renderDate()}
 
         {rightChild ? (
           rightChild
@@ -65,7 +86,7 @@ export function DateInput({
         minimumDate={minimumDate}
         mode={mode}
         open={open}
-        date={value || Date.now()}
+        date={value || new Date()}
         cancelText={Strings.cancel}
         title={null}
         confirmText={Strings.confirm}
@@ -86,15 +107,15 @@ const styles = StyleSheet.create({
   text: {
     flex: 1,
     fontSize: Sizes.regular,
-    paddingVertical: Sizes.width(3.6),
-    paddingHorizontal: Sizes.width(3),
+    paddingVertical: Sizes.padding,
+    paddingHorizontal: Sizes.paddingLess,
     justifyContent: 'space-between',
   },
   textContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    borderWidth: 0.5,
-    borderRadius: 5,
+    borderWidth: Sizes.borderWidth,
+    borderRadius: Sizes.borderRadius,
     justifyContent: 'space-between',
     overflow: 'hidden',
   },

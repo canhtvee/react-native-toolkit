@@ -66,7 +66,7 @@ const Sizes = {
   overline: wp(2.6), //10
 
   textInputPaddingVertical: Platform.select({
-    ios: wp(2.6),
+    ios: wp(3.2),
     android: undefined,
   }),
 };

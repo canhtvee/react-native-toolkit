@@ -1,4 +1,4 @@
-import {StyleProp, ViewStyle, TextStyle} from 'react-native';
+import {StyleProp, ViewStyle, TextStyle, ColorValue} from 'react-native';
 import {ControllerRenderProps, UseControllerProps} from 'react-hook-form';
 import {DatePickerProps} from 'react-native-date-picker';
 
@@ -8,6 +8,7 @@ export interface DateInputProps
   textContainerStyle?: StyleProp<ViewStyle>;
   textStyle?: StyleProp<ViewStyle>;
   placeholder?: string;
+  placeholderColor?: string | ColorValue;
   rightChild?: JSX.Element;
 }
 

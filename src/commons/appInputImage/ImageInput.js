@@ -1,6 +1,5 @@
 import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
-import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 
 import {CONSTANTS, Sizes, useAppContext} from '../../utils';
 
@@ -8,8 +7,7 @@ import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 import {AppImageRemote} from '../appImage';
 
-import {ImageInputSourceCamera} from './ImageInputSourceCamera';
-import {ImageInputSourceGallery} from './ImageInputSourceGallery';
+import {ImageInputSource} from './ImageInputSource';
 
 export function ImageInput({
   inputContainerStyle,
@@ -22,10 +20,7 @@ export function ImageInput({
 }) {
   const {Colors, Styles} = useAppContext();
   const [imageResource, setImageResource] = useState(null);
-  const bottomSheetRef = useRef(null);
-
-  const onOpenImagePicker = () => bottomSheetRef?.current?.present();
-  const onCloseImagePicker = () => bottomSheetRef?.current?.close();
+  const imageSourceRef = useRef(null);
 
   console.log('imageResource', imageResource);
   console.log('value', value);
@@ -43,7 +38,7 @@ export function ImageInput({
   return (
     <View style={inputContainerStyle}>
       <AppTouchable
-        onPress={onOpenImagePicker}
+        onPress={() => imageSourceRef.current.openModal()}
         disabled={imageResource?.status === CONSTANTS.STATUS.LOADING}>
         <AppImageRemote
           source={imageResource?.data}
@@ -96,35 +91,7 @@ export function ImageInput({
           onPress={() => setImageResource({})}
         />
       )}
-      <BottomSheetModal
-        ref={bottomSheetRef}
-        index={0}
-        backdropComponent={props => (
-          <BottomSheetBackdrop
-            {...props}
-            appearsOnIndex={0}
-            disappearsOnIndex={-1}
-          />
-        )}
-        snapPoints={['30%']}
-        enablePanDownToClose>
-        <View
-          style={{
-            flexDirection: 'row',
-            justifyContent: 'space-around',
-            alignItems: 'center',
-            paddingTop: Sizes.padding,
-          }}>
-          <ImageInputSourceCamera
-            setImageResource={setImageResource}
-            onCloseImagePicker={onCloseImagePicker}
-          />
-          <ImageInputSourceGallery
-            setImageResource={setImageResource}
-            onCloseImagePicker={onCloseImagePicker}
-          />
-        </View>
-      </BottomSheetModal>
+      <ImageInputSource ref={imageSourceRef} />
     </View>
   );
 }
