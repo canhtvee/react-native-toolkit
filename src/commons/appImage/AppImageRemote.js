@@ -1,13 +1,11 @@
 import React, {useEffect, useState} from 'react';
-import {View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {Constants, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
-
-import {styles} from './styles';
 
 const _getResizeMode = resizeMode => {
   switch (resizeMode) {
@@ -48,12 +46,6 @@ export function AppImageRemote({
       ? Constants.STATUS_LOADING
       : Constants.STATUS_ERROR,
   );
-
-  useEffect(() => {
-    if (isLoading) {
-      setImageStatus(Constants.STATUS_LOADING);
-    }
-  }, [isLoading]);
 
   useEffect(() => {
     setImageStatus(
@@ -104,3 +96,12 @@ export function AppImageRemote({
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+  image: {
+    width: 86,
+    height: 86,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+});
