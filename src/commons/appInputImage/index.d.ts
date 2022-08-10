@@ -25,3 +25,5 @@ export interface AppInputImageArrayProps
   fieldArrayItemIndex?: string;
   fieldArrayItemChildKey?: string;
 }
+
+export declare function AppInputImageArray(props: any): JSX.Element;

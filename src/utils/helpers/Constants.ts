@@ -1,8 +1,6 @@
-export const CONSTANTS = {
-  STATUS: {
-    LOADING: 'LOADING',
-    SUCCESSFUL: 'SUCCESSFUL',
-    ERROR: 'ERROR',
-    IDLE: 'IDLE',
-  },
+export const Constants = {
+  STATUS_LOADING: 'LOADING',
+  STATUS_SUCCESSFUL: 'SUCCESSFUL',
+  STATUS_ERROR: 'ERROR',
+  STATUS_IDLE: 'IDLE',
 };

@@ -48,35 +48,27 @@ export function DateInput({
   };
 
   return (
-    <View
-      style={[
-        styles.textContainer,
-        {borderColor: Colors.border},
-        textContainerStyle,
-      ]}>
+    <View>
       <AppTouchable
         onPress={() => {
           setOpen(true);
         }}
-        style={{flexDirection: 'row'}}>
+        style={[
+          styles.textContainer,
+          {borderColor: Colors.border},
+          textContainerStyle,
+        ]}>
         {renderDate()}
 
         {rightChild ? (
           rightChild
         ) : (
-          <View
-            style={[
-              styles.iconContainer,
-              {
-                backgroundColor: Colors.primary,
-              },
-            ]}>
-            <AppIcon
-              name={'arrow-down'}
-              size={Sizes.icon * 0.8}
-              color={Colors.onPrimary}
-            />
-          </View>
+          <AppIcon
+            name={'calendar'}
+            size={Sizes.icon}
+            color={Colors.placeholder}
+            iconStyle={{marginRight: Sizes.paddingLess1}}
+          />
         )}
       </AppTouchable>
 

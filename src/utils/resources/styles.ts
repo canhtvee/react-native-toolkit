@@ -1,9 +1,13 @@
+import {StyleSheet} from 'react-native';
 import {ColorsType} from './colors';
 import {Sizes} from './sizes';
-import {StyleSheet} from 'react-native';
+
+const styles = StyleSheet.create({
+  props: {},
+});
 
 export function getResourceStyles(Colors: ColorsType) {
-  return StyleSheet.create({
+  const _styles = {
     shadow: {
       shadowOffset: {width: 0, height: 1},
       shadowColor: Colors.icon,
@@ -18,6 +22,12 @@ export function getResourceStyles(Colors: ColorsType) {
       borderColor: Colors.border,
       overflow: 'hidden',
     },
+
+    circle: (radius: number) => ({
+      width: 2 * radius,
+      height: 2 * radius,
+      borderRadius: radius,
+    }),
 
     solidButtonContainer: {
       paddingVertical: Sizes.paddingLess,
@@ -40,7 +50,9 @@ export function getResourceStyles(Colors: ColorsType) {
     borderButtonLabel: {
       color: Colors.primary,
     },
-  });
+  };
+
+  return _styles;
 }
 
 export type StylesType = ReturnType<typeof getResourceStyles>;

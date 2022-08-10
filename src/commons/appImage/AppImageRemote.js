@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import {useAppContext} from '../../utils';
+import {Constants, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
@@ -31,7 +31,8 @@ const _isValidSource = source => {
 
 export function AppImageRemote({
   resizeMode,
-  style,
+  imageStyle,
+  imageContainerStyle,
   source,
   placeholder,
   spinnerColor,
@@ -43,45 +44,63 @@ export function AppImageRemote({
 }) {
   const {Colors} = useAppContext();
   const [imageStatus, setImageStatus] = useState(() =>
-    _isValidSource(source) ? 'loading' : 'error',
+    _isValidSource(source) || isLoading
+      ? Constants.STATUS_LOADING
+      : Constants.STATUS_ERROR,
   );
 
   useEffect(() => {
-    setImageStatus(_isValidSource(source) ? 'loading' : 'error');
+    if (isLoading) {
+      setImageStatus(Constants.STATUS_LOADING);
+    }
+  }, [isLoading]);
+
+  useEffect(() => {
+    setImageStatus(
+      _isValidSource(source)
+        ? Constants.STATUS_LOADING
+        : Constants.STATUS_ERROR,
+    );
   }, [source]);
 
-  if (imageStatus === 'loading' || imageStatus === 'successful' || isLoading) {
+  if (imageStatus === Constants.STATUS_ERROR) {
     return (
+      <View style={imageContainerStyle}>
+        {placeholder ? (
+          placeholder
+        ) : (
+          <AppIcon name={'alert-triangle'} size={24} />
+        )}
+      </View>
+    );
+  }
+
+  return (
+    <View style={imageContainerStyle}>
       <FastImage
-        style={[styles.image, style]}
+        style={[styles.image, imageStyle]}
         source={source}
         resizeMode={_getResizeMode(resizeMode)}
         onLoad={() => {
-          setImageStatus('successful');
+          setImageStatus(Constants.STATUS_SUCCESSFUL);
           onSuccess && onSuccess();
         }}
         onError={() => {
-          setImageStatus('error');
+          setImageStatus(Constants.STATUS_ERROR);
           onError && onError();
         }}
         {...imageProps}>
-        {(imageStatus === 'loading' || isLoading) && (
+        {imageStatus === Constants.STATUS_LOADING && (
           <AppViewLoading
             spinnerSize={spinnerSize}
-            spinnerColor={spinnerColor}
-            containerStyle={[{backgroundColor: Colors.hover}, style]}
+            spinnerColor={spinnerColor || Colors.onBackground}
+            containerStyle={[
+              {backgroundColor: Colors.withAlpha(Colors.background, '20%')},
+              imageStyle,
+            ]}
           />
         )}
       </FastImage>
-    );
-  }
-  return (
-    <View style={[styles.image, style]}>
-      {placeholder ? (
-        placeholder
-      ) : (
-        <AppIcon name={'alert-triangle'} size={24} />
-      )}
     </View>
   );
 }

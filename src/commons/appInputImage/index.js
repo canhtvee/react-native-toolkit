@@ -1,1 +1,2 @@
-export * from './AppInputImage';
+export * from './avatar';
+export * from './imageArray';

@@ -1,5 +1,5 @@
-import {ImageProps} from 'react-native';
-import {FastImageProps, Priority} from 'react-native-fast-image';
+import {ImageProps, StyleProp, ViewStyle} from 'react-native';
+import {FastImageProps, ImageStyle, Priority} from 'react-native-fast-image';
 import {ResourceImageNameType} from '../../utils';
 
 export interface AppImageLocalProps extends Omit<ImageProps, 'source'> {
@@ -18,12 +18,14 @@ export type AppImageRemoteSourceType = {
 };
 
 export interface AppImageRemoteProps
-  extends Omit<FastImageProps, 'source' | 'onLoad' | 'onError'> {
+  extends Omit<FastImageProps, 'source' | 'onLoad' | 'onError' | 'style'> {
   source: AppImageRemoteSourceType;
   spinnerSize?: number;
   spinnerColor?: string;
   placeholder?: JSX.Element;
   isLoading?: boolean;
+  imageStyle?: StyleProp<ImageStyle>;
+  imageContainerStyle?: StyleProp<ViewStyle>;
   onSuccess?: () => void;
   onError?: () => void;
 }

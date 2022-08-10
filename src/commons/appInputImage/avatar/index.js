@@ -1,20 +1,20 @@
 import React from 'react';
-import {Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import {Controller, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../utils';
-import {ImageInput} from './ImageInput';
+import {Sizes, useAppContext} from '../../../utils';
 
-export function AppInputImage({
+import {ImageInputAvatar} from './ImageInputAvatar';
+
+export function AppInputImageAvatar({
   control,
   name,
   rules,
-  errorStyle,
   containerStyle,
-  inputContainerStyle,
+  imageContainerStyle,
   ...imageInputProps
 }) {
-  const {Colors} = useAppContext();
+  const {Colors, Styles} = useAppContext();
   const {errors} = useFormState({control, name});
 
   return (
@@ -24,31 +24,18 @@ export function AppInputImage({
         control={control}
         rules={rules}
         render={({field: {onChange, value}}) => (
-          <ImageInput
+          <ImageInputAvatar
             value={value}
             onChange={onChange}
             {...imageInputProps}
             inputContainerStyle={[
               {borderColor: Colors.border},
-              inputContainerStyle,
+              imageContainerStyle,
             ]}
+            imageStyle={Styles.circle(Sizes.width(20))}
           />
         )}
       />
-
-      {errors[name] && errors[name].message && (
-        <Text
-          style={[
-            {
-              color: Colors.error,
-              paddingTop: Sizes.paddingLess1,
-              fontSize: Sizes.regular,
-            },
-            errorStyle,
-          ]}>
-          {errors[name].message}
-        </Text>
-      )}
     </View>
   );
 }

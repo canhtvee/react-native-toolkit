@@ -3,7 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 
-import {CONSTANTS, FetchApi, Sizes, useAppContext} from '../../utils';
+import {Constants, FetchApi, Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
@@ -29,20 +29,20 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLanchCamera', assets);
       if (assets && assets.length) {
-        setImageResource({status: CONSTANTS.STATUS.LOADING});
+        setImageResource({status: Constants.STATUS_LOADING});
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
         });
         console.log('resultUpload', resultUpload);
         setImageResource({
-          status: CONSTANTS.STATUS.LOADING,
+          status: Constants.STATUS_LOADING,
           data: {...assets[0], imageToServer: resultUpload?.data},
         });
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource({status: CONSTANTS.STATUS.ERROR});
+      setImageResource({status: Constants.STATUS_ERROR});
     }
   };
 
@@ -55,7 +55,7 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLaunchGallery', assets);
       if (assets && assets.length) {
-        setImageResource({status: CONSTANTS.STATUS.LOADING});
+        setImageResource({status: Constants.STATUS_LOADING});
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
@@ -63,20 +63,21 @@ export function ImageInputSource({setImageResource}, ref) {
 
         console.log('resultUpload', resultUpload);
         setImageResource({
-          status: CONSTANTS.STATUS.LOADING,
+          status: Constants.STATUS_LOADING,
           data: {...assets[0], imageToServer: resultUpload?.data},
         });
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource({status: CONSTANTS.STATUS.ERROR});
+      setImageResource({status: Constants.STATUS_ERROR});
     }
   };
 
   const _styles = {
     sourceContainer: {borderColor: Colors.border},
     sourceTitle: {
-      color: Colors.icon,
+      color: Colors.border,
+      paddingTop: Sizes.padding,
       fontSize: Sizes.regular,
     },
   };
@@ -98,14 +99,14 @@ export function ImageInputSource({setImageResource}, ref) {
         <AppTouchable
           onPress={onPressCamera}
           style={[styles.sourceContainer, _styles.sourceContainer]}>
-          <AppIcon name={'camera'} size={Sizes.h4} />
-          <Text style={_styles.sourceTitle}>{Strings.Camera}</Text>
+          <AppIcon name={'camera'} size={Sizes.h4} color={Colors.border} />
+          <Text style={_styles.sourceTitle}>{Strings.camera}</Text>
         </AppTouchable>
         <AppTouchable
           onPress={onPressGallery}
           style={[styles.sourceContainer, _styles.sourceContainer]}>
-          <AppIcon name={'image'} size={Sizes.h4} />
-          <Text style={_styles.sourceTitle}>{Strings.Gallery}</Text>
+          <AppIcon name={'image'} size={Sizes.h4} color={Colors.border} />
+          <Text style={_styles.sourceTitle}>{Strings.gallery}</Text>
         </AppTouchable>
       </View>
     </BottomSheetModal>

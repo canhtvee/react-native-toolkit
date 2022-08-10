@@ -42,7 +42,7 @@ export function AppViewLoading({
       />
       {!!loadingText && (
         <Text style={[loadingTextStyle, {color: _spinnerColor}]}>
-          {loadingText}
+          {loadingText || 'Loading'}
         </Text>
       )}
     </View>

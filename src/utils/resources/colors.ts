@@ -1,6 +1,10 @@
-const _addAlpha = (color: string, opacity: number): string => {
+type AlphaType = '10%' | '20%' | '38%' | '54%' | '87%';
+
+const _addAlpha = (color: string, opacity: AlphaType): string => {
   // coerce values so ti is between 0 and 1.
-  const _opacity = Math.round(Math.min(Math.max(opacity || 1, 0), 1) * 255);
+  const _opacity = Math.round(
+    Math.min(Math.max(parseFloat(opacity) / 100 || 1, 0), 1) * 255,
+  );
   return color + _opacity.toString(16).toUpperCase();
 };
 
@@ -40,11 +44,12 @@ const ColorsLight = {
 
   text: Palette.black,
 
-  placeholder: _addAlpha(Palette.black, 0.38),
-  border: _addAlpha(Palette.black, 0.54),
-  icon: _addAlpha(Palette.black, 0.87),
-  hover: _addAlpha(Palette.black, 0.16),
-  ripple: _addAlpha(Palette.black, 0.1),
+  placeholder: _addAlpha(Palette.black, '38%'),
+  border: _addAlpha(Palette.black, '54%'),
+  icon: _addAlpha(Palette.black, '87%'),
+  hover: _addAlpha(Palette.black, '20%'),
+  ripple: _addAlpha(Palette.black, '10%'),
+  withAlpha: (color: string, alpha: AlphaType) => _addAlpha(color, alpha),
 };
 
 const ColorsDark = {
@@ -65,11 +70,12 @@ const ColorsDark = {
 
   text: Palette.black,
 
-  placeholder: _addAlpha(Palette.black, 0.38),
-  border: _addAlpha(Palette.black, 0.54),
-  icon: _addAlpha(Palette.black, 0.87),
-  hover: _addAlpha(Palette.black, 0.16),
-  ripple: _addAlpha(Palette.black, 0.1),
+  placeholder: _addAlpha(Palette.black, '38%'),
+  border: _addAlpha(Palette.black, '54%'),
+  icon: _addAlpha(Palette.black, '87%'),
+  hover: _addAlpha(Palette.black, '20%'),
+  ripple: _addAlpha(Palette.black, '10%'),
+  withAlpha: (color: string, alpha: AlphaType) => _addAlpha(color, alpha),
 };
 
 export type ThemCodeType = 'dark' | 'light' | 'system-default';

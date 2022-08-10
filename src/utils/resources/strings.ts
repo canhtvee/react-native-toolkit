@@ -4,6 +4,8 @@ const StringsEnglish = {
   cancel: 'Cancel',
   ok: 'Ok',
   successful: 'Successful',
+  gallery: 'Gallery',
+  camera: 'Camera',
 };
 const StringsVietnamese = {
   AppIntro_next: 'Next',
