@@ -1,17 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {Image} from 'react-native';
-import {View} from 'react-native';
+import {Image, View} from 'react-native';
+import FastImage from 'react-native-fast-image';
 
 import {
   Constants,
   getResourceImage,
   Sizes,
-  useAppAccount,
   useAppContext,
 } from '../../../utils';
 
-import {AppAsyncImage} from '../../appImage';
 import {AppTouchable} from '../../appTouchable';
+import {AppViewLoading} from '../../appViewLoading';
 
 import {ImageInputSource} from '../ImageInputSource';
 
@@ -43,23 +42,16 @@ export function ImageInputAvatar({
       <AppTouchable
         onPress={() => imageSourceRef.current.openModal()}
         disabled={imageResource?.status === Constants.STATUS_LOADING}>
-        <AppAsyncImage
+        <FastImage
           source={imageResource?.data}
-          placeholder={
-            <Image
-              source={getResourceImage('default_avatar')}
-              resizeMode={'contain'}
-              style={{flex: 1}}
-            />
-          }
           isLoading={imageResource?.status === Constants.STATUS_LOADING}
-          onLoadSuccess={() =>
+          onLoad={() =>
             setImageResource(prev => ({
               ...prev,
               status: Constants.STATUS_SUCCESSFUL,
             }))
           }
-          onLoadError={() =>
+          onError={() =>
             setImageResource(prev => ({
               ...prev,
               status: Constants.STATUS_ERROR,
@@ -69,10 +61,13 @@ export function ImageInputAvatar({
             Styles.circle(Sizes.width(20)),
             {borderWidth: Sizes.borderWidth, borderColor: Colors.border},
           ]}
-          {...imageProps}
-        />
+          {...imageProps}>
+          {imageResource?.status === Constants.STATUS_ERROR && (
+            <Image source={getResourceImage('default_avatar')} />
+          )}
+        </FastImage>
       </AppTouchable>
-
+      {imageResource === Constants.STATUS_LOADING && <AppViewLoading overlay />}
       <ImageInputSource
         setImageResource={setImageResource}
         ref={imageSourceRef}
