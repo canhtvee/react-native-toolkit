@@ -29,20 +29,28 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLanchCamera', assets);
       if (assets && assets.length) {
-        setImageResource({status: Constants.STATUS_LOADING});
+        setImageResource(prev => ({
+          ...prev,
+          status: Constants.STATUS_LOADING,
+        }));
+
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
         });
         console.log('resultUpload', resultUpload);
-        setImageResource({
-          status: Constants.STATUS_LOADING,
+        setImageResource(prev => ({
+          ...prev,
           data: {...assets[0], imageToServer: resultUpload?.data},
-        });
+        }));
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource({status: Constants.STATUS_ERROR});
+
+      setImageResource(prev => ({
+        ...prev,
+        status: Constants.STATUS_ERROR,
+      }));
     }
   };
 
@@ -55,21 +63,29 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLaunchGallery', assets);
       if (assets && assets.length) {
-        setImageResource({status: Constants.STATUS_LOADING});
+        setImageResource(prev => ({
+          ...prev,
+          status: Constants.STATUS_LOADING,
+        }));
+
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
         });
 
         console.log('resultUpload', resultUpload);
-        setImageResource({
-          status: Constants.STATUS_LOADING,
+
+        setImageResource(prev => ({
+          ...prev,
           data: {...assets[0], imageToServer: resultUpload?.data},
-        });
+        }));
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource({status: Constants.STATUS_ERROR});
+      setImageResource(prev => ({
+        ...prev,
+        status: Constants.STATUS_ERROR,
+      }));
     }
   };
 

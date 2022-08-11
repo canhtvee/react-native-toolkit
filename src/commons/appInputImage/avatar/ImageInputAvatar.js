@@ -1,9 +1,16 @@
 import React, {useEffect, useRef, useState} from 'react';
+import {Image} from 'react-native';
 import {View} from 'react-native';
 
-import {Constants, useAppContext} from '../../../utils';
+import {
+  Constants,
+  getResourceImage,
+  Sizes,
+  useAppAccount,
+  useAppContext,
+} from '../../../utils';
 
-import {AppImageRemote} from '../../appImage';
+import {AppAsyncImage} from '../../appImage';
 import {AppTouchable} from '../../appTouchable';
 
 import {ImageInputSource} from '../ImageInputSource';
@@ -12,10 +19,9 @@ export function ImageInputAvatar({
   imageContainerStyle,
   onChange,
   value,
-  imageStyle,
   ...imageProps
 }) {
-  const {Colors, Styles} = useAppContext();
+  const {Styles, Colors} = useAppContext();
   const [imageResource, setImageResource] = useState(null);
   const imageSourceRef = useRef(null);
 
@@ -37,23 +43,32 @@ export function ImageInputAvatar({
       <AppTouchable
         onPress={() => imageSourceRef.current.openModal()}
         disabled={imageResource?.status === Constants.STATUS_LOADING}>
-        <AppImageRemote
+        <AppAsyncImage
           source={imageResource?.data}
-          placeholder={null}
+          placeholder={
+            <Image
+              source={getResourceImage('default_avatar')}
+              resizeMode={'contain'}
+              style={{flex: 1}}
+            />
+          }
           isLoading={imageResource?.status === Constants.STATUS_LOADING}
-          onSuccess={() =>
+          onLoadSuccess={() =>
             setImageResource(prev => ({
               ...prev,
               status: Constants.STATUS_SUCCESSFUL,
             }))
           }
-          onError={() =>
+          onLoadError={() =>
             setImageResource(prev => ({
               ...prev,
               status: Constants.STATUS_ERROR,
             }))
           }
-          style={[Styles.border, imageStyle]}
+          imageStyle={[
+            Styles.circle(Sizes.width(20)),
+            {borderWidth: Sizes.borderWidth, borderColor: Colors.border},
+          ]}
           {...imageProps}
         />
       </AppTouchable>

@@ -3,7 +3,10 @@ import {ColorsType} from './colors';
 import {Sizes} from './sizes';
 
 const styles = StyleSheet.create({
-  props: {},
+  props: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
 });
 
 export function getResourceStyles(Colors: ColorsType) {
@@ -23,11 +26,17 @@ export function getResourceStyles(Colors: ColorsType) {
       overflow: 'hidden',
     },
 
-    circle: (radius: number) => ({
-      width: 2 * radius,
-      height: 2 * radius,
-      borderRadius: radius,
-    }),
+    circle: (radiusToWidth: number) => {
+      const _radius = Sizes.width(radiusToWidth);
+      return {
+        width: 2 * _radius,
+        height: 2 * _radius,
+        borderRadius: _radius,
+        overflow: 'hidden',
+        justifyContent: 'center',
+        alignItems: 'center',
+      };
+    },
 
     solidButtonContainer: {
       paddingVertical: Sizes.paddingLess,

@@ -1,16 +1,17 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {useForm} from 'react-hook-form';
-import {Playground} from '../Playground';
+import {AppTextTouchable} from '../../commons';
 
 export function AppIntro() {
   return (
     <View
       style={{
         flex: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
       }}>
-      <Playground />
+      <AppTextTouchable>AppIntro</AppTextTouchable>
     </View>
   );
 }

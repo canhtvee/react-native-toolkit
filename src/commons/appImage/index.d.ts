@@ -1,33 +1,20 @@
-import {ImageProps, StyleProp, ViewStyle} from 'react-native';
-import {FastImageProps, ImageStyle, Priority} from 'react-native-fast-image';
-import {ResourceImageNameType} from '../../utils';
+import {StyleProp, ViewStyle} from 'react-native';
+import {FastImageProps, ImageStyle, Source} from 'react-native-fast-image';
 
-export interface AppImageLocalProps extends Omit<ImageProps, 'source'> {
-  name: ResourceImageNameType;
-}
+export type AppAsyncImageSourceType = Source | number;
 
-export declare function AppImageLocal(props: AppImageLocalProps): JSX.Element;
-
-export type AppImageRemoteSourceType = {
-  uri?: string;
-  headers?: {
-    [key: string]: string;
-  };
-  priority?: Priority;
-  cache?: 'immutable' | 'web' | 'cacheOnly';
-};
-
-export interface AppImageRemoteProps
+export interface AppAsyncImageProps
   extends Omit<FastImageProps, 'source' | 'onLoad' | 'onError' | 'style'> {
-  source: AppImageRemoteSourceType;
+  source: AppAsyncImageSourceType;
   spinnerSize?: number;
   spinnerColor?: string;
+  loadingContainerStyle?: StyleProp<ViewStyle>;
   placeholder?: JSX.Element;
   isLoading?: boolean;
   imageStyle?: StyleProp<ImageStyle>;
-  imageContainerStyle?: StyleProp<ViewStyle>;
-  onSuccess?: () => void;
-  onError?: () => void;
+  onLoadStart?: () => void;
+  onLoadSuccess?: () => void;
+  onLoadError?: () => void;
 }
 
-export declare function AppImageRemote(props: AppImageRemoteProps): JSX.Element;
+export declare function AppAsyncImage(props: AppAsyncImageProps): JSX.Element;

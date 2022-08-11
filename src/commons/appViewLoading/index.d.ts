@@ -1,11 +1,11 @@
-import {StyleProp, ViewStyle, TextStyle} from 'react-native';
+import {StyleProp, TextStyle} from 'react-native';
 
 export interface AppViewLoadingProps {
   loadingText?: string;
   loadingTextStyle?: StyleProp<TextStyle>;
-  loadingContainerStyle?: StyleProp<ViewStyle>;
   spinnerColor?: string;
   spinnerSize?: number;
+  overlay?: boolean;
 }
 
 export declare function AppViewLoading(props: AppViewLoadingProps): JSX.Element;

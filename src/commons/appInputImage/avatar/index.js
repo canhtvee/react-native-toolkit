@@ -32,7 +32,6 @@ export function AppInputImageAvatar({
               {borderColor: Colors.border},
               imageContainerStyle,
             ]}
-            imageStyle={Styles.circle(Sizes.width(20))}
           />
         )}
       />

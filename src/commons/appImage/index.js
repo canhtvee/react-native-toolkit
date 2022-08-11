@@ -1,2 +1,1 @@
-export * from './AppImageLocal';
-export * from './AppImageRemote';
+export * from './AppAsyncImage';

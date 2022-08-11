@@ -10,7 +10,7 @@ export interface ImageInputProps
   showClearIcon?: boolean;
 }
 
-export interface AppInputImageProps
+export interface AppInputImageAvatarProps
   extends UseControllerProps,
     Omit<ImageInputProps, 'value' | 'onChange'> {
   containerStyle?: StyleProp<ViewStyle>;
@@ -27,3 +27,4 @@ export interface AppInputImageArrayProps
 }
 
 export declare function AppInputImageArray(props: any): JSX.Element;
+export declare function AppInputImageAvatar(props: any): JSX.Element;

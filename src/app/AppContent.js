@@ -38,6 +38,10 @@ export function AppContent() {
                 headerShown: false,
               }}>
               <StackRoot.Screen
+                name={AppScreens.Playground.name}
+                component={AppScreens.Playground}
+              />
+              <StackRoot.Screen
                 name={AppScreens.AppIntro.name}
                 component={AppScreens.AppIntro}
               />

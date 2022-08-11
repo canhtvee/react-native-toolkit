@@ -2,7 +2,7 @@ import React from 'react';
 
 import {render, cleanup} from '@testing-library/react-native';
 
-import {AppImageRemote} from './AppImageRemote';
+import {AppAsyncImage} from './AppAsyncImage';
 import {AppContextProvider} from '../../utils';
 
 /**
@@ -16,7 +16,7 @@ describe('AppImageRemote', () => {
   test('should render correctly', () => {
     const tree = render(
       <AppContextProvider>
-        <AppImageRemote
+        <AppAsyncImage
           source={{
             uri: 'https://i.pinimg.com/564x/7c/93/2e/7c932e5fc8a86804082cd22203455f8f.jpg',
           }}
