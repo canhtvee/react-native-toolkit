@@ -123,6 +123,7 @@ export function ImageAvatarSource({setImageResource}, ref) {
           <AppIcon name={'camera'} size={Sizes.h4} color={Colors.icon} />
           <Text style={_styles.sourceTitle}>{Strings.camera}</Text>
         </AppTouchable>
+
         <AppTouchable
           onPress={onPressGallery}
           style={[styles.sourceContainer, _styles.sourceContainer]}>

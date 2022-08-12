@@ -28,7 +28,9 @@ export function ImageInputField({
   console.log('ImageInputField-imageStatus', imageStatus);
   return (
     <View style={styles.imageContainer}>
-      <AppTouchable onPress={onOpenSource}>
+      <AppTouchable
+        onPress={onOpenSource}
+        disabled={imageStatus === Status.LOAD_SUCCESSFUL}>
         <FastImage
           source={source}
           onLoad={() => {
