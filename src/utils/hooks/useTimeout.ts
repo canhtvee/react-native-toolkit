@@ -1,6 +1,6 @@
 import React from 'react';
 
-export function useTimeoutSession() {
+export function useTimeout() {
   const timeoutRef = React.useRef<NodeJS.Timeout | null | undefined>();
 
   const setTimeoutSession = (callback: (args: void) => void, ms?: number) => {

@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet, View} from 'react-native';
+import {StyleSheet} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
 import {Constants, useAppContext} from '../../utils';
@@ -19,7 +19,6 @@ const getResizeMode = resizeMode => {
 export function AppAsyncImage({
   resizeMode,
   imageStyle,
-  loadingContainerStyle,
   source,
   placeholder,
   spinnerColor,
@@ -38,18 +37,6 @@ export function AppAsyncImage({
   useEffect(() => {
     setImageStatus(source ? Constants.STATUS_LOADING : Constants.STATUS_ERROR);
   }, [source]);
-
-  if (imageStatus === Constants.STATUS_ERROR) {
-    return (
-      <View style={[styles.image, imageStyle]}>
-        {placeholder ? (
-          placeholder
-        ) : (
-          <AppIcon name={'alert-triangle'} size={24} />
-        )}
-      </View>
-    );
-  }
 
   return (
     <FastImage
@@ -85,6 +72,12 @@ export function AppAsyncImage({
           ]}
         />
       )}
+      {imageStatus === Constants.STATUS_ERROR &&
+        (placeholder ? (
+          placeholder
+        ) : (
+          <AppIcon name={'alert-triangle'} size={24} />
+        ))}
     </FastImage>
   );
 }

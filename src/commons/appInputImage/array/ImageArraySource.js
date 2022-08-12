@@ -3,14 +3,16 @@ import {Text, View, StyleSheet} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 
-import {Constants, FetchApi, Sizes, useAppContext} from '../../utils';
+import {FetchApi, Sizes, useAppContext} from '../../../utils';
 
-import {AppIcon} from '../appIcon';
-import {AppTouchable} from '../appTouchable';
+import {AppIcon} from '../../appIcon';
+import {AppTouchable} from '../../appTouchable';
 
-ImageInputSource = React.forwardRef(ImageInputSource);
+import {Status} from '../modules';
 
-export function ImageInputSource({setImageResource}, ref) {
+ImageArraySource = React.forwardRef(ImageArraySource);
+
+export function ImageArraySource({setImageResourceStatus, append}, ref) {
   const {Colors, Strings} = useAppContext();
   const bottomSheetRef = useRef(null);
 
@@ -29,28 +31,22 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLanchCamera', assets);
       if (assets && assets.length) {
-        setImageResource(prev => ({
-          ...prev,
-          status: Constants.STATUS_LOADING,
-        }));
+        setImageResourceStatus(Status.UPLOADING);
 
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
           name: assets[0].fileName,
         });
         console.log('resultUpload', resultUpload);
-        setImageResource(prev => ({
-          ...prev,
-          data: {...assets[0], imageToServer: resultUpload?.data},
-        }));
+
+        setImageResourceStatus(Status.UPLOAD_SUCCESSUL);
+
+        append({item: {...assets[0], imageToServer: resultUpload?.data}});
       }
     } catch (error) {
       console.log('error', error);
 
-      setImageResource(prev => ({
-        ...prev,
-        status: Constants.STATUS_ERROR,
-      }));
+      setImageResourceStatus(Status.UPLOAD_FAILED);
     }
   };
 
@@ -63,10 +59,7 @@ export function ImageInputSource({setImageResource}, ref) {
       });
       console.log('onPressLaunchGallery', assets);
       if (assets && assets.length) {
-        setImageResource(prev => ({
-          ...prev,
-          status: Constants.STATUS_LOADING,
-        }));
+        setImageResourceStatus(Status.UPLOADING);
 
         const resultUpload = await FetchApi.uploadFile({
           uri: assets[0].uri,
@@ -75,24 +68,20 @@ export function ImageInputSource({setImageResource}, ref) {
 
         console.log('resultUpload', resultUpload);
 
-        setImageResource(prev => ({
-          ...prev,
-          data: {...assets[0], imageToServer: resultUpload?.data},
-        }));
+        setImageResourceStatus(Status.UPLOAD_SUCCESSUL);
+
+        append({item: {...assets[0], imageToServer: resultUpload?.data}});
       }
     } catch (error) {
       console.log('error', error);
-      setImageResource(prev => ({
-        ...prev,
-        status: Constants.STATUS_ERROR,
-      }));
+      setImageResourceStatus(Status.UPLOAD_FAILED);
     }
   };
 
   const _styles = {
     sourceContainer: {borderColor: Colors.border},
     sourceTitle: {
-      color: Colors.border,
+      color: Colors.icon,
       paddingTop: Sizes.padding,
       fontSize: Sizes.regular,
     },
@@ -115,13 +104,13 @@ export function ImageInputSource({setImageResource}, ref) {
         <AppTouchable
           onPress={onPressCamera}
           style={[styles.sourceContainer, _styles.sourceContainer]}>
-          <AppIcon name={'camera'} size={Sizes.h4} color={Colors.border} />
+          <AppIcon name={'camera'} size={Sizes.h4} color={Colors.icon} />
           <Text style={_styles.sourceTitle}>{Strings.camera}</Text>
         </AppTouchable>
         <AppTouchable
           onPress={onPressGallery}
           style={[styles.sourceContainer, _styles.sourceContainer]}>
-          <AppIcon name={'image'} size={Sizes.h4} color={Colors.border} />
+          <AppIcon name={'image'} size={Sizes.h4} color={Colors.icon} />
           <Text style={_styles.sourceTitle}>{Strings.gallery}</Text>
         </AppTouchable>
       </View>

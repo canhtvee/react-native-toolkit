@@ -46,7 +46,12 @@ export function AppViewLoading({
             color={_spinnerColor}
           />
           {!!loadingText && (
-            <Text style={[loadingTextStyle, {color: _spinnerColor}]}>
+            <Text
+              style={[
+                styles.overlayText,
+                loadingTextStyle,
+                {color: _spinnerColor},
+              ]}>
               {loadingText || 'Loading'}
             </Text>
           )}
@@ -90,5 +95,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
+  },
+  overlayText: {
+    marginTop: Sizes.padding,
   },
 });

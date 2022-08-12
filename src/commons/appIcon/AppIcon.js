@@ -9,6 +9,7 @@ export function AppIcon({
   iconStyle,
   iconContainerStyle,
   onPress,
+  disabled,
   activeOpacity,
   hitSlop = true,
   name,
@@ -19,6 +20,7 @@ export function AppIcon({
   if (onPress) {
     return (
       <AppTouchable
+        disabled={disabled}
         hitSlop={hitSlop}
         style={iconContainerStyle}
         onPress={onPress}
@@ -56,4 +58,5 @@ export const AppIconNames = {
   pluscircleo: {antDesign: 'pluscircleo'},
   camera: {feather: 'camera'},
   image: {feather: 'image'},
+  'edit-avatar': {feather: 'edit'},
 };

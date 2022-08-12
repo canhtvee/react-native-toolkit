@@ -43,7 +43,10 @@ export interface VectorIconProps {
 export type AppIconNamesType = keyof typeof AppIconNames;
 export interface AppIconProps
   extends Omit<VectorIconProps, 'style' | 'name'>,
-    Omit<AppTouchableProps, 'style'> {
+    Pick<
+      AppTouchableProps,
+      'onPress' | 'disabled' | 'hitSlop' | 'activeOpacity'
+    > {
   iconStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
   name: AppIconNamesType;

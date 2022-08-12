@@ -5,15 +5,13 @@ import {
   AppAsyncImage,
   AppButtonNormal,
   AppContainer,
+  AppIcon,
+  AppInputImageArray,
   AppInputImageAvatar,
   AppViewLoading,
+  VectorIcon,
 } from '../../commons';
-import {
-  getResourceImage,
-  Sizes,
-  useAppContext,
-  useTimeoutSession,
-} from '../../utils';
+import {getResourceImage, Sizes, useAppContext} from '../../utils';
 import {useForm} from 'react-hook-form';
 import {Modal} from 'react-native';
 
@@ -22,56 +20,20 @@ const _space = <View style={{height: Sizes.padding}} />;
 export function Playground() {
   const {Styles, Colors} = useAppContext();
   const [state, setState] = useState(false);
-  const {control} = useForm();
-  const setTimeoutSession = useTimeoutSession();
+  const {control, handleSubmit} = useForm();
 
   const ref = useRef(1);
 
-  // useEffect(() => {
-  //   if (state) {
-  //     setTimeoutSession(() => setState(false), 2000);
-  //   }
-  // }, [state]);
-
-  console.log('___________________');
-  console.log('render-ref', ref.current);
-  console.log('render-state', state);
-  console.log('___________________');
-
   return (
     <AppContainer style={{padding: Sizes.padding * 2}}>
-      {/* <AppAsyncImage
-        imageStyle={[Styles.border, Styles.circle(20), {marginHorizontal: 50}]}
-        source={
-          state
-            ? getResourceImage('app_logo')
-            : {
-                uri: 'https://i.pinimg.com/550x/eb/02/1e/eb021ed07264eb50ca83d1606f9ee58b.jpgd',
-              }
-        }
-      /> */}
-
+      <AppInputImageArray control={control} name={'avatar'} />
       {_space}
-
       <AppButtonNormal
-        label={'Change'}
+        label={'Submit'}
         containerStyle={Styles.solidButtonContainer}
-        onPress={() => {
-          setState(prev => !prev);
-          ref.current = ref.current + 1;
-          console.log('onPress-ref', ref.current);
-          console.log('onPress-state', state);
-        }}
+        onPress={handleSubmit(data => console.log('form', data))}
       />
       {_space}
-      {/* 
-      {state && (
-        <AppViewLoading
-          overlay
-          loadingText="Uploading..."
-          loadingTextStyle={{marginTop: Sizes.paddingLess2}}
-        />
-      )} */}
     </AppContainer>
   );
 }
