@@ -8,7 +8,7 @@ import {
 const navigationRef: React.Ref<NavigationContainerRef<any>> = React.createRef();
 
 const NavigationService = {
-  navigate: (name: string, params: object) => {
+  navigate: (name: string, params?: object) => {
     navigationRef.current?.navigate(name, params);
   },
   reset: (config: NavigationState) => {

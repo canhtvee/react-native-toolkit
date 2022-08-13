@@ -31,11 +31,11 @@ export function AppAsyncImage({
 }) {
   const {Colors} = useAppContext();
   const [imageStatus, setImageStatus] = useState(() =>
-    isLoading || source ? Constants.STATUS_LOADING : Constants.STATUS_ERROR,
+    isLoading || source ? Constants.STATUS.LOADING : Constants.STATUS.ERROR,
   );
 
   useEffect(() => {
-    setImageStatus(source ? Constants.STATUS_LOADING : Constants.STATUS_ERROR);
+    setImageStatus(source ? Constants.STATUS.LOADING : Constants.STATUS.ERROR);
   }, [source]);
 
   return (
@@ -44,21 +44,21 @@ export function AppAsyncImage({
       source={source}
       resizeMode={getResizeMode(resizeMode)}
       onLoadStart={() => {
-        setImageStatus(Constants.STATUS_LOADING);
+        setImageStatus(Constants.STATUS.LOADING);
         onLoadStart && onLoadStart();
       }}
       onLoad={() => {
-        setImageStatus(Constants.STATUS_SUCCESSFUL);
+        setImageStatus(Constants.STATUS.SUCCESSFUL);
         onLoadSuccess && onLoadSuccess();
         console.log('onLoadSuccess');
       }}
       onError={() => {
-        setImageStatus(Constants.STATUS_ERROR);
+        setImageStatus(Constants.STATUS.ERROR);
         onLoadError && onLoadError();
         console.log('onLoadError');
       }}
       {...imageProps}>
-      {imageStatus === Constants.STATUS_LOADING && (
+      {imageStatus === Constants.STATUS.LOADING && (
         <AppViewLoading
           spinnerSize={spinnerSize}
           spinnerColor={spinnerColor || Colors.onBackground}
@@ -72,7 +72,7 @@ export function AppAsyncImage({
           ]}
         />
       )}
-      {imageStatus === Constants.STATUS_ERROR &&
+      {imageStatus === Constants.STATUS.ERROR &&
         (placeholder ? (
           placeholder
         ) : (

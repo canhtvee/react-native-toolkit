@@ -1,5 +1,12 @@
 import React, {useEffect, useRef, useState} from 'react';
-import {ActivityIndicator, Image, StyleSheet, Text, View} from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  StyleSheet,
+  Text,
+  View,
+  Alert,
+} from 'react-native';
 import FastImage from 'react-native-fast-image';
 import {
   AppAsyncImage,
@@ -11,7 +18,7 @@ import {
   AppViewLoading,
   VectorIcon,
 } from '../../commons';
-import {getResourceImage, Sizes, useAppContext} from '../../utils';
+import {FetchApi, getResourceImage, Sizes, useAppContext} from '../../utils';
 import {useForm} from 'react-hook-form';
 import {Modal} from 'react-native';
 
@@ -22,16 +29,23 @@ export function Playground() {
   const [state, setState] = useState(false);
   const {control, handleSubmit} = useForm();
 
-  const ref = useRef(1);
+  const onPress = async () => {
+    const result = await FetchApi.getVideos();
 
+    if (result?.message) {
+      console.log('result', result);
+      Alert.alert(result.message);
+    }
+  };
   return (
     <AppContainer style={{padding: Sizes.padding * 2}}>
-      <AppInputImageArray control={control} name={'avatar'} />
+      {/* <AppInputImageArray control={control} name={'avatar'} /> */}
       {_space}
       <AppButtonNormal
         label={'Submit'}
         containerStyle={Styles.solidButtonContainer}
-        onPress={handleSubmit(data => console.log('form', data))}
+        // onPress={handleSubmit(data => console.log('form', data))}
+        onPress={onPress}
       />
       {_space}
     </AppContainer>
