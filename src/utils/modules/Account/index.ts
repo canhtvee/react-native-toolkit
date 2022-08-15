@@ -10,6 +10,12 @@ const MMKVwithID = new MMKVStorage.Loader().withInstanceID(mmkvId).initialize();
 const AccountService = {
   get: () => MMKVwithID.getMap(mmkvKey),
   set: (value = {}) => MMKVwithID.setMap(mmkvKey, value),
+  SESSION_STATUS: {
+    LOGIN: 1,
+    NOT_REGISTERED: 2,
+    EXPIRED: 3,
+    LOGOUT: 4,
+  },
 };
 
 function useAppAccount() {
@@ -17,4 +23,7 @@ function useAppAccount() {
 
   return {account, setAccount};
 }
-export {useAppAccount, AccountService};
+
+function useAppSession() {}
+
+export {useAppAccount, useAppSession, AccountService};

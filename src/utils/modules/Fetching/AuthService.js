@@ -1,6 +1,6 @@
-import {Constants} from '../../helpers';
+import {Apis, Constants} from '../../resources';
+
 import {AccountService} from '../Account';
-import {Apis} from './apis';
 
 async function AuthCall(api, header) {
   try {

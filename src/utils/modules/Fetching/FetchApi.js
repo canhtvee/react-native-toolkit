@@ -1,11 +1,14 @@
-import {Constants, ResetFunction} from '../../helpers';
+import {Constants} from '../../resources';
+
 import {AccountService} from '../Account';
 import {NavigationService} from '../Navigation';
+import {ResetFunction} from '../ResetFunction';
 
-import {Apis} from './apis';
 import {AuthService} from './AuthService';
 
-const stack = {requestRefreshToken: false};
+const requestQueue = {
+  refreshToken: undefined,
+};
 
 async function CommonCall(url, header) {
   const account = AccountService.get();
@@ -46,19 +49,19 @@ async function CommonCall(url, header) {
       account?.token &&
       (result?.error?.code === Constants.HTTP_CODE.INVALID_TOKEN ||
         result?.error?.code === Constants.HTTP_CODE.TOKEN_EXPIRED) &&
-      !stack.requestTokenQueue
+      !requestQueue.refreshToken
     ) {
-      stack.requestRefreshToken = true;
+      requestQueue.refreshToken = true;
       const refreshTokenResult = await AuthService.refreshToken();
 
       if (!refreshTokenResult?.token) {
         ResetFunction.resetToLogin();
-        stack.requestRefreshToken = false;
+        requestQueue.refreshToken = false;
         throw new Error(Constants.HTTP_MESSAGE.SESSION_EXPIRED);
       }
 
       AccountService.set(refreshTokenResult);
-      stack.requestRefreshToken = false;
+      requestQueue.refreshToken = false;
 
       // To refetch api
       _header.Authorization = `Bearer ${refreshTokenResult.token}`;
@@ -87,7 +90,7 @@ async function CommonCall(url, header) {
 }
 
 export const FetchApi = {
-  uploadFile: async args => {
+  uploadFile: async () => {
     console.log('start upload');
 
     return new Promise(resolve => {

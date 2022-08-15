@@ -1,4 +1,4 @@
-import {appKeys, host} from '../../resources';
+import {appKeys, host} from './system';
 
 const Apis = {
   login: `${host.api}/api/app/public/login`,
