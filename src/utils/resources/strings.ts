@@ -6,29 +6,10 @@ const StringsEnglish = {
   successful: 'Successful',
   gallery: 'Gallery',
   camera: 'Camera',
+  session_satus: 'Session Status',
+  session_expired: 'Session is expired, please login again!',
 };
-const StringsVietnamese = {
-  AppIntro_next: 'Next',
-  App_name: 'base',
-  Menu: 'Menu',
-  Language: 'Ngôn ngữ',
-  Mode: 'Chế độ',
-  User_feedback: 'Phản hồi ứng dụng',
-  About_us: 'About us',
-  Current_version: 'Phiên bản hiện tại',
-  English: 'English',
-  Japanese: '日本語',
-  Vietnamese: 'Tiếng Việt',
-  Light_mode: 'Chế độ ban ngày',
-  Dark_mode: 'Chế độ ban đêm',
-  Base_device: 'Dựa theo điện thoại của bạn.',
-  Now: 'Vừa xong',
-  Bookmark: 'Yêu thích',
-  Settings: 'Cài đặt',
-  Login: 'Đăng nhập',
-  Home: 'Trang chủ',
-  Vietnamese_code: 'Vietnamese_code',
-};
+const StringsVietnamese = {};
 
 export type LanguageCodeType = 'vietnamese' | 'english';
 

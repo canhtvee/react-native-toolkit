@@ -9,7 +9,7 @@ import {
   LayoutAnimation,
 } from 'react-native';
 import {AppButtonNormal, AppContainer} from '../../commons';
-import {Sizes, useAppContext} from '../../utils';
+import {FetchApi, Sizes, useAppContext} from '../../utils';
 
 const _space = <View style={{height: 20}} />;
 
