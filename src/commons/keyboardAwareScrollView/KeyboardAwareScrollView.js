@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {ScrollView} from 'react-native';
 import KeyboardAwareBase from './KeyboardAwareBase';
+import {Sizes} from '../../utils';
 
 /**
  * @description: A wrapper component which handles the ScrollView insets properly when the keyboard is shown and hides the content, scrolling content above the keybaord.
@@ -28,13 +29,19 @@ export default class KeyboardAwareScrollView extends KeyboardAwareBase {
         scrollEventThrottle={200}
         {...this.props}
         {...this.style}
-        contentInset={{bottom: this.state.keyboardHeight}}
+        contentInset={{
+          bottom: this.state.keyboardHeight
+            ? this.state.keyboardHeight - 60
+            : 0,
+        }}
         ref={r => {
           this._keyboardAwareView = r;
         }}
         onLayout={this._onKeyboardAwareViewLayout}
         onScroll={this._onKeyboardAwareViewScroll}
         onContentSizeChange={this._updateKeyboardAwareViewContentSize}
+        snapToEnd={false}
+        contentContainerStyle={{paddingVertical: Sizes.padding}}
       />
     );
   }

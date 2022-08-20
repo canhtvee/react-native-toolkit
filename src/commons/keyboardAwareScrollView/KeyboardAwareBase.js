@@ -157,11 +157,22 @@ export default class KeyboardAwareBase extends Component {
     const keyboardHeight = this.state.keyboardHeight;
     this.setState({keyboardHeight: 0});
 
-    const hasYOffset = this._keyboardAwareView?.contentOffset?.y !== undefined;
-    const yOffset = hasYOffset
-      ? Math.max(this._keyboardAwareView.contentOffset.y - keyboardHeight, 0)
-      : 0;
-    this.scrollTo({x: 0, y: yOffset, animated: true});
+    console.log('keyboardHeight', keyboardHeight);
+    console.log('layoutSize', this.layoutSize);
+    console.log('contentSize', this.contentSize);
+    console.log('contentOffset', this._keyboardAwareView?.contentOffset);
+    console.log('-----------------------------------');
+
+    if (
+      this._keyboardAwareView?.contentOffset?.y >
+      this.contentSize.height - this.layoutSize.height
+    ) {
+      this.scrollTo({
+        x: 0,
+        y: this.contentSize.height - this.layoutSize.height,
+        animated: true,
+      });
+    }
   }
 
   scrollBottomOnNextSizeChange() {

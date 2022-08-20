@@ -24,7 +24,7 @@ import {useForm} from 'react-hook-form';
 import {Modal} from 'react-native';
 import {KeyboardAwareScrollView} from '../../commons/keyboardAwareScrollView';
 
-const _space = <View style={{height: 0}} />;
+const _space = <View style={{height: 0, backgroundColor: 'red'}} />;
 
 export function Playground() {
   const {Styles, Colors} = useAppContext();
@@ -46,14 +46,13 @@ export function Playground() {
   for (let index = 0; index < 15; index++) {
     _inputs.push(
       <AppInputText
-        ref={ref => inputRefs.current.push(ref)}
         key={`field ${index}`}
         label={`field ${index}`}
         name={`field ${index}`}
         control={control}
         placeholder={`field ${index}`}
         containerStyle={{
-          marginBottom: Sizes.padding * 2,
+          marginTop: Sizes.padding * 2,
           paddingHorizontal: Sizes.padding * 2,
         }}
       />,
@@ -61,20 +60,22 @@ export function Playground() {
   }
 
   return (
-    <AppContainer>
+    <AppContainer edges="lrtb">
       <KeyboardAwareScrollView
         // getTextInputRefs={() => {
         //   return inputRefs.current;
         // }}
+        style={{marginBottom: 0}}
         contentContainerStyle={{backgroundColor: 'lightgrey'}}>
         {_inputs}
       </KeyboardAwareScrollView>
-      {_space}
-      {_space}
-      {_space}
-      {_space}
-      {_space}
-      {_space}
+      <AppButtonNormal
+        label={'Submit Form'}
+        containerStyle={[
+          Styles.solidButtonContainer,
+          {marginHorizontal: Sizes.padding * 2, marginVertical: 0},
+        ]}
+      />
     </AppContainer>
   );
 }
