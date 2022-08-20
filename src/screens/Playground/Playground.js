@@ -15,19 +15,23 @@ import {
   AppIcon,
   AppInputImageArray,
   AppInputImageAvatar,
+  AppInputText,
   AppViewLoading,
   VectorIcon,
 } from '../../commons';
 import {FetchApi, getResourceImage, Sizes, useAppContext} from '../../utils';
 import {useForm} from 'react-hook-form';
 import {Modal} from 'react-native';
+import {KeyboardAwareScrollView} from '../../commons/keyboardAwareScrollView';
 
-const _space = <View style={{height: Sizes.padding}} />;
+const _space = <View style={{height: 0}} />;
 
 export function Playground() {
   const {Styles, Colors} = useAppContext();
   const [state, setState] = useState(false);
   const {control, handleSubmit} = useForm();
+
+  const inputRefs = useRef([]);
 
   const onPress = async () => {
     const result = await FetchApi.getVideos();
@@ -37,16 +41,39 @@ export function Playground() {
       Alert.alert(result.message);
     }
   };
+
+  const _inputs = [];
+  for (let index = 0; index < 15; index++) {
+    _inputs.push(
+      <AppInputText
+        ref={ref => inputRefs.current.push(ref)}
+        key={`field ${index}`}
+        label={`field ${index}`}
+        name={`field ${index}`}
+        control={control}
+        placeholder={`field ${index}`}
+        containerStyle={{
+          marginBottom: Sizes.padding * 2,
+          paddingHorizontal: Sizes.padding * 2,
+        }}
+      />,
+    );
+  }
+
   return (
-    <AppContainer style={{padding: Sizes.padding * 2}}>
-      {/* <AppInputImageArray control={control} name={'avatar'} /> */}
+    <AppContainer>
+      <KeyboardAwareScrollView
+        // getTextInputRefs={() => {
+        //   return inputRefs.current;
+        // }}
+        contentContainerStyle={{backgroundColor: 'lightgrey'}}>
+        {_inputs}
+      </KeyboardAwareScrollView>
       {_space}
-      <AppButtonNormal
-        label={'Submit'}
-        containerStyle={Styles.solidButtonContainer}
-        // onPress={handleSubmit(data => console.log('form', data))}
-        onPress={onPress}
-      />
+      {_space}
+      {_space}
+      {_space}
+      {_space}
       {_space}
     </AppContainer>
   );
