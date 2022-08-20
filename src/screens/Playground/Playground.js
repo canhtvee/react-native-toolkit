@@ -1,15 +1,7 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {
-  ActivityIndicator,
-  Image,
-  StyleSheet,
-  Text,
-  View,
-  Animated,
-  LayoutAnimation,
-} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {Text, View, Animated} from 'react-native';
 import {AppButtonNormal, AppContainer} from '../../commons';
-import {FetchApi, Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '../../utils';
 
 const _space = <View style={{height: 20}} />;
 

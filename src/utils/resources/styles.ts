@@ -20,8 +20,8 @@ export function getResourceStyles(Colors: ColorsType) {
       overflow: 'visible',
     },
     border: {
-      borderRadius: Sizes.borderRadius,
-      borderWidth: Sizes.borderWidth,
+      borderRadius: Sizes.w5,
+      borderWidth: Sizes.w1,
       borderColor: Colors.border,
       overflow: 'hidden',
     },
@@ -39,9 +39,9 @@ export function getResourceStyles(Colors: ColorsType) {
     },
 
     solidButtonContainer: {
-      paddingVertical: Sizes.paddingLess,
+      paddingVertical: Sizes.padding,
       paddingHorizontal: Sizes.padding * 2,
-      borderRadius: Sizes.borderRadius1,
+      borderRadius: Sizes.w6,
       backgroundColor: Colors.primary,
     },
     solidButtonLabel: {
@@ -49,9 +49,9 @@ export function getResourceStyles(Colors: ColorsType) {
     },
 
     borderButtonContainer: {
-      paddingVertical: Sizes.paddingLess - 1.5,
+      paddingVertical: Sizes.padding - 1.5,
       paddingHorizontal: Sizes.padding * 2 - 1.5,
-      borderRadius: Sizes.borderRadius1,
+      borderRadius: Sizes.w6,
       backgroundColor: Colors.background,
       borderWidth: 1.5,
       borderColor: Colors.primary,
