@@ -3,7 +3,7 @@ import {Component} from 'react';
 import PropTypes from 'prop-types';
 import ReactNative, {DeviceEventEmitter, Keyboard} from 'react-native';
 
-export default class KeyboardAwareBase extends Component {
+export default class KeyboardAwareBaseIOS extends Component {
   constructor(props) {
     super(props);
     this._bind(
@@ -139,7 +139,7 @@ export default class KeyboardAwareBase extends Component {
   }
 
   _onKeyboardWillShow(event) {
-    this._scrollToFocusedTextInput();
+    // this._scrollToFocusedTextInput();
 
     const newKeyboardHeight = event.endCoordinates.height;
     if (this.state.keyboardHeight === newKeyboardHeight) {
@@ -163,7 +163,13 @@ export default class KeyboardAwareBase extends Component {
     console.log('contentOffset', this._keyboardAwareView?.contentOffset);
     console.log('-----------------------------------');
 
-    if (
+    if (this._keyboardAwareView?.contentOffset?.y < 0) {
+      this.scrollTo({
+        x: 0,
+        y: 0,
+        animated: true,
+      });
+    } else if (
       this._keyboardAwareView?.contentOffset?.y >
       this.contentSize.height - this.layoutSize.height
     ) {

@@ -1,3 +1,3 @@
-import KeyboardAwareScrollView from './KeyboardAwareScrollView';
+import KeyboardAwareScrollViewIOS from './KeyboardAwareScrollView.ios';
 
-export {KeyboardAwareScrollView};
+export {KeyboardAwareScrollViewIOS};
