@@ -5,85 +5,115 @@ import {
   StyleSheet,
   Text,
   View,
-  Alert,
+  Animated,
+  LayoutAnimation,
 } from 'react-native';
-import FastImage from 'react-native-fast-image';
-import {
-  AppAsyncImage,
-  AppButtonNormal,
-  AppContainer,
-  AppIcon,
-  AppInputImageArray,
-  AppInputImageAvatar,
-  AppInputText,
-  AppViewLoading,
-  VectorIcon,
-} from '../../commons';
-import {FetchApi, getResourceImage, Sizes, useAppContext} from '../../utils';
-import {useForm} from 'react-hook-form';
-import {Modal} from 'react-native';
-import {KeyboardAwareScrollView} from '../../commons/keyboardAwareScrollView';
+import {AppButtonNormal, AppContainer} from '../../commons';
+import {Sizes, useAppContext} from '../../utils';
 
-const _space = <View style={{height: 0, backgroundColor: 'red'}} />;
+const _space = <View style={{height: 20}} />;
 
 export function Playground() {
   const {Styles, Colors} = useAppContext();
-  const [state, setState] = useState(false);
-  const {control, handleSubmit} = useForm();
+  const [show, setShow] = useState(true);
 
-  const inputRefs = useRef([]);
+  const content = useRef(new Animated.Value(1)).current;
+  const placeholder = useRef(new Animated.Value(0)).current;
 
-  const onPress = async () => {
-    const result = await FetchApi.getVideos();
-
-    if (result?.message) {
-      console.log('result', result);
-      Alert.alert(result.message);
-    }
+  const onPress = () => {
+    setShow(prev => !prev);
+    Animated.timing(content, {
+      toValue: 0,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
+    Animated.timing(placeholder, {
+      toValue: 1,
+      duration: 500,
+      useNativeDriver: true,
+    }).start();
   };
 
-  const _inputs = [];
-  for (let index = 0; index < 15; index++) {
-    _inputs.push(
-      <AppInputText
-        key={`field ${index}`}
-        label={`field ${index}`}
-        name={`field ${index}`}
-        control={control}
-        placeholder={`field ${index}`}
-        containerStyle={{
-          marginTop: Sizes.padding * 2,
-          paddingHorizontal: Sizes.padding * 2,
-        }}
-      />,
+  const renderContent = () => {
+    const scale = content.interpolate({
+      inputRange: [0, 0.6, 1],
+      outputRange: [0, 0.6, 1],
+    });
+    const opacity = content.interpolate({
+      inputRange: [0, 0.6, 1],
+      outputRange: [0, 0.3, 1],
+    });
+
+    if (!show) return null;
+    return (
+      <Animated.View
+        style={{
+          backgroundColor: 'red',
+          height: 100,
+          width: 300,
+          alignSelf: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+          opacity: opacity,
+          transform: [{scale}, {perspective: 1000}],
+        }}>
+        <Text>Show content</Text>
+      </Animated.View>
     );
-  }
+  };
+
+  const renderPlaceholder = () => {
+    const opacity = placeholder.interpolate({
+      inputRange: [0, 0.6, 1],
+      outputRange: [0, 0.3, 1],
+    });
+
+    const translateY = placeholder.interpolate({
+      inputRange: [0, 0.6, 1],
+      outputRange: [20, 10, 0],
+    });
+
+    if (show) return null;
+
+    return (
+      <Animated.View
+        style={{
+          backgroundColor: 'red',
+          height: 80,
+          width: 300,
+          alignSelf: 'center',
+          justifyContent: 'center',
+          alignItems: 'center',
+          opacity: opacity,
+          transform: [{translateY}, {perspective: 1000}],
+        }}>
+        <Text>Placeholder</Text>
+      </Animated.View>
+    );
+  };
 
   return (
     <AppContainer edges="lrtb">
-      <KeyboardAwareScrollView
-        // getTextInputRefs={() => {
-        //   return inputRefs.current;
-        // }}
-        style={{marginBottom: 0}}
-        contentContainerStyle={{backgroundColor: 'lightgrey'}}>
-        {_inputs}
-      </KeyboardAwareScrollView>
+      {_space}
+      {renderContent()}
+      {renderPlaceholder()}
+      {_space}
+      <View style={{alignSelf: 'center'}}>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+        <Text>jdljdsljcdslkjklcdsjlkcjldsjcldj</Text>
+      </View>
       <AppButtonNormal
-        label={'Submit Form'}
+        label={'Run Animation'}
         containerStyle={[
           Styles.solidButtonContainer,
-          {marginHorizontal: Sizes.padding * 2, marginVertical: 0},
+          {marginHorizontal: Sizes.padding * 2},
         ]}
+        onPress={onPress}
       />
     </AppContainer>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-});
