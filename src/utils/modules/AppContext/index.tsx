@@ -37,10 +37,11 @@ export function AppContextProvider({children}: {children: React.ReactNode}) {
 
 export function useAppContext() {
   const context = React.useContext(AppContext);
-  if (context === undefined && __DEV__) {
+  if (context === undefined) {
     throw new Error(
       "useAppContext should be invoked inside AppContextProvider's childrens",
     );
   }
+
   return context;
 }

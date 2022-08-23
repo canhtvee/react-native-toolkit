@@ -16,6 +16,7 @@ export * from './appContainer';
 export * from './appButton';
 export * from './appImage';
 export * from './appViewLoading';
+export * from './keyboardAwareScrollView';
 
 export * from './appInputText';
 export * from './appInputMask';
