@@ -1,7 +1,7 @@
-import {appKeys, host} from './system';
+import {System} from './system';
 
 const Apis = {
-  login: `${host.api}/api/app/public/login`,
+  login: `${System.host.api}/api/app/public/login`,
 };
 
 export {Apis};

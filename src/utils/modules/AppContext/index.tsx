@@ -1,18 +1,13 @@
 import React from 'react';
+
+import {ColorsType, LanguageCodeType, StringsType} from '../../resources';
+
 import {useLanguage} from './Language';
 import {useTheme} from './Theme';
-import {
-  ColorsType,
-  getResourceStyles,
-  LanguageCodeType,
-  StringsType,
-  StylesType,
-} from '../../resources';
 
 type AppContextType = {
   Colors: ColorsType;
   Strings: StringsType;
-  Styles: StylesType;
   setLanguageCode: (
     value:
       | LanguageCodeType
@@ -26,10 +21,8 @@ export function AppContextProvider({children}: {children: React.ReactNode}) {
   const {Colors} = useTheme();
   const {Strings, setLanguageCode} = useLanguage();
 
-  const Styles = getResourceStyles(Colors);
-
   return (
-    <AppContext.Provider value={{Colors, Strings, setLanguageCode, Styles}}>
+    <AppContext.Provider value={{Colors, Strings, setLanguageCode}}>
       {children}
     </AppContext.Provider>
   );

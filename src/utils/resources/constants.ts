@@ -1,11 +1,11 @@
 export const Constants = {
-  STATUS: {
+  status: {
     LOADING: 1,
     SUCCESSFUL: 2,
     ERROR: 3,
     IDLE: 4,
   },
-  HTTP_CODE: {
+  http_code: {
     INVALID_PARAMETERS: 'INVALID_PARAMETERS',
     INVALID_TOKEN: 'INVALID_TOKEN',
     INTERNAL_ERROR: 'INTERNAL_ERROR',

@@ -1,7 +1,22 @@
 import React from 'react';
-import {Pressable} from 'react-native';
+import {
+  Pressable,
+  Insets,
+  PressableProps,
+  StyleProp,
+  ViewStyle,
+  StyleSheet,
+} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
+
+export interface AppTouchableProps
+  extends Omit<PressableProps, 'style' | 'hitSlop'> {
+  style?: StyleProp<ViewStyle>;
+  activeOpacity?: number | boolean;
+  activeBackgroundColor?: string | boolean;
+  hitSlop?: Insets | number | boolean;
+}
 
 export function AppTouchable({
   children,
@@ -10,16 +25,13 @@ export function AppTouchable({
   style,
   hitSlop,
   ...props
-}) {
+}: AppTouchableProps) {
   const {Colors} = useAppContext();
 
-  const _hitSlop = typeof hitSlop === 'boolean' ? Sizes.paddingLess : hitSlop;
+  const _hitSlop = typeof hitSlop === 'boolean' ? Sizes.paddinglx : hitSlop;
 
   if (activeBackgroundColor) {
-    let _style = style;
-    if (Array.isArray(style)) {
-      _style = style.reduce((prev, curr) => ({...prev, ...curr}));
-    }
+    let _style = StyleSheet.flatten(style);
     return (
       <Pressable
         style={({pressed}) => [

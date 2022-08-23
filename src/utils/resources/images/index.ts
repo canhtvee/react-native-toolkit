@@ -5,6 +5,14 @@ export const getResourceImage = (name: ResourceImageNameType) => {
     case 'app_logo':
       return require('./app_logo.png');
     case 'default_avatar':
-      return require('./default_avatar.png');
   }
+};
+
+export const Images = {
+  get appLogo() {
+    return require('./app_logo.png');
+  },
+  get defaultAvatar() {
+    return require('./default_avatar.png');
+  },
 };

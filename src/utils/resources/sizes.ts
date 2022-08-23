@@ -6,152 +6,44 @@ import {
 
 /**
  * base screen size = 700:380
- * wn = n pixel to percent of width
- * hn = n pixel to percent of height
  */
+
+const DEVICE_WIDTH = wp(100);
+const DEVICE_HEIGHT = hp(100);
+
+const _wpxToDPUnit = DEVICE_WIDTH / 380;
+const _hpxToDPUnit = DEVICE_HEIGHT / 700;
+
+const _wpxToDP = (value: number) => value * _wpxToDPUnit;
+const _hpxToDP = (value: number) => value * _hpxToDPUnit;
+
 const Sizes = {
-  deviceWigth: wp(100),
-  deviceHeight: hp(100),
+  deviceWigth: DEVICE_WIDTH,
+  deviceHeight: DEVICE_HEIGHT,
   width: (per: number) => wp(per),
   height: (per: number) => hp(per),
 
-  padding: wp(3.2), //12
-  paddinglx: wp(2.6), //8
-  paddinglxx: wp(1.6), //4
-  paddinglxxx: wp(1.6), //2
+  wpx: (px: number) => _wpxToDP(px),
+  hpx: (px: number) => _hpxToDP(px),
 
-  icon: wp(4.2), //16
+  padding: _wpxToDP(12),
+  paddinglx: _wpxToDP(8),
+  paddinglxx: _wpxToDP(4),
 
-  regular: wp(3.7), //14
-  button: wp(3.9), //15
+  regular: _wpxToDP(14),
+  button: _wpxToDP(15),
+  icon: _wpxToDP(16),
+
+  borderWidth: 1,
+  borderWidthlx: 0.5,
+
+  borderRadius: 6,
+  borderRadiuslx: 4,
 
   textInputPaddingVertical: Platform.select({
-    ios: wp(3.2),
+    ios: _wpxToDP(12),
     android: undefined,
   }),
-  // width pixel to percent
-  w1: wp(0.26),
-  w2: wp(0.53),
-  w3: wp(0.79),
-  w4: wp(1.05),
-  w5: wp(1.32),
-  w6: wp(1.58),
-  w7: wp(1.84),
-  w8: wp(2.11),
-  w9: wp(2.37),
-  w10: wp(2.63),
-  w11: wp(2.89),
-  w12: wp(3.16),
-  w13: wp(3.42),
-  w14: wp(3.68),
-  w15: wp(3.95),
-  w16: wp(4.21),
-  w17: wp(4.47),
-  w18: wp(4.74),
-  w19: wp(5),
-  w20: wp(5.26),
-  w21: wp(5.53),
-  w22: wp(5.79),
-  w23: wp(6.05),
-  w24: wp(6.32),
-  w25: wp(6.58),
-  w26: wp(6.84),
-  w27: wp(7.11),
-  w28: wp(7.37),
-  w29: wp(7.63),
-  w30: wp(7.89),
-  w31: wp(8.16),
-  w32: wp(8.42),
-  w33: wp(8.68),
-  w34: wp(8.95),
-  w35: wp(9.21),
-  w36: wp(9.47),
-  w37: wp(9.74),
-  w38: wp(10),
-  w39: wp(10.26),
-  w40: wp(10.53),
-  w41: wp(10.79),
-  w42: wp(11.05),
-  w43: wp(11.32),
-  w44: wp(11.58),
-  w45: wp(11.84),
-  w46: wp(12.11),
-  w47: wp(12.37),
-  w48: wp(12.63),
-  w49: wp(12.89),
-  w50: wp(13.16),
-  w51: wp(13.42),
-  w52: wp(13.68),
-  w53: wp(13.95),
-  w54: wp(14.21),
-  w55: wp(14.47),
-  w56: wp(14.74),
-  w57: wp(15),
-  w58: wp(15.26),
-  w59: wp(15.53),
-  w60: wp(15.79),
-
-  // height pixel to percent
-  h1: hp(0.14),
-  h2: hp(0.29),
-  h3: hp(0.43),
-  h4: hp(0.57),
-  h5: hp(0.71),
-  h6: hp(0.86),
-  h7: hp(1),
-  h8: hp(1.14),
-  h9: hp(1.29),
-  h10: hp(1.43),
-  h11: hp(1.57),
-  h12: hp(1.71),
-  h13: hp(1.86),
-  h14: hp(2),
-  h15: hp(2.14),
-  h16: hp(2.29),
-  h17: hp(2.43),
-  h18: hp(2.57),
-  h19: hp(2.71),
-  h20: hp(2.86),
-  h21: hp(3),
-  h22: hp(3.14),
-  h23: hp(3.29),
-  h24: hp(3.43),
-  h25: hp(3.57),
-  h26: hp(3.71),
-  h27: hp(3.86),
-  h28: hp(4),
-  h29: hp(4.14),
-  h30: hp(4.29),
-  h31: hp(4.43),
-  h32: hp(4.57),
-  h33: hp(4.71),
-  h34: hp(4.86),
-  h35: hp(5),
-  h36: hp(5.14),
-  h37: hp(5.29),
-  h38: hp(5.43),
-  h39: hp(5.57),
-  h40: hp(5.71),
-  h41: hp(5.86),
-  h42: hp(6),
-  h43: hp(6.14),
-  h44: hp(6.29),
-  h45: hp(6.43),
-  h46: hp(6.57),
-  h47: hp(6.71),
-  h48: hp(6.86),
-  h49: hp(7),
-  h50: hp(7.14),
-  h51: hp(7.29),
-  h52: hp(7.43),
-  h53: hp(7.57),
-  h54: hp(7.71),
-  h55: hp(7.86),
-  h56: hp(8),
-  h57: hp(8.14),
-  h58: hp(8.29),
-  h59: hp(8.43),
-  h60: hp(8.57),
 };
 
 export {Sizes};

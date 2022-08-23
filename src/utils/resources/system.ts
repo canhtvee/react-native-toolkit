@@ -32,4 +32,4 @@ const appKeys = {
 //   }),
 // };
 
-export {host, isIOS, deviceType, appVersion, appKeys};
+export const System = {host, isIOS, deviceType, appVersion, appKeys};

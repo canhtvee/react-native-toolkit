@@ -1,8 +1,12 @@
 import React from 'react';
-import {Text} from 'react-native';
+import {Text, TextProps} from 'react-native';
 import {Sizes, useAppContext} from '../../utils';
 
-export function AppText({children, style, ...props}) {
+export function AppText({
+  children,
+  style,
+  ...props
+}: Omit<TextProps, 'onPress'>) {
   const {Colors} = useAppContext();
 
   if (props.hasOwnProperty('onPress')) {
