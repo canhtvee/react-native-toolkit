@@ -4,7 +4,7 @@ import {Text} from 'react-native';
 import {cleanup} from '@testing-library/react-native';
 import {create} from 'react-test-renderer';
 
-import {AppContainer} from './index';
+import {AppContainer} from './AppContainer';
 
 /**
  * Run test command

@@ -1,25 +1,43 @@
 import React from 'react';
-import {Text, TextProps} from 'react-native';
-import {Sizes, useAppContext} from '../../utils';
+import {StyleProp, Text, TextProps, TextStyle, ViewStyle} from 'react-native';
+import {ComonStyles, Sizes, useAppContext} from '../../utils';
+import {AppTouchable, AppTouchableProps} from '../appTouchable';
+
+export interface AppTextProps
+  extends TextProps,
+    Pick<AppTouchableProps, 'activeBackgroundColor' | 'activeOpacity'> {
+  textStyle?: StyleProp<TextStyle>;
+  touchStyle?: StyleProp<ViewStyle>;
+}
 
 export function AppText({
+  onPress,
+  activeBackgroundColor = true,
+  activeOpacity,
   children,
   style,
+  touchStyle,
   ...props
-}: Omit<TextProps, 'onPress'>) {
+}: AppTextProps) {
   const {Colors} = useAppContext();
 
-  if (props.hasOwnProperty('onPress')) {
-    if (__DEV__) {
-      throw new Error(
-        'AppText does not support touch event, use AppTextTouchable instead, it supports borderRadius and activeBackgroundColor props',
-      );
-    }
-    return null;
+  if (onPress) {
+    return (
+      <AppTouchable
+        activeBackgroundColor={activeBackgroundColor}
+        activeOpacity={activeOpacity}
+        style={[ComonStyles.textButtonContainer, touchStyle]}
+        onPress={onPress}>
+        <Text style={[{fontSize: Sizes.regular, color: Colors.primary}, style]}>
+          {children}
+        </Text>
+      </AppTouchable>
+    );
   }
+
   return (
     <Text
-      style={[{color: Colors.text, fontSize: Sizes.regular}, style]}
+      style={[{fontSize: Sizes.regular, color: Colors.text}, style]}
       {...props}>
       {children}
     </Text>

@@ -1,8 +1,8 @@
-import {StyleSheet} from 'react-native';
+import {StyleSheet, ViewStyle} from 'react-native';
 import {Sizes} from './sizes';
 
-const circle = (radius: number) => {
-  const _radius = Sizes.wpx(radius);
+const circle = (borderRadius: number, borderWidth?: number) => {
+  const _radius = Sizes.wpx(borderRadius);
   return {
     width: 2 * _radius,
     height: 2 * _radius,
@@ -10,7 +10,8 @@ const circle = (radius: number) => {
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-  };
+    borderWidth,
+  } as ViewStyle;
 };
 
 const styles = StyleSheet.create({
@@ -20,6 +21,10 @@ const styles = StyleSheet.create({
     shadowRadius: 4,
     elevation: 4,
     overflow: 'visible',
+  },
+  center: {
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   border: {
     borderRadius: Sizes.borderRadius,
@@ -35,7 +40,7 @@ const styles = StyleSheet.create({
 
   textButtonContainer: {
     paddingVertical: 2,
-    paddingHorizontal: Sizes.paddinglxx,
+    paddingHorizontal: 4,
     borderRadius: 2,
   },
 });

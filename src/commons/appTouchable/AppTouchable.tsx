@@ -31,16 +31,19 @@ export function AppTouchable({
   const _hitSlop = typeof hitSlop === 'boolean' ? Sizes.paddinglx : hitSlop;
 
   if (activeBackgroundColor) {
-    let _style = StyleSheet.flatten(style);
+    const _style = StyleSheet.flatten(style);
+    const _activeBackgroundColor =
+      typeof activeBackgroundColor === 'string'
+        ? activeBackgroundColor
+        : Colors.ripple;
+
     return (
       <Pressable
         style={({pressed}) => [
           style,
           {
             backgroundColor: pressed
-              ? typeof activeBackgroundColor === 'string'
-                ? activeBackgroundColor
-                : Colors.ripple
+              ? _activeBackgroundColor
               : _style?.backgroundColor || Colors.background,
           },
         ]}
@@ -51,16 +54,15 @@ export function AppTouchable({
     );
   }
 
+  const _activeOpacity =
+    typeof activeOpacity === 'number' ? activeOpacity : 0.6;
+
   return (
     <Pressable
       style={({pressed}) => [
         style,
         {
-          opacity: pressed
-            ? typeof activeOpacity === 'number'
-              ? activeOpacity
-              : 0.6
-            : 1,
+          opacity: pressed ? _activeOpacity : 1,
         },
       ]}
       hitSlop={_hitSlop}

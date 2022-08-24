@@ -1,19 +1,37 @@
 import React, {useEffect, useState} from 'react';
-import {StyleSheet} from 'react-native';
-import FastImage from 'react-native-fast-image';
+import {StyleSheet, StyleProp, ViewStyle} from 'react-native';
+import FastImage, {
+  ResizeMode,
+  FastImageProps,
+  ImageStyle,
+  Source,
+} from 'react-native-fast-image';
 
-import {Constants, useAppContext} from '../../utils';
+import {ComonStyles, Constants, Sizes, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
 
-const getResizeMode = resizeMode => {
-  switch (resizeMode) {
-    case 'contain':
-      return FastImage.resizeMode.contain;
-    default:
-      return FastImage.resizeMode.cover;
-  }
+export type AppAsyncImageSourceType = Source | number;
+
+export interface AppAsyncImageProps
+  extends Omit<FastImageProps, 'source' | 'onLoad' | 'onError' | 'style'> {
+  source: AppAsyncImageSourceType;
+  spinnerSize?: number;
+  spinnerColor?: string;
+  loadingContainerStyle?: StyleProp<ViewStyle>;
+  placeholder?: JSX.Element;
+  isLoading?: boolean;
+  imageStyle?: StyleProp<ImageStyle>;
+  onLoadStart?: () => void;
+  onLoadSuccess?: () => void;
+  onLoadError?: () => void;
+}
+
+const _getResizeMode = (resizeMode?: ResizeMode) => {
+  return resizeMode === 'contain'
+    ? FastImage.resizeMode.contain
+    : FastImage.resizeMode.cover;
 };
 
 export function AppAsyncImage({
@@ -28,7 +46,7 @@ export function AppAsyncImage({
   onLoadSuccess,
   onLoadError,
   ...imageProps
-}) {
+}: AppAsyncImageProps) {
   const {Colors} = useAppContext();
   const [imageStatus, setImageStatus] = useState(() =>
     isLoading || source ? Constants.status.LOADING : Constants.status.ERROR,
@@ -38,11 +56,13 @@ export function AppAsyncImage({
     setImageStatus(source ? Constants.status.LOADING : Constants.status.ERROR);
   }, [source]);
 
+  const _imageStyle = StyleSheet.flatten(imageStyle);
+
   return (
     <FastImage
-      style={[styles.image, imageStyle]}
+      style={[ComonStyles.center, _imageStyle]}
       source={source}
-      resizeMode={getResizeMode(resizeMode)}
+      resizeMode={_getResizeMode(resizeMode)}
       onLoadStart={() => {
         setImageStatus(Constants.status.LOADING);
         onLoadStart && onLoadStart();
@@ -50,12 +70,10 @@ export function AppAsyncImage({
       onLoad={() => {
         setImageStatus(Constants.status.SUCCESSFUL);
         onLoadSuccess && onLoadSuccess();
-        console.log('onLoadSuccess');
       }}
       onError={() => {
         setImageStatus(Constants.status.ERROR);
         onLoadError && onLoadError();
-        console.log('onLoadError');
       }}
       {...imageProps}>
       {imageStatus === Constants.status.LOADING && (
@@ -63,12 +81,12 @@ export function AppAsyncImage({
           spinnerSize={spinnerSize}
           spinnerColor={spinnerColor || Colors.onBackground}
           containerStyle={[
-            styles.image,
+            ComonStyles.center,
             {
               backgroundColor: Colors.withAlpha(Colors.background, '20%'),
+              width: _imageStyle?.width,
+              height: _imageStyle?.height,
             },
-            imageStyle,
-            styles.loading,
           ]}
         />
       )}
@@ -76,23 +94,8 @@ export function AppAsyncImage({
         (placeholder ? (
           placeholder
         ) : (
-          <AppIcon name={'alert-triangle'} size={24} />
+          <AppIcon name={{feather: 'alert-triangle'}} size={Sizes.wpx(24)} />
         ))}
     </FastImage>
   );
 }
-
-const styles = StyleSheet.create({
-  image: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    width: 100,
-    height: 100,
-  },
-  loading: {
-    marginTop: 0,
-    marginBottom: 0,
-    marginLeft: 0,
-    marginRight: 0,
-  },
-});

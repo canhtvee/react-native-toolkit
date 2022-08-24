@@ -14,7 +14,6 @@ const MMKVwithID = new MMKVStorage.Loader().withInstanceID(mmkvId).initialize();
 const ThemeService = {
   setCode: (code: ThemCodeType) => {
     MMKVwithID.setString(`${mmkvKey}`, code);
-    return;
   },
   getCode: (): ThemCodeType =>
     (MMKVwithID.getString(`${mmkvKey}`) || 'system-default') as ThemCodeType,
@@ -22,8 +21,7 @@ const ThemeService = {
 
 const _convertCodeToTheme = (code: ThemCodeType) => {
   if (code === 'system-default') {
-    const scheme = Appearance.getColorScheme() || 'light';
-    return scheme;
+    return Appearance.getColorScheme() || 'light';
   }
   return code;
 };
@@ -43,7 +41,7 @@ const _convertCodeToTheme = (code: ThemCodeType) => {
 // };
 
 function useTheme() {
-  const [code] = useMMKVStorage<ThemCodeType>(mmkvKey, MMKVwithID);
+  const [code, setCode] = useMMKVStorage<ThemCodeType>(mmkvKey, MMKVwithID);
   const [currentTheme, setCurrentTheme] = useState(() =>
     _convertCodeToTheme(code || 'system-default'),
   );
@@ -72,6 +70,7 @@ function useTheme() {
   }, [code]);
 
   const Colors = getResourceColors(currentTheme) as ColorsType;
-  return {Colors};
+
+  return {Colors, setThemeCode: setCode};
 }
 export {useTheme, ThemeService};

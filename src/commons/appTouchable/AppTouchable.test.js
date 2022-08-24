@@ -3,7 +3,7 @@ import {Text} from 'react-native';
 
 import {render, fireEvent, cleanup} from '@testing-library/react-native';
 
-import {AppTouchable} from './index';
+import {AppTouchable} from './AppTouchable';
 
 /**
  * Run test command

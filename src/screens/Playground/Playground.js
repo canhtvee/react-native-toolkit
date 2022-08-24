@@ -1,13 +1,8 @@
 import React from 'react';
-import {Text, View} from 'react-native';
-import {
-  AppButtonNormal,
-  AppContainer,
-  AppIcon,
-  AppViewLoading,
-  VectorIcon,
-} from '../../commons';
-import {Sizes, useRoutine} from '../../utils';
+import {View} from 'react-native';
+
+import {AppButtonNormal, AppContainer, AppIcon} from '../../commons';
+import {Sizes} from '../../utils';
 
 const _space = <View style={{height: 20}} />;
 
@@ -54,14 +49,3 @@ export const Playground = () => {
     </AppContainer>
   );
 };
-
-const fetchData = async () => {
-  return new Promise(resolver =>
-    setTimeout(() => resolver({data: [], status: 'OK'}), 2000),
-  );
-};
-
-function Children() {
-  console.log('render Chidren');
-  return <Text>Children</Text>;
-}

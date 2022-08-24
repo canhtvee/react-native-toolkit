@@ -27,7 +27,6 @@ const getResourceStrings = (code: LanguageCodeType) => {
   }
 };
 
-// export type StringsType = ReturnType<typeof getResourceStrings>;
 export type StringsType = typeof StringsEnglish;
 
 export {getResourceStrings};

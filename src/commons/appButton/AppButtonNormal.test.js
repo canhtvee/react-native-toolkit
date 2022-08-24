@@ -4,7 +4,7 @@ import {cleanup, fireEvent} from '@testing-library/react-native';
 import {create} from 'react-test-renderer';
 
 import {AppContextProvider} from '../../utils';
-import {AppButtonNormal} from './index';
+import {AppButtonNormal} from './AppButtonNormal';
 
 /**
  * Run test command

@@ -94,7 +94,6 @@ const getResourceColors = (code: ThemCodeType) => {
   }
 };
 
-// export type ColorsType = ReturnType<typeof getResourceColors>;
 export type ColorsType = typeof ColorsLight;
 
 export {getResourceColors};

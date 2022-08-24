@@ -26,7 +26,7 @@ const LanguageService = {
 function useLanguage() {
   const [code, setCode] = useMMKVStorage<LanguageCodeType>(mmkvKey, MMKVwithID);
 
-  let Strings = getResourceStrings(code || 'english') as StringsType;
+  const Strings = getResourceStrings(code || 'english') as StringsType;
 
   return {Strings, setLanguageCode: setCode};
 }
