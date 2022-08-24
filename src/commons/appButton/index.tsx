@@ -38,10 +38,12 @@ export function AppButtonNormal({
   const [size, setSize] = useState<ContainerSizeType>();
   const {current: btnRef} = useRef({init: true});
 
-  const _textStyle = StyleSheet.flatten(textLabelStyle);
+  const _textStyle = StyleSheet.flatten(textLabelStyle || []);
   if (!_textStyle?.color) {
     _textStyle.color = Colors.onPrimary;
   }
+
+  console.log(_textStyle);
 
   let _contentElement;
 

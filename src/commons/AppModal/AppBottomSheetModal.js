@@ -3,7 +3,12 @@ import {View} from 'react-native';
 import {useBackHandler, useKeyboard} from '@react-native-community/hooks';
 import {BottomSheetModal, BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 
-import {useAppContext, useRerender, useUnmountEffect} from '../../utils';
+import {
+  ComonStyles,
+  useAppContext,
+  useRerender,
+  useUnmountEffect,
+} from '../../utils';
 
 /**
  * To expose only onOpenModal and onCloseModal methods to other components
@@ -91,7 +96,7 @@ export function AppBottomSheetModal() {
       snapPoints={['90%']}
       enableOverDrag={false}
       style={[
-        Styles.shadow,
+        ComonStyles.shadow,
         {
           borderRadius: 8,
           paddingTop: 0,

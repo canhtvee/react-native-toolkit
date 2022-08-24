@@ -54,9 +54,7 @@ export function AppViewLoading({
   );
 
   const _loadingText = loadingText && (
-    <Text style={[styles.overlayText, loadingTextStyle]}>
-      {loadingText || 'Loading'}
-    </Text>
+    <Text style={loadingTextStyle}>{loadingText || 'Loading'}</Text>
   );
 
   if (overlay) {
@@ -97,8 +95,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     flex: 1,
-  },
-  overlayText: {
-    marginTop: Sizes.padding,
   },
 });

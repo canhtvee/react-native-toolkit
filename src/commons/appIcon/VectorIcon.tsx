@@ -1,4 +1,5 @@
 import React from 'react';
+import {ColorValue, StyleProp, TextStyle} from 'react-native';
 
 import FontAwesome from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5 from 'react-native-vector-icons/FontAwesome5';
@@ -14,12 +15,50 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 import {Sizes} from '../../utils';
 
-export function VectorIcon({name, color, size, style}) {
+import {
+  AntDesignGlyphs,
+  EntypoGlyphs,
+  EvilIconsGlyphs,
+  FeatherGlyphs,
+  FontAwesome5Glyphs,
+  FontAwesomeGlyphs,
+  FontistoGlyphs,
+  IoniconsGlyphs,
+  MaterialCommunityIconsGlyphs,
+  MaterialIconsGlyphs,
+  OcticonsGlyphs,
+} from './Glyphs';
+
+export type VectorIconNameType = {
+  antDesign?: AntDesignGlyphs;
+  fontAwesome?: FontAwesomeGlyphs;
+  feather?: FeatherGlyphs;
+  ionicons?: IoniconsGlyphs;
+  materialIcons?: MaterialIconsGlyphs;
+  materialCommunityIcons?: MaterialCommunityIconsGlyphs;
+  entypo?: EntypoGlyphs;
+  evilIcons?: EvilIconsGlyphs;
+  fontAwesome5?: FontAwesome5Glyphs;
+  octicons?: OcticonsGlyphs;
+  fontisto?: FontistoGlyphs;
+};
+
+export interface VectorIconProps {
+  style?: StyleProp<TextStyle>; // vector-icons were built on top of text
+  /**
+   * The last icon name will be used to render vector icon
+   */
+  name: VectorIconNameType;
+  size?: number;
+  color?: ColorValue;
+}
+
+export function VectorIcon({name, color, size, style}: VectorIconProps) {
   const _type = Object.keys(name).pop();
   const _name = Object.values(name).pop();
 
   const _props = {
-    name: _name,
+    name: _name as string,
     color,
     style,
     size: size || Sizes.icon,
