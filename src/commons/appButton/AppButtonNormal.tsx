@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {ComonStyles, Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
@@ -43,8 +43,6 @@ export function AppButtonNormal({
     _textStyle.color = Colors.onPrimary;
   }
 
-  console.log(_textStyle);
-
   let _contentElement;
 
   if (isLoading) {
@@ -52,7 +50,9 @@ export function AppButtonNormal({
       <ActivityIndicator color={_textStyle.color} size={spinnerSize} />
     );
   } else if (typeof label === 'string') {
-    _contentElement = <Text style={[styles.text, _textStyle]}>{label}</Text>;
+    _contentElement = (
+      <Text style={[{fontSize: Sizes.button}, _textStyle]}>{label}</Text>
+    );
   } else if (React.isValidElement(label)) {
     _contentElement = label;
   } else {
@@ -73,7 +73,8 @@ export function AppButtonNormal({
       hitSlop={hitSlop}
       disabled={disabled || isLoading}
       style={[
-        styles.container,
+        ComonStyles.center,
+        {backgroundColor: Colors.primary},
         containerStyle,
         {width: size?.width, height: size?.height},
       ]}
@@ -82,11 +83,3 @@ export function AppButtonNormal({
     </AppTouchable>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  text: {fontSize: Sizes.button},
-});

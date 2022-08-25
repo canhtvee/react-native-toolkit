@@ -9,40 +9,53 @@ import {AppIcon} from '../appIcon';
 export function TextInputWithEffect({
   onChangeValue,
   value,
-  debounce = 200,
+  debounce = 300,
   inputStyle,
   containerStyle,
   onDebounce,
   ...inputProps
 }) {
   const {Colors, Strings} = useAppContext();
-  const [textValue, setTextValue] = useState('');
+  const [, setTextValue] = useState();
+  const textValueRef = useRef();
   const timeOutRef = useRef();
   const inputRef = useRef();
 
-  useEffect(() => {
-    onDebounce && onDebounce(true);
-    if (!textValue || textValue === '' || !debounce || debounce === 0) {
-      onChangeValue(textValue);
-      onDebounce && onDebounce();
-    } else {
-      if (timeOutRef.current) {
-        clearTimeout(timeOutRef.current);
-      }
-      timeOutRef.current = setTimeout(() => {
-        onChangeValue(textValue);
+  const onChangeText = React.useCallback(
+    text => {
+      textValueRef.current = text;
+      onDebounce && onDebounce(true);
+      if (!textValueRef.current || !debounce || debounce === 0) {
+        onChangeValue(textValueRef.current);
         onDebounce && onDebounce();
-      }, debounce);
-    }
+      } else {
+        if (timeOutRef.current) {
+          clearTimeout(timeOutRef.current);
+        }
+        timeOutRef.current = setTimeout(() => {
+          onChangeValue(textValueRef.current);
+          onDebounce && onDebounce();
+        }, debounce);
+      }
+
+      setTextValue(text);
+    },
+    [onDebounce, debounce, setTextValue, onChangeValue],
+  );
+
+  useEffect(() => {
     return () => {
       if (timeOutRef.current) {
         clearTimeout(timeOutRef.current);
       }
     };
-  }, [textValue]);
+  }, []);
+
+  console.log(value);
 
   useEffect(() => {
-    setTextValue(value || '');
+    textValueRef.current = value || null;
+    setTextValue(value || null);
   }, [value]);
 
   return (
@@ -57,16 +70,15 @@ export function TextInputWithEffect({
       activeOpacity={1}
       onPress={() => inputRef.current?.focus()}>
       <AppIcon
-        name={'search'}
+        name={{feather: 'search'}}
         color={Colors.border}
         size={Sizes.subtitle}
-        iconStyle={{marginLeft: Sizes.paddingLess1}}
       />
       <TextInput
         ref={inputRef}
         autoCapitalize={'none'}
-        onChangeText={setTextValue}
-        value={textValue}
+        onChangeText={onChangeText}
+        value={textValueRef.current}
         autoCorrect={false}
         spellCheck={false}
         style={[
@@ -80,14 +92,13 @@ export function TextInputWithEffect({
         placeholder={Strings.Search}
         {...inputProps}
       />
-      {textValue && textValue !== '' ? (
+      {!!textValueRef.current && (
         <AppIcon
-          name="closecircle"
+          name={{antDesign: 'closecircle'}}
           color={Colors.border}
-          iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
-          onPress={() => setTextValue('')}
+          onPress={() => onChangeValue(null)}
         />
-      ) : null}
+      )}
     </AppTouchable>
   );
 }
@@ -96,7 +107,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: Sizes.regular,
-    paddingHorizontal: Sizes.paddingLess,
+    paddingHorizontal: Sizes.paddinglx,
     paddingVertical: Sizes.textInputPaddingVertical,
   },
   container: {
@@ -104,5 +115,6 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     borderWidth: Sizes.borderWidth,
     borderRadius: Sizes.borderRadius,
+    paddingHorizontal: Sizes.paddinglx,
   },
 });

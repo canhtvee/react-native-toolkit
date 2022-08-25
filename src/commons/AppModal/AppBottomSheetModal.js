@@ -25,7 +25,6 @@ export function useAppBottomSheetModal() {
  *
  */
 export function AppBottomSheetModal() {
-  const {Styles} = useAppContext();
   const rerender = useRerender();
   const modalRef = useRef(null);
   const modalStateRef = useRef({
@@ -49,7 +48,7 @@ export function AppBottomSheetModal() {
         isOpen: true,
       };
       console.log('modalState', modalStateRef.current);
-      rerender();
+      rerender({});
       modalRef?.current?.present();
     };
 

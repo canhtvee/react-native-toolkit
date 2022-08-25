@@ -1,49 +1,37 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {AppButtonNormal, AppContainer, AppIcon} from '../../commons';
-import {Sizes} from '../../utils';
+import {AppButtonNormal, AppContainer} from '../../commons';
+import {ComonStyles, Sizes} from '../../utils';
+import {Controller, useForm} from 'react-hook-form';
+import {TextInputWithEffect} from '../../commons/appSearch/TextInputWithEffect copy';
 
 const _space = <View style={{height: 20}} />;
 
-// initial state of the database
-const initialState = {count: 0};
-
-// API logic: how to update the database when the
-// 'increment' API endpoint is called
-const reducer = (state, action) => {
-  if (action.type === 'increment') {
-    return {count: state.count + action.payload};
-  }
-  if (action.type === 'decrement') {
-    return {count: state.count - action.payload};
-  }
-};
-
 export const Playground = () => {
-  const [state, dispatch] = React.useReducer(reducer, initialState);
-
-  console.log('state', state);
+  const {control} = useForm();
 
   return (
     <AppContainer edges="lrtb">
-      <View
-        style={{flex: 1, backgroundColor: 'lightblue'}}
-        onLayout={event => console.log(event.nativeEvent.layout)}>
+      <View style={{flex: 1}}>
         {_space}
 
         {_space}
-        <AppIcon
-          name={{feather: 'chevron-left'}}
-          size={Sizes.wpx(36)}
-          onPress={() => {}}
-          iconContainerStyle={{alignSelf: 'flex-start'}}
+
+        <Controller
+          control={control}
+          name={'searchTerm'}
+          render={({field: {value, onChange}}) => (
+            <TextInputWithEffect value={value} onChangeValue={onChange} />
+          )}
         />
 
         <AppButtonNormal
           label={'Run Animation'}
-          containerStyle={[{marginHorizontal: Sizes.padding * 2}]}
-          onPress={() => dispatch({type: 'decrement', payload: 10})}
+          containerStyle={[
+            ComonStyles.solidButtonContainer,
+            {marginHorizontal: Sizes.padding * 2},
+          ]}
         />
       </View>
     </AppContainer>

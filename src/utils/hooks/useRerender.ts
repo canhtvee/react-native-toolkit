@@ -1,7 +1,6 @@
 import React from 'react';
 
 export function useRerender() {
-  const [, setState] = React.useState<object | null | undefined>();
-  const rerender = () => setState({});
+  const [, rerender] = React.useState<object | null | undefined>();
   return rerender;
 }
