@@ -73,7 +73,7 @@ export function AppButtonNormal({
       hitSlop={hitSlop}
       disabled={disabled || isLoading}
       style={[
-        ComonStyles.center,
+        ComonStyles.solidButtonContainer,
         {backgroundColor: Colors.primary},
         containerStyle,
         {width: size?.width, height: size?.height},

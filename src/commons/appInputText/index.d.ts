@@ -1,14 +1,13 @@
-import {UseControllerProps} from 'react-hook-form';
+import {UseControllerProps, UseFormReturn} from 'react-hook-form';
 import {StyleProp, TextInputProps, TextStyle, ViewStyle} from 'react-native';
 
 export interface ClearableTextInputProps
-  extends Omit<TextInputProps, 'defaultValue'> {
-  showClearIcon?: boolean;
-}
+  extends Omit<TextInputProps, 'defaultValue'> {}
 
 export interface AppInputTextProps
   extends UseControllerProps,
-    Omit<ClearableTextInputProps, 'style'> {
+    Partial<Pick<UseFormReturn, 'setValue'>>,
+    Omit<TextInputProps, 'style' | 'defaultValue'> {
   label?: string;
   labelStyle?: StyleProp<TextStyle>;
   errorStyle?: StyleProp<TextStyle>;
@@ -17,6 +16,7 @@ export interface AppInputTextProps
   inputStyle?: StyleProp<TextStyle>;
   leftChild?: JSX.Element;
   rightChild?: JSX.Element;
+  showClearIcon?: boolean;
 }
 
 export interface AppInputFieldArrayProps extends AppInputTextProps {

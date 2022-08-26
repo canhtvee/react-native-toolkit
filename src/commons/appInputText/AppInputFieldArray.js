@@ -1,17 +1,18 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
-import {Controller, FieldError, useFormState} from 'react-hook-form';
+import React, {useMemo, useState} from 'react';
+import {View, TextInput} from 'react-native';
+import {Controller, useFormContext, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
-import {AppText} from '../appText';
 
-import {ClearableTextInput} from './ClearableTextInput';
-import {styles} from './styles';
+import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';
+
+import {styles} from './styles';
 
 export function AppInputFieldArray({
   control,
   rules,
+  setValue,
   fieldArrayName,
   fieldArrayItemIndex,
   fieldArrayItemChildKey,
@@ -24,16 +25,40 @@ export function AppInputFieldArray({
   containerStyle,
   leftChild,
   rightChild,
+  showClearIcon,
   ...inputProps
 }) {
   const {Colors} = useAppContext();
-  const {errors} = useFormState({control});
+  const methods = useFormContext();
+  const _setValue = setValue || methods.setValue;
+  const _control = control || methods.control;
+  const {errors} = useFormState({_control});
   const [secure, setSecure] = useState(secureTextEntry);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const _fieldName = `${fieldArrayName}.${fieldArrayItemIndex}.${fieldArrayItemChildKey}`;
+
+  const _clearIcon = useMemo(
+    () =>
+      showClearIcon && (
+        <AppIcon
+          name={{antDesign: 'closecircle'}}
+          size={Sizes.button}
+          color={Colors.border}
+          iconContainerStyle={{paddingRight: Sizes.paddinglx}}
+          onPress={() => _setValue(_fieldName, null)}
+        />
+      ),
+    [_setValue],
+  );
+
+  const onFocus = () => setIsFocused(true);
+  const onBlur = () => setIsFocused(false);
 
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddinglx}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -47,36 +72,41 @@ export function AppInputFieldArray({
         ]}>
         {leftChild}
         <Controller
-          name={`${fieldArrayName}.${fieldArrayItemIndex}.${fieldArrayItemChildKey}`}
+          name={_fieldName}
           control={control}
           rules={rules}
           render={({field: {onChange, value}}) => {
             return (
-              <ClearableTextInput
-                maxLength={rules?.maxLength?.value}
-                autoCapitalize={'none'}
-                onChangeText={onChange}
-                value={value}
-                autoCorrect={false}
-                spellCheck={false}
-                style={[
-                  styles.input,
-                  {
-                    color: Colors.text,
-                  },
-                  inputStyle,
-                ]}
-                placeholderTextColor={Colors.placeholder}
-                secureTextEntry={secure}
-                {...inputProps}
-              />
+              <>
+                <TextInput
+                  maxLength={rules?.maxLength?.value}
+                  autoCapitalize={'none'}
+                  onChangeText={onChange}
+                  value={value}
+                  autoCorrect={false}
+                  spellCheck={false}
+                  style={[
+                    styles.input,
+                    {
+                      color: Colors.text,
+                    },
+                    inputStyle,
+                  ]}
+                  placeholderTextColor={Colors.placeholder}
+                  secureTextEntry={secure}
+                  onBlur={onBlur}
+                  onFocus={onFocus}
+                  {...inputProps}
+                />
+                {isFocused && !!value && _clearIcon}
+              </>
             );
           }}
         />
         {secureTextEntry && (
           <AppIcon
-            name={secure ? 'eye' : 'eye-off'}
-            iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
+            name={{feather: secure ? 'eye' : 'eye-off'}}
+            iconContainerStyle={{paddingRight: Sizes.paddinglx}}
             onPress={() => setSecure(prev => !prev)}
           />
         )}
@@ -84,22 +114,26 @@ export function AppInputFieldArray({
       </View>
 
       {errors &&
-      errors[fieldArrayName] &&
-      errors[fieldArrayName][fieldArrayItemIndex] &&
-      errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey] &&
-      errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey]
-        .message ? (
-        <AppText
-          style={[
+        errors[fieldArrayName] &&
+        errors[fieldArrayName][fieldArrayItemIndex] &&
+        errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey] &&
+        !!errors[fieldArrayName][fieldArrayItemIndex][fieldArrayItemChildKey]
+          .message && (
+          <AppText
+            style={[
+              {
+                color: Colors.error,
+                marginTop: Sizes.paddinglx,
+              },
+              errorStyle,
+            ]}>
             {
-              color: Colors.error,
-              marginTop: Sizes.paddingLess2,
-            },
-            errorStyle,
-          ]}>
-          {errors[fieldArrayItemIndex]?.[fieldArrayItemChildKey]?.message}
-        </AppText>
-      ) : null}
+              errors[fieldArrayName][fieldArrayItemIndex][
+                fieldArrayItemChildKey
+              ].message
+            }
+          </AppText>
+        )}
     </View>
   );
 }

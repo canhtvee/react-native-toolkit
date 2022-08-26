@@ -1,39 +1,62 @@
-import React from 'react';
-import {View} from 'react-native';
+import React, {useImperativeHandle, useRef, useState} from 'react';
+import {Text, View} from 'react-native';
 
-import {AppButtonNormal, AppContainer} from '../../commons';
+import {AppButtonNormal, AppContainer, AppInputText} from '../../commons';
 import {ComonStyles, Sizes} from '../../utils';
-import {Controller, useForm} from 'react-hook-form';
-import {TextInputWithEffect} from '../../commons/appSearch/TextInputWithEffect copy';
+import {FormProvider, useForm} from 'react-hook-form';
 
 const _space = <View style={{height: 20}} />;
 
 export const Playground = () => {
-  const {control} = useForm();
+  const methods = useForm();
+  const progressRef = useRef({item: null});
+  const a = null;
+  const b = 'kdsks';
+  const c = null;
+
+  const _element = a && b && c && <TestRender />;
 
   return (
-    <AppContainer edges="lrtb">
-      <View style={{flex: 1}}>
-        {_space}
+    <FormProvider {...methods}>
+      <AppContainer edges="lrtb">
+        <View style={{flex: 1, paddingHorizontal: Sizes.padding * 2}}>
+          {_space}
 
-        {_space}
+          {_space}
 
-        <Controller
-          control={control}
-          name={'searchTerm'}
-          render={({field: {value, onChange}}) => (
-            <TextInputWithEffect value={value} onChangeValue={onChange} />
-          )}
-        />
-
-        <AppButtonNormal
-          label={'Run Animation'}
-          containerStyle={[
-            ComonStyles.solidButtonContainer,
-            {marginHorizontal: Sizes.padding * 2},
-          ]}
-        />
-      </View>
-    </AppContainer>
+          {_element}
+          <AppButtonNormal
+            label={'Run Animation'}
+            containerStyle={[
+              ComonStyles.solidButtonContainer,
+              {marginHorizontal: Sizes.padding * 2},
+            ]}
+          />
+          <WatchingProgress />
+        </View>
+      </AppContainer>
+    </FormProvider>
   );
 };
+
+const TestRender = () => {
+  console.log('render component');
+  return <Text>TestRender</Text>;
+};
+
+WatchingProgress = React.forwardRef(WatchingProgress);
+
+function WatchingProgress(props, ref) {
+  const [progress, setProgress] = useState(0);
+  useImperativeHandle(ref, () => ({
+    updateProgess: () => {
+      setProgress('duration');
+    },
+  }));
+
+  return (
+    <View>
+      <Text>{progress}</Text>
+    </View>
+  );
+}

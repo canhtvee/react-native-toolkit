@@ -7,7 +7,7 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
     borderWidth: Sizes.borderWidth,
-    borderRadius: Sizes.borderRadius1,
+    borderRadius: Sizes.borderRadius,
   },
   textIput: {
     paddingVertical: Sizes.textInputPaddingVertical,
@@ -15,6 +15,6 @@ export const styles = StyleSheet.create({
   },
   textContainerStyle: {
     paddingVertical: 0,
-    paddingHorizontal: Sizes.paddingLess,
+    paddingHorizontal: Sizes.paddinglx,
   },
 });

@@ -7,12 +7,17 @@ export const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
     borderWidth: Sizes.borderWidth,
-    borderRadius: Sizes.borderRadius1,
+    borderRadius: Sizes.borderRadius,
   },
   input: {
     flex: 1,
     fontSize: Sizes.regular,
-    paddingHorizontal: Sizes.paddingLess,
+    paddingHorizontal: Sizes.paddinglx,
     paddingVertical: Sizes.textInputPaddingVertical,
+  },
+  textContainer: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
   },
 });

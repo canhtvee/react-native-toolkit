@@ -48,6 +48,7 @@ export function AppInputFieldArrayExample() {
                 },
                 maxLength: {value: 12},
               }}
+              showClearIcon
               fieldArrayName={'arr1'}
               fieldArrayItemIndex={index}
               fieldArrayItemChildKey={'lastName'}

@@ -29,7 +29,7 @@ export function AppInputPhone({
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddinglx}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -82,7 +82,7 @@ export function AppInputPhone({
           style={[
             {
               color: Colors.error,
-              marginTop: Sizes.paddingLess2,
+              marginTop: Sizes.paddinglx,
             },
             errorStyle,
           ]}>

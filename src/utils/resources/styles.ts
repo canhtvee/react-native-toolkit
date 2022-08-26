@@ -33,6 +33,8 @@ const styles = StyleSheet.create({
   },
 
   solidButtonContainer: {
+    justifyContent: 'center',
+    alignItems: 'center',
     paddingVertical: Sizes.padding,
     paddingHorizontal: Sizes.padding * 2,
     borderRadius: Sizes.borderRadius,

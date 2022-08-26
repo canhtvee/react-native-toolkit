@@ -1,6 +1,6 @@
-import React, {useState} from 'react';
-import {View} from 'react-native';
-import {Controller, useFormState} from 'react-hook-form';
+import React, {useMemo, useState} from 'react';
+import {View, TextInput} from 'react-native';
+import {Controller, useFormContext, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
 
@@ -8,10 +8,10 @@ import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';
 
 import {styles} from './styles';
-import {ClearableTextInput} from './ClearableTextInput';
 
 export function AppInputText({
   control,
+  setValue,
   name,
   label,
   labelStyle,
@@ -24,19 +24,37 @@ export function AppInputText({
   containerStyle,
   leftChild,
   rightChild,
+  showClearIcon,
   ...textInputProps
 }) {
   const {Colors} = useAppContext();
-  const {errors} = useFormState({control, name});
+  const methods = useFormContext();
+  const _setValue = setValue || methods.setValue;
+  const _control = control || methods.control;
+  const {errors} = useFormState({_control, name});
   const [secure, setSecure] = useState(secureTextEntry);
+  const [isFocused, setIsFocused] = useState(false);
+
+  const _clearIcon = useMemo(
+    () =>
+      showClearIcon && (
+        <AppIcon
+          name={{antDesign: 'closecircle'}}
+          size={Sizes.button}
+          color={Colors.border}
+          iconContainerStyle={{paddingRight: Sizes.paddinglx}}
+          onPress={() => _setValue(name, null)}
+        />
+      ),
+    [_setValue],
+  );
+
+  const onFocus = () => setIsFocused(true);
+  const onBlur = () => setIsFocused(false);
 
   return (
     <View style={containerStyle}>
-      {label && (
-        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
-          {label}
-        </AppText>
-      )}
+      {label && <AppText style={labelStyle}>{label}</AppText>}
       <View
         style={[
           styles.inputContainer,
@@ -46,36 +64,43 @@ export function AppInputText({
           inputContainerStyle,
         ]}>
         {leftChild}
+
         <Controller
           defaultValue={defaultValue}
           name={name}
           control={control}
           rules={rules}
           render={({field: {onChange, value}}) => (
-            <ClearableTextInput
-              maxLength={rules?.maxLength?.value}
-              autoCapitalize={'none'}
-              onChangeText={onChange}
-              value={value}
-              autoCorrect={false}
-              spellCheck={false}
-              style={[
-                styles.input,
-                {
-                  color: Colors.text,
-                },
-                inputStyle,
-              ]}
-              placeholderTextColor={Colors.placeholder}
-              secureTextEntry={secure}
-              {...textInputProps}
-            />
+            <>
+              <TextInput
+                maxLength={rules?.maxLength?.value}
+                autoCapitalize={'none'}
+                onChangeText={onChange}
+                value={value}
+                autoCorrect={false}
+                spellCheck={false}
+                style={[
+                  styles.input,
+                  {
+                    color: Colors.text,
+                  },
+                  inputStyle,
+                ]}
+                placeholderTextColor={Colors.placeholder}
+                secureTextEntry={secure}
+                onFocus={onFocus}
+                onBlur={onBlur}
+                {...textInputProps}
+              />
+              {isFocused && !!value && _clearIcon}
+            </>
           )}
         />
+
         {secureTextEntry && (
           <AppIcon
-            name={secure ? 'eye' : 'eye-off'}
-            iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
+            name={{feather: secure ? 'eye' : 'eye-off'}}
+            iconContainerStyle={{paddingRight: Sizes.paddinglx}}
             onPress={() => setSecure(prev => !prev)}
           />
         )}
@@ -87,7 +112,7 @@ export function AppInputText({
           style={[
             {
               color: Colors.error,
-              marginTop: Sizes.paddingLess2,
+              marginTop: Sizes.paddinglx,
             },
             errorStyle,
           ]}>

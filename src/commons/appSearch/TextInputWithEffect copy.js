@@ -3,12 +3,12 @@ import {StyleSheet, TextInput} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
-import {AppTouchable} from '../appTouchable';
 import {AppIcon} from '../appIcon';
+import {AppTouchable} from '../appTouchable';
+
+import {SearchService} from './SearchService';
 
 export function TextInputWithEffect({
-  onChangeValue,
-  value,
   debounce = 300,
   inputStyle,
   containerStyle,
@@ -16,31 +16,28 @@ export function TextInputWithEffect({
   ...inputProps
 }) {
   const {Colors, Strings} = useAppContext();
-  const [, setTextValue] = useState();
-  const textValueRef = useRef();
+  const [textValue, setTextValue] = useState();
   const timeOutRef = useRef();
   const inputRef = useRef();
 
   const onChangeText = React.useCallback(
     text => {
-      textValueRef.current = text;
-      onDebounce && onDebounce(true);
-      if (!textValueRef.current || !debounce || debounce === 0) {
-        onChangeValue(textValueRef.current);
-        onDebounce && onDebounce();
-      } else {
-        if (timeOutRef.current) {
-          clearTimeout(timeOutRef.current);
-        }
-        timeOutRef.current = setTimeout(() => {
-          onChangeValue(textValueRef.current);
-          onDebounce && onDebounce();
-        }, debounce);
-      }
-
       setTextValue(text);
+      if (!text || !debounce || debounce === 0) {
+        SearchService.setSearchTerm(text);
+        return;
+      }
+      if (timeOutRef.current) {
+        clearTimeout(timeOutRef.current);
+      }
+      onDebounce && onDebounce(true);
+      timeOutRef.current = setTimeout(() => {
+        SearchService.setSearchTerm(text);
+        onDebounce && onDebounce(false);
+      }, debounce);
     },
-    [onDebounce, debounce, setTextValue, onChangeValue],
+
+    [setTextValue],
   );
 
   useEffect(() => {
@@ -50,13 +47,6 @@ export function TextInputWithEffect({
       }
     };
   }, []);
-
-  console.log(value);
-
-  useEffect(() => {
-    textValueRef.current = value || null;
-    setTextValue(value || null);
-  }, [value]);
 
   return (
     <AppTouchable
@@ -78,7 +68,7 @@ export function TextInputWithEffect({
         ref={inputRef}
         autoCapitalize={'none'}
         onChangeText={onChangeText}
-        value={textValueRef.current}
+        value={textValue}
         autoCorrect={false}
         spellCheck={false}
         style={[
@@ -92,11 +82,11 @@ export function TextInputWithEffect({
         placeholder={Strings.Search}
         {...inputProps}
       />
-      {!!textValueRef.current && (
+      {!!textValue && (
         <AppIcon
           name={{antDesign: 'closecircle'}}
           color={Colors.border}
-          onPress={() => onChangeValue(null)}
+          onPress={() => onChangeText(null)}
         />
       )}
     </AppTouchable>
