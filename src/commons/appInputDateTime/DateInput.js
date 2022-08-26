@@ -64,10 +64,10 @@ export function DateInput({
           rightChild
         ) : (
           <AppIcon
-            name={'calendar'}
+            name={{antDesign: 'calendar'}}
             size={Sizes.icon}
             color={Colors.placeholder}
-            iconStyle={{marginRight: Sizes.paddingLess1}}
+            iconStyle={{marginRight: Sizes.paddinglx}}
           />
         )}
       </AppTouchable>
@@ -100,7 +100,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontSize: Sizes.regular,
     paddingVertical: Sizes.padding,
-    paddingHorizontal: Sizes.paddingLess,
+    paddingHorizontal: Sizes.paddinglx,
     justifyContent: 'space-between',
   },
   textContainer: {

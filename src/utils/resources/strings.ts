@@ -8,6 +8,7 @@ const StringsEnglish = {
   camera: 'Camera',
   session_satus: 'Session Status',
   session_expired: 'Session is expired, please login again!',
+  search: 'Search...',
 };
 const StringsVietnamese = {};
 

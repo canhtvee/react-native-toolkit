@@ -1,6 +1,6 @@
 import React from 'react';
 import {View} from 'react-native';
-import {Controller, useFormState} from 'react-hook-form';
+import {Controller, useFormContext, useFormState} from 'react-hook-form';
 
 import {Sizes, useAppContext} from '../../utils';
 import {AppText} from '../appText';
@@ -24,6 +24,8 @@ export function AppInputPhone({
   ...phoneInputProps
 }) {
   const {Colors} = useAppContext();
+  const methods = useFormContext();
+  const _control = control || methods.control;
   const {errors} = useFormState({control, name});
 
   return (
@@ -59,7 +61,7 @@ export function AppInputPhone({
                   selectionColor: undefined,
                   ...textInputProps,
                 }}
-                textInputStyle={[styles.textIput, textInputStyle]}
+                textInputStyle={[styles.textInput, textInputStyle]}
                 textContainerStyle={[
                   styles.textContainerStyle,
                   {

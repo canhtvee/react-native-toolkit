@@ -21,7 +21,10 @@ export function ConfirmCodeInput({
 
   // To update if form value changed
   useEffect(() => {
-    if (value && value?.length === codeLength * codeInputLength) {
+    if (!value) {
+      setCodeArr(new Array(codeLength).fill(''));
+      setFocusIndex(0);
+    } else if (value && value?.length === codeLength * codeInputLength) {
       let newArr = [];
       for (let i = 0; i < codeLength; i++) {
         newArr[i] = value.substring(
@@ -31,10 +34,6 @@ export function ConfirmCodeInput({
       }
       setCodeArr(newArr);
       setFocusIndex(codeLength - 1);
-    }
-    if (!value) {
-      setCodeArr(new Array(codeLength).fill(''));
-      setFocusIndex(0);
     }
   }, [value]);
 
@@ -47,7 +46,6 @@ export function ConfirmCodeInput({
   const onInputCode = (text, index) => {
     let newCodeArr = [...codeArr];
     newCodeArr[index] = text;
-    onChange && onChange(newCodeArr.join(''));
 
     if (index === codeLength - 1) {
       if (newCodeArr[index].length === codeInputLength) {
@@ -63,7 +61,7 @@ export function ConfirmCodeInput({
         setFocusIndex(index + 1);
       }
     }
-
+    onChange && onChange(newCodeArr.join(''));
     setCodeArr(newCodeArr);
   };
 
@@ -74,37 +72,33 @@ export function ConfirmCodeInput({
       if (codeArr[index].length === 0 && index > 0) {
         setFocusIndex(index - 1);
       }
-      return;
     }
   };
 
-  const renderItems = () => {
-    let codeInputs = [];
-    for (let i = 0; i < codeLength; i++) {
-      codeInputs.push(
-        <TextInput
-          key={`${i}`}
-          ref={ref => (codeInputRefs.current[i] = ref)}
-          value={codeArr[i]}
-          autoFocus={i === 0}
-          editable={i === focusIndex}
-          secureTextEntry={secureTextEntry}
-          onKeyPress={({nativeEvent}) => handleKeyPress(i, nativeEvent)}
-          underlineColorAndroid="transparent"
-          returnKeyType={'done'}
-          onChangeText={text => onInputCode(text, i)}
-          maxLength={codeInputLength}
-          keyboardType={'numeric'}
-          style={[styles.codeInput, {color: Colors.text}, codeInputStyle]}
-          {...codeInputProps}
-        />,
-      );
-    }
-    return codeInputs;
-  };
+  const codeInputs = [];
+  for (let i = 0; i < codeLength; i++) {
+    codeInputs.push(
+      <TextInput
+        key={`${i}`}
+        ref={ref => (codeInputRefs.current[i] = ref)}
+        value={codeArr[i]}
+        autoFocus={i === 0}
+        editable={i === focusIndex}
+        secureTextEntry={secureTextEntry}
+        onKeyPress={({nativeEvent}) => handleKeyPress(i, nativeEvent)}
+        underlineColorAndroid="transparent"
+        returnKeyType={'done'}
+        onChangeText={text => onInputCode(text, i)}
+        maxLength={codeInputLength}
+        keyboardType={'numeric'}
+        style={[styles.codeInput, {color: Colors.text}, codeInputStyle]}
+        {...codeInputProps}
+      />,
+    );
+  }
 
   return (
-    <View style={[styles.container, inputContainerStyle]}>{renderItems()}</View>
+    <View style={[styles.container, inputContainerStyle]}>{codeInputs}</View>
   );
 }
 

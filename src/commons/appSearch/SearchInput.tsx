@@ -1,52 +1,41 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {StyleSheet, TextInput} from 'react-native';
+import React, {useRef, useState} from 'react';
+import {
+  StyleProp,
+  StyleSheet,
+  TextInput,
+  TextInputProps,
+  TextStyle,
+  ViewStyle,
+} from 'react-native';
 
 import {Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-import {SearchService} from './SearchService';
+import {SearchTermType, setSearchTerm} from './SearchContext';
 
-export function TextInputWithEffect({
-  debounce = 300,
+export interface SearchInputProps extends Omit<TextInputProps, 'style'> {
+  inputStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
+}
+
+export function SearchInput({
   inputStyle,
   containerStyle,
-  onDebounce,
   ...inputProps
-}) {
+}: SearchInputProps) {
   const {Colors, Strings} = useAppContext();
-  const [textValue, setTextValue] = useState();
-  const timeOutRef = useRef();
-  const inputRef = useRef();
+  const [textValue, setTextValue] = useState<SearchTermType>();
+  const inputRef = useRef<TextInput>(null);
 
   const onChangeText = React.useCallback(
-    text => {
+    (text: string | null) => {
       setTextValue(text);
-      if (!text || !debounce || debounce === 0) {
-        SearchService.setSearchTerm(text);
-        return;
-      }
-      if (timeOutRef.current) {
-        clearTimeout(timeOutRef.current);
-      }
-      onDebounce && onDebounce(true);
-      timeOutRef.current = setTimeout(() => {
-        SearchService.setSearchTerm(text);
-        onDebounce && onDebounce(false);
-      }, debounce);
+      setSearchTerm(text);
     },
-
     [setTextValue],
   );
-
-  useEffect(() => {
-    return () => {
-      if (timeOutRef.current) {
-        clearTimeout(timeOutRef.current);
-      }
-    };
-  }, []);
 
   return (
     <AppTouchable
@@ -62,13 +51,13 @@ export function TextInputWithEffect({
       <AppIcon
         name={{feather: 'search'}}
         color={Colors.border}
-        size={Sizes.subtitle}
+        size={Sizes.regular}
       />
       <TextInput
         ref={inputRef}
         autoCapitalize={'none'}
         onChangeText={onChangeText}
-        value={textValue}
+        value={textValue as string}
         autoCorrect={false}
         spellCheck={false}
         style={[
@@ -79,7 +68,7 @@ export function TextInputWithEffect({
           inputStyle,
         ]}
         placeholderTextColor={Colors.placeholder}
-        placeholder={Strings.Search}
+        placeholder={Strings.search}
         {...inputProps}
       />
       {!!textValue && (

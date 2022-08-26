@@ -1,8 +1,8 @@
 //import liraries
 import React, {useState} from 'react';
-import {View, StyleProp, TextStyle, ViewStyle, StyleSheet} from 'react-native';
-import {Controller, useFormState, UseControllerProps} from 'react-hook-form';
-import MaskInput, {Masks, MaskInputProps} from 'react-native-mask-input';
+import {View, StyleSheet} from 'react-native';
+import {Controller, useFormState, useFormContext} from 'react-hook-form';
+import MaskInput, {Masks} from 'react-native-mask-input';
 
 import {Sizes, useAppContext} from '../../utils';
 
@@ -26,7 +26,9 @@ export function AppInputMask({
   ...maskInputProps
 }) {
   const {Colors} = useAppContext();
-  const {errors} = useFormState({control, name});
+  const methods = useFormContext();
+  const _control = control || methods.control;
+  const {errors} = useFormState({_control, name});
   const [secure, setSecure] = useState(secureTextEntry);
 
   // TODO: To update maskrendering
@@ -35,7 +37,7 @@ export function AppInputMask({
   return (
     <View style={containerStyle}>
       {label && (
-        <AppText style={[{marginBottom: Sizes.paddingLess1}, labelStyle]}>
+        <AppText style={[{marginBottom: Sizes.paddinglx}, labelStyle]}>
           {label}
         </AppText>
       )}
@@ -77,8 +79,8 @@ export function AppInputMask({
         />
         {secureTextEntry && (
           <AppIcon
-            name={secure ? 'eye' : 'eye-off'}
-            iconContainerStyle={{paddingRight: Sizes.paddingLess1}}
+            name={{feather: secure ? 'eye' : 'eye-off'}}
+            iconContainerStyle={{paddingRight: Sizes.paddinglx}}
             onPress={() => setSecure(prev => !prev)}
           />
         )}
@@ -90,7 +92,7 @@ export function AppInputMask({
           style={[
             {
               color: Colors.error,
-              marginTop: Sizes.paddingLess2,
+              marginTop: Sizes.paddinglx,
             },
             errorStyle,
           ]}>
@@ -107,16 +109,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     overflow: 'hidden',
     borderWidth: Sizes.borderWidth,
-    borderRadius: Sizes.borderRadius1,
+    borderRadius: Sizes.borderRadius,
   },
   input: {
     flex: 1,
     fontSize: Sizes.regular,
-    paddingHorizontal: Sizes.paddingLess,
+    paddingHorizontal: Sizes.paddinglx,
     paddingVertical: Sizes.textInputPaddingVertical,
-  },
-  error: {
-    fontSize: Sizes.regular,
-    marginTop: Sizes.paddingLess2,
   },
 });

@@ -1,4 +1,4 @@
-import {Platform} from 'react-native';
+import {Platform, Dimensions, PixelRatio} from 'react-native';
 import {
   widthPercentageToDP as wp,
   heightPercentageToDP as hp,
@@ -7,19 +7,30 @@ import {
 /**
  * base screen size = 700:380
  */
+const baseScreenWidth = 380;
+const baseScreenHight = 700;
 
-const DEVICE_WIDTH = wp(100);
-const DEVICE_HEIGHT = hp(100);
+// Retrieve initial screen's width and screen's height
+const screenWidth = Dimensions.get('window').width;
+const screenHeight = Dimensions.get('window').height;
 
-const _wpxToDPUnit = DEVICE_WIDTH / 380;
-const _hpxToDPUnit = DEVICE_HEIGHT / 700;
+const _wpxToDPUnit = screenWidth / baseScreenWidth;
+const _hpxToDPUnit = screenHeight / baseScreenHight;
 
-const _wpxToDP = (value: number) => value * _wpxToDPUnit;
-const _hpxToDP = (value: number) => value * _hpxToDPUnit;
+const _wpxToDP = (inPixel: number) => {
+  // Use PixelRatio.roundToNearestPixel method in order to round the layout
+  // size (dp) to the nearest one that correspons to an integer number of pixels.
+  return PixelRatio.roundToNearestPixel(inPixel * _wpxToDPUnit);
+};
+const _hpxToDP = (inPixel: number) => {
+  // Use PixelRatio.roundToNearestPixel method in order to round the layout
+  // size (dp) to the nearest one that correspons to an integer number of pixels.
+  return PixelRatio.roundToNearestPixel(inPixel * _hpxToDPUnit);
+};
 
 const Sizes = {
-  deviceWigth: DEVICE_WIDTH,
-  deviceHeight: DEVICE_HEIGHT,
+  deviceWigth: screenWidth,
+  deviceHeight: screenHeight,
   width: (per: number) => wp(per),
   height: (per: number) => hp(per),
 

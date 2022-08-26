@@ -9,7 +9,7 @@ export const styles = StyleSheet.create({
     borderWidth: Sizes.borderWidth,
     borderRadius: Sizes.borderRadius,
   },
-  textIput: {
+  textInput: {
     paddingVertical: Sizes.textInputPaddingVertical,
     fontSize: Sizes.regular,
   },

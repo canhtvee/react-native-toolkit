@@ -14,7 +14,6 @@ export function ClearablePhoneInput({
   ...phoneInputProps
 }) {
   const {Colors} = useAppContext();
-
   const [isFocused, setIsFocused] = useState(false);
   const [textValue, setTextValue] = useState('');
 
