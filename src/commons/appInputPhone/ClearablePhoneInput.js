@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useMemo, useRef, useState} from 'react';
 import {View} from 'react-native';
 import PhoneNumberInput from 'react-native-phone-number-input';
 
@@ -15,7 +15,30 @@ export function ClearablePhoneInput({
 }) {
   const {Colors} = useAppContext();
   const [isFocused, setIsFocused] = useState(false);
-  const [textValue, setTextValue] = useState('');
+  const textValueRef = useRef();
+
+  const _clearIcon = useMemo(
+    () =>
+      showClearIcon && (
+        <AppIcon
+          name={{antDesign: 'closecircle'}}
+          size={Sizes.regular}
+          iconStyle={{color: Colors.placeholder}}
+          iconContainerStyle={{
+            paddingRight: Sizes.paddinglx,
+          }}
+          onPress={() => {
+            const _resetPhoneValue = value?.substring(
+              0,
+              value.length - textValueRef.current?.length,
+            );
+            textValueRef.current = null;
+            onChangeFormattedText(_resetPhoneValue);
+          }}
+        />
+      ),
+    [Colors],
+  );
 
   return (
     <View
@@ -33,29 +56,12 @@ export function ClearablePhoneInput({
           ...textInputProps,
           onBlur: () => setIsFocused(false),
           onFocus: () => setIsFocused(true),
-          onChange: e => setTextValue(e.nativeEvent.text),
-          value: textValue,
+          onChange: e => (textValueRef.current = e.nativeEvent.text),
+          value: textValueRef.current,
         }}
         {...phoneInputProps}
       />
-      {showClearIcon && isFocused && !!textValue && textValue?.length > 0 && (
-        <AppIcon
-          name={'closecircle'}
-          size={Sizes.regular}
-          iconStyle={{color: Colors.placeholder}}
-          iconContainerStyle={{
-            paddingRight: Sizes.paddingLess1,
-          }}
-          onPress={() => {
-            const _resetPhoneValue = value?.substring(
-              0,
-              value.length - textValue.length,
-            );
-            onChangeFormattedText(_resetPhoneValue);
-            setTextValue('');
-          }}
-        />
-      )}
+      {isFocused && textValueRef.current?.length > 0 && _clearIcon}
     </View>
   );
 }

@@ -26,7 +26,7 @@ export function AppInputPhone({
   const {Colors} = useAppContext();
   const methods = useFormContext();
   const _control = control || methods.control;
-  const {errors} = useFormState({control, name});
+  const {errors} = useFormState({_control, name});
 
   return (
     <View style={containerStyle}>
@@ -52,8 +52,8 @@ export function AppInputPhone({
             return (
               <ClearablePhoneInput
                 defaultCode={defaultCode}
-                onChangeFormattedText={e => {
-                  onChange(e);
+                onChangeFormattedText={text => {
+                  onChange(text);
                 }}
                 value={value}
                 textInputProps={{

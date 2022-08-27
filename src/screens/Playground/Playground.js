@@ -16,6 +16,9 @@ export const Playground = () => {
 
   const _element = a && b && c && <TestRender />;
 
+  console.log('check-type', typeof '');
+  console.log('check-type', typeof null);
+  console.log(!'' === !null);
   return (
     <FormProvider {...methods}>
       <AppContainer edges="lrtb">

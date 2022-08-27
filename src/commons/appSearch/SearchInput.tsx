@@ -13,7 +13,7 @@ import {Sizes, useAppContext} from '../../utils';
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-import {SearchTermType, setSearchTerm} from './SearchContext';
+import {SearchService} from './SearchService';
 
 export interface SearchInputProps extends Omit<TextInputProps, 'style'> {
   inputStyle?: StyleProp<TextStyle>;
@@ -26,13 +26,16 @@ export function SearchInput({
   ...inputProps
 }: SearchInputProps) {
   const {Colors, Strings} = useAppContext();
-  const [textValue, setTextValue] = useState<SearchTermType>();
+  const [textValue, setTextValue] = useState('');
   const inputRef = useRef<TextInput>(null);
 
   const onChangeText = React.useCallback(
-    (text: string | null) => {
+    (text: string) => {
       setTextValue(text);
-      setSearchTerm(text);
+      SearchService.onChange({
+        type: 'onChangeText',
+        searchTerm: text,
+      });
     },
     [setTextValue],
   );
@@ -57,7 +60,7 @@ export function SearchInput({
         ref={inputRef}
         autoCapitalize={'none'}
         onChangeText={onChangeText}
-        value={textValue as string}
+        value={textValue}
         autoCorrect={false}
         spellCheck={false}
         style={[
@@ -75,7 +78,7 @@ export function SearchInput({
         <AppIcon
           name={{antDesign: 'closecircle'}}
           color={Colors.border}
-          onPress={() => onChangeText(null)}
+          onPress={() => onChangeText('')}
         />
       )}
     </AppTouchable>

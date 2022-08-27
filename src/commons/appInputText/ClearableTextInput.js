@@ -19,8 +19,8 @@ export function ClearableTextInput({
   const {Colors} = useAppContext();
   const [isFocused, setIsFocused] = useState(false);
 
-  const _clearIcon = useMemo(() => {
-    return (
+  const _clearIcon = useMemo(
+    () =>
       showClearIcon && (
         <AppIcon
           name={{antDesign: 'closecircle'}}
@@ -29,9 +29,9 @@ export function ClearableTextInput({
           iconContainerStyle={{paddingRight: Sizes.paddinglx}}
           onPress={() => onChange(null)}
         />
-      )
-    );
-  }, []);
+      ),
+    [Colors],
+  );
 
   return (
     <View

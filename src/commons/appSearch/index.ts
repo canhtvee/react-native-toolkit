@@ -1,8 +1,7 @@
-import {onSubcribe, setSearchTerm} from './SearchContext';
+import {SearchService} from './SearchService';
 import {SearchInput as Input} from './SearchInput';
 
 export const AppSearch = {
-  onSubcribe,
-  setSearchTerm,
+  ...SearchService,
   Input,
 };
