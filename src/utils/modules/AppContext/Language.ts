@@ -12,11 +12,11 @@ const mmkvKey = `key-${tag}`;
 
 const MMKVwithID = new MMKVStorage.Loader().withInstanceID(mmkvId).initialize();
 
-const LanguageService = {
+const LanguagueService = {
   setCode: (code: LanguageCodeType) => MMKVwithID.setString(mmkvKey, code),
   getCode: (): LanguageCodeType =>
     (MMKVwithID.getString(mmkvKey) || 'english') as LanguageCodeType,
-  get: () => {
+  getStrings: () => {
     const code = MMKVwithID.getString(mmkvKey) as LanguageCodeType;
     const Strings = getResourceStrings(code || 'english');
     return Strings as StringsType;
@@ -30,4 +30,4 @@ function useLanguage() {
 
   return {Strings, setLanguageCode: setCode};
 }
-export {useLanguage, LanguageService};
+export {useLanguage, LanguagueService};

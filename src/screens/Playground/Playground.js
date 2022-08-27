@@ -1,24 +1,19 @@
-import React, {useImperativeHandle, useRef, useState} from 'react';
-import {Text, View} from 'react-native';
+import React from 'react';
+import {View} from 'react-native';
 
-import {AppButtonNormal, AppContainer, AppInputText} from '../../commons';
-import {ComonStyles, Sizes} from '../../utils';
+import {AppButtonNormal, AppContainer} from '../../commons';
+import {CommonStyles, Sizes} from '../../utils';
 import {FormProvider, useForm} from 'react-hook-form';
 
 const _space = <View style={{height: 20}} />;
 
 export const Playground = () => {
   const methods = useForm();
-  const progressRef = useRef({item: null});
-  const a = null;
-  const b = 'kdsks';
-  const c = null;
 
-  const _element = a && b && c && <TestRender />;
+  const onPress = async () => {
+    f2();
+  };
 
-  console.log('check-type', typeof '');
-  console.log('check-type', typeof null);
-  console.log(!'' === !null);
   return (
     <FormProvider {...methods}>
       <AppContainer edges="lrtb">
@@ -27,39 +22,34 @@ export const Playground = () => {
 
           {_space}
 
-          {_element}
           <AppButtonNormal
             label={'Run Animation'}
             containerStyle={[
-              ComonStyles.solidButtonContainer,
+              CommonStyles.solidButtonContainer,
               {marginHorizontal: Sizes.padding * 2},
             ]}
+            onPress={onPress}
           />
-          <WatchingProgress />
         </View>
       </AppContainer>
     </FormProvider>
   );
 };
 
-const TestRender = () => {
-  console.log('render component');
-  return <Text>TestRender</Text>;
+const f2 = () => {
+  try {
+    f3();
+  } catch (error) {
+    console.log(error);
+  }
 };
 
-WatchingProgress = React.forwardRef(WatchingProgress);
+const f3 = () => {
+  const res = f4();
+  if (res === 6) {
+    throw {error: {code: 'NETWORK', message: 'Network request failed'}};
+  }
+  return res;
+};
 
-function WatchingProgress(props, ref) {
-  const [progress, setProgress] = useState(0);
-  useImperativeHandle(ref, () => ({
-    updateProgess: () => {
-      setProgress('duration');
-    },
-  }));
-
-  return (
-    <View>
-      <Text>{progress}</Text>
-    </View>
-  );
-}
+const f4 = () => 6;

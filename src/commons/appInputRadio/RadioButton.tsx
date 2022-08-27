@@ -9,7 +9,7 @@ import {
   ColorValue,
 } from 'react-native';
 
-import {ComonStyles, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Sizes, useAppContext} from '../../utils';
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
 export interface RadioButtonProps extends AppTouchableProps {
@@ -65,6 +65,6 @@ const styles = StyleSheet.create({
     marginLeft: Sizes.wpx(14),
     fontSize: Sizes.regular,
   },
-  unselectedRadio: ComonStyles.circle(Sizes.wpx(12), 1),
-  selectedRadio: ComonStyles.circle(Sizes.wpx(8)),
+  unselectedRadio: CommonStyles.circle(Sizes.wpx(12), 1),
+  selectedRadio: CommonStyles.circle(Sizes.wpx(8)),
 });

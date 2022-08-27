@@ -1,16 +1,16 @@
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 
-const tag = 'account';
+const TAG = 'account';
 
-const mmkvId = `mmkv-${tag}`;
-const mmkvKey = `key-${tag}`;
+const mmkvId = `mmkv-${TAG}`;
+const mmkvKey = `key-${TAG}`;
 
 const MMKVwithID = new MMKVStorage.Loader().withInstanceID(mmkvId).initialize();
 
-const AccountService = {
+const AppAccount = {
   get: () => MMKVwithID.getMap(mmkvKey),
   set: (value = {}) => MMKVwithID.setMap(mmkvKey, value),
-  SESSION_STATUS: {
+  sessionStatus: {
     LOGIN: 1,
     NOT_REGISTERED: 2,
     EXPIRED: 3,
@@ -24,6 +24,4 @@ function useAppAccount() {
   return {account, setAccount};
 }
 
-function useAppSession() {}
-
-export {useAppAccount, useAppSession, AccountService};
+export {useAppAccount, AppAccount};

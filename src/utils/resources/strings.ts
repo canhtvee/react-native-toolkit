@@ -6,8 +6,11 @@ const StringsEnglish = {
   successful: 'Successful',
   gallery: 'Gallery',
   camera: 'Camera',
-  session_satus: 'Session Status',
-  session_expired: 'Session is expired, please login again!',
+  sessionStatus: 'Session Status',
+  sessionExpired: 'Session is expired \nPlease login again to use services!',
+  networkRequestFailed: 'Network resquest failed!',
+  serverError: 'Server is maintaining \nPlease try again later!',
+  somethingWrong: 'Something wrong \nPlease try again later!',
   search: 'Search...',
 };
 const StringsVietnamese = {};

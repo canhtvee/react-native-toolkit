@@ -7,8 +7,8 @@ import {
   ThemCodeType,
 } from '../../resources';
 
-import {useLanguage} from './Language';
-import {useTheme} from './Theme';
+import {useLanguage, LanguagueService} from './Language';
+import {useTheme, ThemeService} from './Theme';
 
 type AppContextType = {
   Colors: ColorsType;
@@ -25,7 +25,7 @@ type AppContextType = {
 
 const AppContext = React.createContext<AppContextType | undefined>(undefined);
 
-export function AppContextProvider({children}: {children: React.ReactNode}) {
+function AppContextProvider({children}: {children: React.ReactNode}) {
   const {Colors, setThemeCode} = useTheme();
   const {Strings, setLanguageCode} = useLanguage();
 
@@ -37,7 +37,7 @@ export function AppContextProvider({children}: {children: React.ReactNode}) {
   );
 }
 
-export function useAppContext() {
+function useAppContext() {
   const context = React.useContext(AppContext);
   if (context === undefined) {
     throw new Error(
@@ -47,3 +47,5 @@ export function useAppContext() {
 
   return context;
 }
+
+export {useAppContext, AppContextProvider, LanguagueService, ThemeService};

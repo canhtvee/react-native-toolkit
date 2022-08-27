@@ -7,7 +7,7 @@ import FastImage, {
   Source,
 } from 'react-native-fast-image';
 
-import {ComonStyles, Constants, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Constants, Sizes, useAppContext} from '../../utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';
@@ -60,7 +60,7 @@ export function AppAsyncImage({
 
   return (
     <FastImage
-      style={[ComonStyles.center, _imageStyle]}
+      style={[CommonStyles.center, _imageStyle]}
       source={source}
       resizeMode={_getResizeMode(resizeMode)}
       onLoadStart={() => {
@@ -81,7 +81,7 @@ export function AppAsyncImage({
           spinnerSize={spinnerSize}
           spinnerColor={spinnerColor || Colors.onBackground}
           containerStyle={[
-            ComonStyles.center,
+            CommonStyles.center,
             {
               backgroundColor: Colors.withAlpha(Colors.background, '20%'),
               width: _imageStyle?.width,

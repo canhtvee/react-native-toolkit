@@ -4,7 +4,7 @@ import {useBackHandler, useKeyboard} from '@react-native-community/hooks';
 import {BottomSheetModal, BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 
 import {
-  ComonStyles,
+  CommonStyles,
   useAppContext,
   useRerender,
   useUnmountEffect,
@@ -95,7 +95,7 @@ export function AppBottomSheetModal() {
       snapPoints={['90%']}
       enableOverDrag={false}
       style={[
-        ComonStyles.shadow,
+        CommonStyles.shadow,
         {
           borderRadius: 8,
           paddingTop: 0,

@@ -1,23 +1,21 @@
 import React from 'react';
 
 export function useTimeout() {
-  const timeoutRef = React.useRef<NodeJS.Timeout | null | undefined>();
-
-  const setTimeoutSession = (callback: (args: void) => void, ms?: number) => {
-    if (timeoutRef.current) {
-      console.log('timeoutRef', timeoutRef.current);
-      clearTimeout(timeoutRef.current);
-    }
-    timeoutRef.current = setTimeout(callback, ms);
-  };
+  const timerRef = React.useRef<NodeJS.Timeout | null | undefined>();
 
   React.useEffect(() => {
     return () => {
-      if (timeoutRef.current) {
-        clearTimeout(timeoutRef.current);
+      if (timerRef.current) {
+        clearTimeout(timerRef.current);
       }
     };
   }, []);
 
-  return setTimeoutSession;
+  return React.useCallback((callback: (args: void) => void, ms: number) => {
+    if (timerRef.current) {
+      console.log('timeoutRef', timerRef.current);
+      clearTimeout(timerRef.current);
+    }
+    timerRef.current = setTimeout(callback, ms);
+  }, []);
 }

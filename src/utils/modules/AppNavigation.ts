@@ -7,7 +7,8 @@ import {
 
 const navigationRef: React.Ref<NavigationContainerRef<any>> = React.createRef();
 
-const NavigationService = {
+export const AppNavigation = {
+  navigationRef,
   navigate: (name: string, params?: object) => {
     navigationRef.current?.navigate(name, params);
   },
@@ -18,5 +19,3 @@ const NavigationService = {
     navigationRef.current?.dispatch(StackActions.push(name, params));
   },
 };
-
-export {navigationRef, NavigationService};

@@ -1,6 +1,6 @@
 import React from 'react';
 import {StyleProp, Text, TextProps, TextStyle, ViewStyle} from 'react-native';
-import {ComonStyles, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Sizes, useAppContext} from '../../utils';
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
 export interface AppTextProps
@@ -26,7 +26,7 @@ export function AppText({
       <AppTouchable
         activeBackgroundColor={activeBackgroundColor}
         activeOpacity={activeOpacity}
-        style={[ComonStyles.textButtonContainer, touchStyle]}
+        style={[CommonStyles.textButtonContainer, touchStyle]}
         onPress={onPress}>
         <Text style={[{fontSize: Sizes.regular, color: Colors.primary}, style]}>
           {children}

@@ -9,7 +9,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {ComonStyles, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Sizes, useAppContext} from '../../utils';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
@@ -73,7 +73,7 @@ export function AppButtonNormal({
       hitSlop={hitSlop}
       disabled={disabled || isLoading}
       style={[
-        ComonStyles.solidButtonContainer,
+        CommonStyles.solidButtonContainer,
         {backgroundColor: Colors.primary},
         containerStyle,
         {width: size?.width, height: size?.height},

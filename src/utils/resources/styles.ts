@@ -47,7 +47,7 @@ const styles = StyleSheet.create({
   },
 });
 
-export const ComonStyles = {
+export const CommonStyles = {
   ...styles,
   circle,
 };
