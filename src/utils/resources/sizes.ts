@@ -50,11 +50,6 @@ const Sizes = {
 
   borderRadius: 6,
   borderRadiuslx: 4,
-
-  textInputPaddingVertical: Platform.select({
-    ios: _wpxToDP(12),
-    android: undefined,
-  }),
 };
 
 export {Sizes};

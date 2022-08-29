@@ -1,4 +1,4 @@
-import {StyleSheet, ViewStyle} from 'react-native';
+import {Platform, StyleSheet, ViewStyle} from 'react-native';
 import {Sizes} from './sizes';
 
 const circle = (borderRadius: number, borderWidth?: number) => {
@@ -44,6 +44,13 @@ const styles = StyleSheet.create({
     paddingVertical: 2,
     paddingHorizontal: 4,
     borderRadius: 2,
+  },
+  textInputPadding: {
+    paddingVertical: Platform.select({
+      ios: Sizes.wpx(12),
+      android: undefined,
+    }),
+    paddingHorizontal: Sizes.paddinglx,
   },
 });
 

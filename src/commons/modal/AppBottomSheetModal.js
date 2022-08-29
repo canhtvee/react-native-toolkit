@@ -53,6 +53,7 @@ export function AppBottomSheetModal() {
   }
 
   // To reset modal context if unmount
+
   useEffect(() => {
     return () => {
       modalContext.onOpenModal = undefined;

@@ -1,3 +1,5 @@
+import {get} from 'react-hook-form';
+
 export const Constants = {
   status: {
     LOADING: 1,
@@ -16,3 +18,5 @@ export const Constants = {
     NETWORK_ERROR: 'NETWORK_ERROR',
   },
 };
+
+get;
