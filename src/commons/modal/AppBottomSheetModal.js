@@ -1,14 +1,9 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {View} from 'react-native';
 import {useBackHandler, useKeyboard} from '@react-native-community/hooks';
 import {BottomSheetModal, BottomSheetBackdrop} from '@gorhom/bottom-sheet';
 
-import {
-  CommonStyles,
-  useAppContext,
-  useRerender,
-  useUnmountEffect,
-} from '../../utils';
+import {CommonStyles} from '../../utils';
 
 /**
  * To expose only onOpenModal and onCloseModal methods to other components
@@ -25,7 +20,7 @@ export function useAppBottomSheetModal() {
  *
  */
 export function AppBottomSheetModal() {
-  const rerender = useRerender();
+  const [, trigerRerender] = useState();
   const modalRef = useRef(null);
   const modalStateRef = useRef({
     isOpen: false,
@@ -48,7 +43,7 @@ export function AppBottomSheetModal() {
         isOpen: true,
       };
       console.log('modalState', modalStateRef.current);
-      rerender({});
+      trigerRerender({});
       modalRef?.current?.present();
     };
 
@@ -58,11 +53,12 @@ export function AppBottomSheetModal() {
   }
 
   // To reset modal context if unmount
-
-  useUnmountEffect(() => {
-    modalContext.onOpenModal = undefined;
-    modalContext.onCloseModal = undefined;
-  });
+  useEffect(() => {
+    return () => {
+      modalContext.onOpenModal = undefined;
+      modalContext.onCloseModal = undefined;
+    };
+  }, []);
 
   // Handler backnavigation
   useBackHandler(() => {
@@ -114,7 +110,9 @@ export function AppBottomSheetModal() {
  * in cases of onPress on backdrop or back navigation event
  */
 function AppBottomSheetModalContentContainer({children, onUnmount}) {
-  useUnmountEffect(onUnmount);
+  useEffect(() => {
+    return onUnmount;
+  });
 
   return <View style={{flex: 1}}>{children}</View>;
 }

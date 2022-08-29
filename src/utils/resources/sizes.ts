@@ -43,7 +43,7 @@ const Sizes = {
 
   regular: _wpxToDP(14),
   button: _wpxToDP(15),
-  icon: _wpxToDP(16),
+  icon: _wpxToDP(18),
 
   borderWidth: 1,
   borderWidthlx: 0.5,

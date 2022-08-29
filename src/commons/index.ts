@@ -29,4 +29,4 @@ export * from './appInputImage';
 // export * from './AppInputDropDown';
 
 export * from './appSearch';
-export * from './AppModal';
+export * from './modal';
