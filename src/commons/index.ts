@@ -28,5 +28,6 @@ export * from './appInputImage';
 
 // export * from './AppInputDropDown';
 
+export * from './appModal';
 export * from './appSearch';
-export * from './modal';
+export * from './appBottomSheetModal';
