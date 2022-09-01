@@ -5,7 +5,7 @@ import {
   AppButtonNormal,
   AppContainer,
   AppModal,
-  AppModalSerivce,
+  AppModalService,
 } from '../../commons';
 import {CommonStyles, Sizes} from '../../utils';
 
@@ -17,20 +17,33 @@ export const Playground = () => {
       <AppButtonNormal
         containerStyle={CommonStyles.solidButtonContainer}
         label={'Show Modal'}
-        onPress={() =>
-          AppModalSerivce.onOpenModal({
-            children: (
-              <AppButtonNormal
-                containerStyle={[
-                  CommonStyles.solidButtonContainer,
-                  {marginHorizontal: Sizes.padding * 4},
-                ]}
-                label={'Hide Modal'}
-                onPress={() => AppModalSerivce.onCloseModal()}
-              />
-            ),
-          })
-        }
+        onPress={() => {
+          AppModalService.onChange({
+            eventName: 'requestOpenModal',
+            data: {
+              children: (
+                <View
+                  style={{
+                    minHeight: 200,
+                    minWidth: 200,
+                    borderRadius: 8,
+                    backgroundColor: 'white',
+                    marginHorizontal: Sizes.padding * 3,
+                    padding: Sizes.padding,
+                    justifyContent: 'center',
+                  }}>
+                  <AppButtonNormal
+                    containerStyle={CommonStyles.solidButtonContainer}
+                    label={'Close Modal'}
+                    onPress={() =>
+                      AppModalService.onChange({eventName: 'requestCloseModal'})
+                    }
+                  />
+                </View>
+              ),
+            },
+          });
+        }}
       />
       <AppModal />
     </AppContainer>

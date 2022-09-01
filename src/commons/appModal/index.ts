@@ -1,1 +1,1 @@
-export * from './AppModal';
+export * from './v1';

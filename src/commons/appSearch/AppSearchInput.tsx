@@ -8,23 +8,23 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Sizes, useAppContext} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-import {SearchService} from './SearchService';
+import {AppSearchService} from './AppSearchService';
 
-export interface SearchInputProps extends Omit<TextInputProps, 'style'> {
+export interface AppSearchInputProps extends Omit<TextInputProps, 'style'> {
   inputStyle?: StyleProp<TextStyle>;
   containerStyle?: StyleProp<ViewStyle>;
 }
 
-export function SearchInput({
+export function AppSearchInput({
   inputStyle,
   containerStyle,
   ...inputProps
-}: SearchInputProps) {
+}: AppSearchInputProps) {
   const {Colors, Strings} = useAppContext();
   const [textValue, setTextValue] = useState('');
   const inputRef = useRef<TextInput>(null);
@@ -32,9 +32,9 @@ export function SearchInput({
   const onChangeText = React.useCallback(
     (text: string) => {
       setTextValue(text);
-      SearchService.onChange({
-        type: 'onChangeText',
-        searchTerm: text,
+      AppSearchService.onChange({
+        eventName: 'onChangeSearchTerm',
+        data: {searchTerm: text},
       });
     },
     [setTextValue],
@@ -89,8 +89,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     fontSize: Sizes.regular,
-    paddingHorizontal: Sizes.paddinglx,
-    paddingVertical: Sizes.textInputPaddingVertical,
+    ...CommonStyles.textInputPadding,
   },
   container: {
     flexDirection: 'row',
