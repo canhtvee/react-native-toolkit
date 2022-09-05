@@ -13,15 +13,6 @@ import {CommonStyles} from '../../utils';
  * To use ContentContainer umount effect to update modalContext everytime modal closed
  * in cases of onPress on backdrop or back navigation event
  */
-export type BottomSheetModalStateType = {
-  config?: BottomSheetModalProps;
-  children?: JSX.Element;
-};
-
-type BottomSheetModalRefType = {
-  onOpenModal?: (props: BottomSheetModalStateType) => void;
-  onCloseModal?: () => void;
-};
 
 function BottomSheetModalContentContainer({
   onUnmount,
@@ -37,6 +28,15 @@ function BottomSheetModalContentContainer({
   return <View style={{flex: 1}}>{children}</View>;
 }
 
+export type BottomSheetModalStateType = {
+  config?: BottomSheetModalProps;
+  children?: JSX.Element;
+};
+
+type BottomSheetModalRefType = {
+  onOpenModal?: (props: BottomSheetModalStateType) => void;
+  onCloseModal?: () => void;
+};
 const bottomSheetModalRef: {current?: BottomSheetModalRefType} = {
   current: undefined,
 };
@@ -47,12 +47,7 @@ function BottomSheetModalView() {
   const modalStateRef = useRef<BottomSheetModalStateType>();
   const keyboard = useKeyboard();
 
-  const _resetModalState = () => {
-    modalStateRef.current = undefined;
-    console.log('modalState', modalStateRef.current);
-  };
-
-  useEffect(() => {
+  if (!bottomSheetModalRef.current) {
     bottomSheetModalRef.current = {
       onOpenModal: props => {
         modalStateRef.current = props;
@@ -63,7 +58,9 @@ function BottomSheetModalView() {
         modalRef.current?.dismiss();
       },
     };
+  }
 
+  useEffect(() => {
     return () => {
       bottomSheetModalRef.current = undefined;
     };
@@ -107,7 +104,8 @@ function BottomSheetModalView() {
         },
       ]}
       {...modalStateRef.current?.config}>
-      <BottomSheetModalContentContainer onUnmount={_resetModalState}>
+      <BottomSheetModalContentContainer
+        onUnmount={() => (modalStateRef.current = undefined)}>
         {modalStateRef.current?.children}
       </BottomSheetModalContentContainer>
     </BottomSheetModal>

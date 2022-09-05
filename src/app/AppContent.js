@@ -50,7 +50,7 @@ export function AppContent() {
                 component={AppScreens.ComingSoon}
               />
             </StackRoot.Navigator>
-            <AppBottomSheetModal />
+            <AppBottomSheetModal.View />
           </BottomSheetModalProvider>
         </NavigationContainer>
       </GestureHandlerRootView>

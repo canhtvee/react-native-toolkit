@@ -4,16 +4,9 @@ import {useBackHandler} from '@react-native-community/hooks';
 
 import {useAppContext} from '../../utils';
 
-export type ModalStateType = {
-  config?: ModalProps;
-  children?: JSX.Element;
-};
-
-type ModalRefType = {
-  onOpenModal?: (props: ModalStateType) => void;
-  onCloseModal?: () => void;
-};
-
+/**
+ * To use onHide event on both Android and iOS
+ */
 function AppModalContentContainer({
   onUnmount,
   children,
@@ -32,12 +25,23 @@ function AppModalContentContainer({
       style={{
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: Colors.placeholder,
       }}>
       {children}
     </View>
   );
 }
+
+export type ModalStateType = {
+  config?: ModalProps;
+  children?: JSX.Element;
+};
+
+type ModalRefType = {
+  onOpenModal?: (props: ModalStateType) => void;
+  onCloseModal?: () => void;
+};
 
 const modalRef: {current?: ModalRefType} = {
   current: undefined,
@@ -47,7 +51,7 @@ function ModalView() {
   const [isOpen, setIsOpen] = useState(false);
   const modalStateRef = useRef<ModalStateType>();
 
-  useEffect(() => {
+  if (!modalRef.current) {
     modalRef.current = {
       onOpenModal: (props: ModalStateType) => {
         modalStateRef.current = props;
@@ -55,6 +59,9 @@ function ModalView() {
       },
       onCloseModal: () => setIsOpen(false),
     };
+  }
+
+  useEffect(() => {
     return () => {
       modalRef.current = undefined;
     };
@@ -64,7 +71,6 @@ function ModalView() {
 
   return (
     <Modal
-      // onDismiss={() => (modalStateRef.current = undefined)}
       animationType="fade"
       visible={isOpen}
       style={{position: 'absolute', flex: 1}}

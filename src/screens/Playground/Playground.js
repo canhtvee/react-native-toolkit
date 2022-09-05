@@ -1,13 +1,18 @@
+<<<<<<< HEAD
 import React, {useState} from 'react';
 import {Text, TextInput, View} from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 import {TouchableOpacity} from 'react-native-gesture-handler';
+=======
+import React, {useEffect, useState} from 'react';
+import {Text, View} from 'react-native';
+>>>>>>> 1a58a30 (common updates)
 
 import {
   AppButtonNormal,
   AppContainer,
   AppModal,
-  AppModalService,
+  AppSearchService,
 } from '../../commons';
 import {CommonStyles, Sizes} from '../../utils';
 
@@ -34,15 +39,24 @@ export function Playground() {
 
   return (
     <AppContainer style={{paddingHorizontal: Sizes.padding * 2}}>
+      {_space}
       <AppButtonNormal
         containerStyle={CommonStyles.solidButtonContainer}
         label={'Show Modal'}
+<<<<<<< HEAD
         onPress={() =>
            
           
         }
+=======
+        onPress={() => {
+          AppSearchService.onChange({eventName: 'onRequestSearch'});
+        }}
+>>>>>>> 1a58a30 (common updates)
       />
-      <AppModal />
+      {_space}
+
+      <AppModal.View />
     </AppContainer>
   );
 }

@@ -1,4 +1,4 @@
-import React, {useRef, useState} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import {
   StyleProp,
   StyleSheet,
@@ -8,12 +8,28 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {CommonStyles, Sizes, useAppContext} from '../../utils';
+import {
+  CommonStyles,
+  Sizes,
+  useAppContext,
+  createEventService,
+} from '../../utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';
 
-import {AppSearchService} from './AppSearchService';
+type SearchEventNameType = 'onChangeSearchTerm' | 'onRequestSearch';
+
+type SearchEventDataType = {
+  searchTerm?: string;
+};
+
+type SearchEventType = {
+  eventName: SearchEventNameType;
+  data: SearchEventDataType;
+};
+
+export const AppSearchService = createEventService<SearchEventType>();
 
 export interface AppSearchInputProps extends Omit<TextInputProps, 'style'> {
   inputStyle?: StyleProp<TextStyle>;
@@ -40,6 +56,10 @@ export function AppSearchInput({
     [setTextValue],
   );
 
+  useEffect(() => {
+    return AppSearchService.resetContext;
+  }, []);
+
   return (
     <AppTouchable
       style={[
@@ -54,7 +74,7 @@ export function AppSearchInput({
       <AppIcon
         name={{feather: 'search'}}
         color={Colors.border}
-        size={Sizes.regular}
+        size={Sizes.icon}
       />
       <TextInput
         ref={inputRef}
@@ -76,6 +96,7 @@ export function AppSearchInput({
       />
       {!!textValue && (
         <AppIcon
+          size={Sizes.button}
           name={{antDesign: 'closecircle'}}
           color={Colors.border}
           onPress={() => onChangeText('')}
@@ -87,15 +108,16 @@ export function AppSearchInput({
 
 const styles = StyleSheet.create({
   input: {
+    ...CommonStyles.textInputPadding,
+    paddingVertical: Sizes.paddinglx,
     flex: 1,
     fontSize: Sizes.regular,
-    ...CommonStyles.textInputPadding,
   },
   container: {
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: Sizes.borderWidth,
-    borderRadius: Sizes.borderRadius,
+    borderRadius: Sizes.padding * 0.9,
     paddingHorizontal: Sizes.paddinglx,
   },
 });
