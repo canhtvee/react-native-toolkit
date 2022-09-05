@@ -1,25 +1,23 @@
-<<<<<<< HEAD
-import React, {useState} from 'react';
-import {Text, TextInput, View} from 'react-native';
-import DropDownPicker from 'react-native-dropdown-picker';
-import {TouchableOpacity} from 'react-native-gesture-handler';
-=======
-import React, {useEffect, useState} from 'react';
-import {Text, View} from 'react-native';
->>>>>>> 1a58a30 (common updates)
-
+import React, {useRef, useState} from 'react';
 import {
-  AppButtonNormal,
-  AppContainer,
-  AppModal,
-  AppSearchService,
-} from '../../commons';
+  Button,
+  Modal,
+  ScrollView,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native';
+import DropDownPicker from 'react-native-dropdown-picker';
+
+import {AppContainer, AppModal} from '../../commons';
 import {CommonStyles, Sizes} from '../../utils';
 
-const _space = <View style={{height: 20}} />;
+const _space = <View style={{height: 150}} />;
 
 export function Playground() {
   const [open, setOpen] = useState(false);
+
   const [value, setValue] = useState([
     'italy',
     'spain',
@@ -39,24 +37,23 @@ export function Playground() {
 
   return (
     <AppContainer style={{paddingHorizontal: Sizes.padding * 2}}>
-      {_space}
-      <AppButtonNormal
-        containerStyle={CommonStyles.solidButtonContainer}
-        label={'Show Modal'}
-<<<<<<< HEAD
-        onPress={() =>
-           
-          
-        }
-=======
-        onPress={() => {
-          AppSearchService.onChange({eventName: 'onRequestSearch'});
+      <DropDownPicker
+        open={open}
+        value={value}
+        items={items}
+        setOpen={setOpen}
+        multiple={true}
+        listMode="SCROLLVIEW"
+        style={{minHeight: undefined, paddingVertical: 0}}
+        iconContainerStyle={{backgroundColor: 'green', paddingVertical: 10}}
+        arrowIconContainerStyle={{
+          backgroundColor: 'green',
+          paddingVertical: 10,
+          borderTopRightRadius: 8,
         }}
->>>>>>> 1a58a30 (common updates)
+        textStyle={{paddingVertical: 10}}
+        searchable={true}
       />
-      {_space}
-
-      <AppModal.View />
     </AppContainer>
   );
 }
