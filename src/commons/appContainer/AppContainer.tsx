@@ -32,7 +32,18 @@ export function AppContainer({
       edges={EdgesValues[edges]}
       style={[styles.container, style]}
       {...safeViewProps}>
-      {interaction ? children : <AppViewLoading {...loadingProps} />}
+      {interaction ? (
+        children
+      ) : (
+        <AppViewLoading
+          {...loadingProps}
+          containerStyle={{
+            flex: 1,
+            justifyContent: 'center',
+            alignItems: 'center',
+          }}
+        />
+      )}
     </SafeAreaView>
   );
 }

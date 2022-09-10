@@ -13,9 +13,9 @@ import DropDownPicker from 'react-native-dropdown-picker';
 import {AppContainer, AppModal} from '../../commons';
 import {CommonStyles, Sizes} from '../../utils';
 
-const _space = <View style={{height: 150}} />;
+const _space = <View style={{height: 20}} />;
 
-export function Playground() {
+export function Playground({navigation}) {
   const [open, setOpen] = useState(false);
 
   const [value, setValue] = useState([
@@ -54,6 +54,34 @@ export function Playground() {
         textStyle={{paddingVertical: 10}}
         searchable={true}
       />
+      <ScrollView>
+        {_space}
+        <Text onPress={() => navigation.navigate('Search')}>
+          kdshfkdhsjhfkdsjhfkd
+        </Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        {_space}
+        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+      </ScrollView>
     </AppContainer>
   );
 }
