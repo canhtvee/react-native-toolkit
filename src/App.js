@@ -5,7 +5,7 @@ import {QueryClient, QueryClientProvider} from 'react-query';
 import {enableScreens} from 'react-native-screens';
 import {AppContextProvider} from '../utils';
 
-import {AppContent} from './AppContent';
+import {AppContent} from './container';
 
 enableScreens();
 
