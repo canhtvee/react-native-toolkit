@@ -19,7 +19,7 @@ const ThemeService = {
     (MMKVwithID.getString(`${mmkvKey}`) || 'system-default') as ThemCodeType,
 };
 
-const __convertCodeToTheme = (code: ThemCodeType) => {
+const _convertCodeToTheme = (code: ThemCodeType) => {
   if (code === 'system-default') {
     return Appearance.getColorScheme() || 'light';
   }
@@ -43,7 +43,7 @@ const __convertCodeToTheme = (code: ThemCodeType) => {
 function useTheme() {
   const [code, setCode] = useMMKVStorage<ThemCodeType>(mmkvKey, MMKVwithID);
   const [currentTheme, setCurrentTheme] = useState(() =>
-    __convertCodeToTheme(code || 'system-default'),
+    _convertCodeToTheme(code || 'system-default'),
   );
   const themeRef = useRef<any>();
 
@@ -55,11 +55,11 @@ function useTheme() {
     // To listen to scheme if code ==='system-default'
     if (!code || code === 'system-default') {
       const listener = () => {
-        setCurrentTheme(__convertCodeToTheme('system-default'));
+        setCurrentTheme(_convertCodeToTheme('system-default'));
       };
       themeRef.current = Appearance.addChangeListener(listener);
     } else {
-      setCurrentTheme(__convertCodeToTheme(code));
+      setCurrentTheme(_convertCodeToTheme(code));
     }
 
     return () => {

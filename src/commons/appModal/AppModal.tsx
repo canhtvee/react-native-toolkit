@@ -86,6 +86,7 @@ function ModalView() {
 
 export const AppModal = {
   View: ModalView,
+  ref: modalRef,
   openModal: (props: ModalStateType) =>
     modalRef.current?.onOpenModal && modalRef.current?.onOpenModal(props),
   closeModal: () =>

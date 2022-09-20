@@ -8,10 +8,7 @@ import {
 } from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-import {BottomSheetModalProvider} from '@gorhom/bottom-sheet';
-
-import {AppNavigation, Sizes, useAppContext} from '../utils';
-import {AppBottomSheetModal, AppSearchInput} from '../commons';
+import {AppNavigation, useAppContext} from '../utils';
 import * as AppScreens from '../screens';
 
 const StackRoot = createStackNavigator();
@@ -37,15 +34,15 @@ export function AppContent() {
               headerShown: true,
             }}>
             <StackRoot.Screen
-              name={AppScreens.Playground.name}
+              name={'Playground'}
               component={AppScreens.Playground}
             />
             <StackRoot.Screen
-              name={AppScreens.AppIntro.name}
+              name={'AppIntro'}
               component={AppScreens.AppIntro}
             />
             <StackRoot.Screen
-              name={AppScreens.ComingSoon.name}
+              name={'ComingSoon'}
               component={AppScreens.ComingSoon}
             />
 
@@ -69,7 +66,7 @@ export function AppContent() {
                 //   borderBottomWidth: 0,
                 // },
               }}
-              name={AppScreens.Search.name}
+              name={'Search'}
               component={AppScreens.Search}
             />
           </StackRoot.Navigator>
