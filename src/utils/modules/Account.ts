@@ -26,10 +26,15 @@ const AppAccount = {
   },
 };
 
-function useAppSession() {
-  const [session, setSession] = React.useState();
+function useAppAccount() {
+  const [value, setValue] = useMMKVStorage(mmkvKey, MMKVwithID);
 
-  React.useEffect(() => {}, []);
+  let account = MMKVwithID.getMap(mmkvKey);
+
+  if (value) {
+    account = value;
+  }
+  return {account, setValue};
 }
 
-export {useAppSession, AppAccount};
+export {useAppAccount, AppAccount};

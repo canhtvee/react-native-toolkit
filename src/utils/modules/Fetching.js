@@ -2,7 +2,7 @@ import {Alert} from 'react-native';
 
 import {Apis, Constants} from '../resources';
 
-import {AppAccount} from './AppAccount';
+import {AppAccount} from './Account';
 import {_resetToLogin} from './ResetFunction';
 
 /**
