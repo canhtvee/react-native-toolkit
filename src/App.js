@@ -3,8 +3,7 @@ import {UIManager} from 'react-native';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
 import {enableScreens} from 'react-native-screens';
-import {AppContextProvider} from '../utils';
-
+import {AppContextProvider} from './utils';
 import {AppContent} from './container';
 
 enableScreens();

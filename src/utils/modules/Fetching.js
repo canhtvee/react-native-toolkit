@@ -3,7 +3,7 @@ import {Alert} from 'react-native';
 import {Apis, Constants} from '../resources';
 
 import {AppAccount} from './Account';
-import {_resetToLogin} from './ResetFunction';
+import {_resetToLogin} from './Navigation';
 
 /**
  * To advoid duplicated refresh token
@@ -28,7 +28,7 @@ const _checkHttpErrors = response => {
 /**
  * Refesh token routine
  */
-async function __refreshToken() {
+async function refreshToken() {
   const account = AppAccount.get();
   const api = Apis.refreshAccessToken;
 
@@ -97,7 +97,7 @@ const commonCall = async (url, header, option) => {
         result?.error?.code === Constants.http_code.TOKEN_EXPIRED)
     ) {
       RequestQueue.refreshToken = true;
-      const refreshTokenResult = await __refreshToken();
+      const refreshTokenResult = await refreshToken();
 
       AppAccount.set(refreshTokenResult);
       RequestQueue.refreshToken = false;
