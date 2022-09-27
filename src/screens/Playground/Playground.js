@@ -10,8 +10,10 @@ import {
 } from 'react-native';
 import DropDownPicker from 'react-native-dropdown-picker';
 
-import {AppContainer, AppModal} from '../../commons';
-import {CommonStyles, Sizes} from '../../utils';
+import {AppContainer, AppTouchable} from '@commons';
+import {Sizes} from '@utils';
+
+import {PlaygroundHeader} from './items';
 
 const _space = <View style={{height: 20}} />;
 
@@ -37,6 +39,7 @@ export function Playground({navigation}) {
 
   return (
     <AppContainer style={{paddingHorizontal: Sizes.padding * 2}}>
+      <PlaygroundHeader />
       <DropDownPicker
         open={open}
         value={value}
@@ -80,7 +83,14 @@ export function Playground({navigation}) {
         {_space}
         <Text>kdshfkdhsjhfkdsjhfkd</Text>
         {_space}
-        <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        <AppTouchable
+          style={{
+            height: 50,
+            backgroundColor: 'red',
+            justifyContent: 'center',
+          }}>
+          <Text>kdshfkdhsjhfkdsjhfkd</Text>
+        </AppTouchable>
       </ScrollView>
     </AppContainer>
   );

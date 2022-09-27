@@ -3,7 +3,7 @@ import React from 'react';
 import {render, cleanup} from '@testing-library/react-native';
 
 import {AppAsyncImage} from './AppAsyncImage';
-import {AppContextProvider} from '../../utils';
+import {AppContextProvider} from '@utils';
 
 /**
  * Run test command

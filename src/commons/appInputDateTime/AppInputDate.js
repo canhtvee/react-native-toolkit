@@ -3,7 +3,7 @@ import {StyleSheet, Text, View} from 'react-native';
 import {Controller, useFormState, useFormContext} from 'react-hook-form';
 import dayjs from 'dayjs';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';

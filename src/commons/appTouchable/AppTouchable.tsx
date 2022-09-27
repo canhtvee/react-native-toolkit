@@ -8,7 +8,7 @@ import {
   StyleSheet,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 export interface AppTouchableProps
   extends Omit<PressableProps, 'style' | 'hitSlop'> {

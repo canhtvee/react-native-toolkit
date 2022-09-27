@@ -1,4 +1,5 @@
 import React from 'react';
+import {StyleSheet} from 'react-native';
 import {
   Edge,
   NativeSafeAreaViewProps,
@@ -7,7 +8,6 @@ import {
 import {useInteractionManager} from '@react-native-community/hooks';
 
 import {AppViewLoading, AppViewLoadingProps} from '../appViewLoading';
-import {StyleSheet} from 'react-native';
 
 type EdgesType = 'lr' | 'lrt' | 'lrb' | 'lrtb';
 

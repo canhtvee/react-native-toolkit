@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import {Sizes, useAppContext} from '../../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../../appIcon';
 import {AppTouchable} from '../../appTouchable';

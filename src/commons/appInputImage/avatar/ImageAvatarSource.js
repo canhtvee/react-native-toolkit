@@ -3,7 +3,7 @@ import {Text, View, StyleSheet} from 'react-native';
 import {launchCamera, launchImageLibrary} from 'react-native-image-picker';
 import {BottomSheetBackdrop, BottomSheetModal} from '@gorhom/bottom-sheet';
 
-import {FetchApi, Sizes, useAppContext} from '../../../utils';
+import {FetchApi, Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../../appIcon';
 import {AppTouchable} from '../../appTouchable';

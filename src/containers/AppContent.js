@@ -8,8 +8,8 @@ import {
 } from 'react-native-safe-area-context';
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
-import {AppNavigation, useAppContext} from '../utils';
-import * as AppScreens from '../screens';
+import {AppNavigation, useAppContext} from '@utils';
+import * as AppScreens from '@screens';
 
 const StackRoot = createStackNavigator();
 

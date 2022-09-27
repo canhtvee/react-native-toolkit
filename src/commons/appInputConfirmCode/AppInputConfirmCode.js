@@ -3,7 +3,7 @@ import {View} from 'react-native';
 
 import {Controller} from 'react-hook-form';
 
-import {Sizes} from '../../utils';
+import {Sizes} from '@utils';
 
 import {AppText} from '../appText';
 

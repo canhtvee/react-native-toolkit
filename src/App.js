@@ -1,13 +1,12 @@
 import React, {useEffect} from 'react';
 import {UIManager} from 'react-native';
+import {enableScreens} from 'react-native-screens';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
-import {enableScreens} from 'react-native-screens';
-import {AppContextProvider} from './utils';
-import {AppContent} from './container';
+import {AppContextProvider} from '@utils';
+import {AppContent} from '@containers';
 
 enableScreens();
-
 const queryClient = new QueryClient();
 
 export default function App() {

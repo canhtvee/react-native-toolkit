@@ -11,7 +11,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 type SpinnerSizeType = number | 'small' | 'large' | undefined;
 

@@ -3,7 +3,7 @@ import {useForm} from 'react-hook-form';
 import {create} from 'react-test-renderer';
 import {render, cleanup, fireEvent} from '@testing-library/react-native';
 
-import {AppContextProvider} from '../../utils';
+import {AppContextProvider} from '@utils';
 
 import {AppInputText} from './AppInputText';
 

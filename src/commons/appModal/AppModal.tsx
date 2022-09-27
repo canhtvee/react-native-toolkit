@@ -2,7 +2,7 @@ import React, {useEffect, useRef, useState} from 'react';
 import {ModalProps, Modal, View} from 'react-native';
 import {useBackHandler} from '@react-native-community/hooks';
 
-import {useAppContext} from '../../utils';
+import {useAppContext} from '@utils';
 
 /**
  * To use onHide event on both Android and iOS

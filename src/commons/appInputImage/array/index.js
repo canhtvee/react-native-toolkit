@@ -2,7 +2,7 @@ import React, {useRef, useState} from 'react';
 import {View} from 'react-native';
 import {useFieldArray} from 'react-hook-form';
 
-import {Sizes} from '../../../utils';
+import {Sizes} from '@utils';
 
 import {AppViewLoading} from '../../appViewLoading';
 import {Status} from '../modules';

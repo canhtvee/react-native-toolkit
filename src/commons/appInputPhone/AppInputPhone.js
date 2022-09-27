@@ -2,7 +2,7 @@ import React from 'react';
 import {View} from 'react-native';
 import {Controller, useFormContext, useFormState} from 'react-hook-form';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 import {AppText} from '../appText';
 
 import {ClearablePhoneInput} from './ClearablePhoneInput';

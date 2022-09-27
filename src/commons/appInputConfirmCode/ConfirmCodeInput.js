@@ -1,7 +1,7 @@
 import React, {useState, useRef, useEffect} from 'react';
 import {View, TextInput, StyleSheet} from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 export function ConfirmCodeInput({
   codeLength,

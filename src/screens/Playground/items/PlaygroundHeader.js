@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react';
 import {Text} from 'react-native';
-import {Sizes} from '../../../utils';
+import {Sizes} from '@utils';
 
-export function Header() {
+export function PlaygroundHeader() {
   useEffect(() => {
     return () => console.log('unmount header');
   }, []);

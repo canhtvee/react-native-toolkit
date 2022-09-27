@@ -7,7 +7,7 @@ import FastImage, {
   Source,
 } from 'react-native-fast-image';
 
-import {CommonStyles, Constants, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Constants, Sizes, useAppContext} from '@utils';
 
 import {AppViewLoading} from '../appViewLoading';
 import {AppIcon} from '../appIcon';

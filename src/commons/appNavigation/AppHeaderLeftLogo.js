@@ -1,7 +1,7 @@
 import React from 'react';
 import {Image} from 'react-native';
 
-import {Images, Sizes} from '../../utils';
+import {Images, Sizes} from '@utils';
 import {AppTouchable} from '../AppTouchable';
 
 export function AppHeaderLeftLogo({onPress, imageStyle, containerStyle}) {

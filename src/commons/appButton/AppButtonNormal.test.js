@@ -3,7 +3,7 @@ import React from 'react';
 import {cleanup, fireEvent} from '@testing-library/react-native';
 import {create} from 'react-test-renderer';
 
-import {AppContextProvider} from '../../utils';
+import {AppContextProvider} from '@utils';
 import {AppButtonNormal} from './AppButtonNormal';
 
 /**

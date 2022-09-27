@@ -11,7 +11,7 @@ module.exports = {
           '@screens': './src/screens',
           '@commons': './src/commons',
           '@utils': './src/utils',
-          '@container': './src/container',
+          '@containers': './src/containers',
         },
       },
     ],

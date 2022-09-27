@@ -1,7 +1,7 @@
 import React from 'react';
 import {Button, Text, View} from 'react-native';
-import {AppContainer, AppSearchInput} from '../../commons';
-import {Sizes, useAppContext} from '../../utils';
+import {AppContainer, AppSearchInput} from '@commons';
+import {Sizes, useAppContext} from '@utils';
 
 export function Search({navigation}) {
   const {Colors} = useAppContext();

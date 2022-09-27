@@ -1,7 +1,7 @@
 import React, {useMemo, useState} from 'react';
 import {View, TextInput} from 'react-native';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../appIcon';
 import {styles} from './styles';

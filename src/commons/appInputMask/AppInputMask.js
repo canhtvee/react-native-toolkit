@@ -4,7 +4,7 @@ import {View, StyleSheet} from 'react-native';
 import {Controller, useFormState, useFormContext} from 'react-hook-form';
 import MaskInput, {Masks} from 'react-native-mask-input';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppText} from '../appText';
 import {AppIcon} from '../appIcon';

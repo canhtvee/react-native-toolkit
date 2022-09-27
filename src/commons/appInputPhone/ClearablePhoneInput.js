@@ -2,7 +2,7 @@ import React, {useMemo, useRef, useState} from 'react';
 import {View} from 'react-native';
 import PhoneNumberInput from 'react-native-phone-number-input';
 
-import {Sizes, useAppContext} from '../../utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../appIcon';
 

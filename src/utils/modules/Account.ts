@@ -1,4 +1,3 @@
-import React from 'react';
 import MMKVStorage, {useMMKVStorage} from 'react-native-mmkv-storage';
 
 const TAG = 'account';

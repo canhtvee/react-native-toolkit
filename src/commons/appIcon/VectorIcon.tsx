@@ -13,7 +13,7 @@ import Fontisto from 'react-native-vector-icons/Fontisto';
 import EvilIcons from 'react-native-vector-icons/EvilIcons';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
-import {Sizes} from '../../utils';
+import {Sizes} from '@utils';
 
 import {
   AntDesignGlyphs,

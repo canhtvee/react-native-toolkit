@@ -8,12 +8,7 @@ import {
   ViewStyle,
 } from 'react-native';
 
-import {
-  CommonStyles,
-  Sizes,
-  useAppContext,
-  createEventService,
-} from '../../utils';
+import {CommonStyles, Sizes, useAppContext, createEventService} from '@utils';
 
 import {AppIcon} from '../appIcon';
 import {AppTouchable} from '../appTouchable';

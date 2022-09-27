@@ -7,7 +7,7 @@ import {
   BottomSheetModalProps,
 } from '@gorhom/bottom-sheet';
 
-import {CommonStyles} from '../../utils';
+import {CommonStyles} from '@utils';
 
 /**
  * To use ContentContainer umount effect to update modalContext everytime modal closed

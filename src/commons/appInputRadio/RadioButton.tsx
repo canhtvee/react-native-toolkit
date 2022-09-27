@@ -9,7 +9,7 @@ import {
   ColorValue,
 } from 'react-native';
 
-import {CommonStyles, Sizes, useAppContext} from '../../utils';
+import {CommonStyles, Sizes, useAppContext} from '@utils';
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
 export interface RadioButtonProps extends AppTouchableProps {

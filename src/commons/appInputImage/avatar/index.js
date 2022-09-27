@@ -3,7 +3,7 @@ import {Controller} from 'react-hook-form';
 import {Image, StyleSheet, View} from 'react-native';
 import FastImage from 'react-native-fast-image';
 
-import {getResourceImage, Sizes, useAppContext} from '../../../utils';
+import {getResourceImage, Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../../appIcon';
 import {AppViewLoading} from '../../appViewLoading';
