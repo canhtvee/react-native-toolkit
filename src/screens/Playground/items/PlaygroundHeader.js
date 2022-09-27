@@ -8,6 +8,8 @@ export function PlaygroundHeader() {
   }, []);
 
   return (
-    <Text style={{fontSize: Sizes.h5, alignSelf: 'center'}}>Playground</Text>
+    <Text style={{fontSize: Sizes.h5, alignSelf: 'center'}}>
+      Playground Header
+    </Text>
   );
 }

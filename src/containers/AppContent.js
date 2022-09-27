@@ -31,7 +31,7 @@ export function AppContent() {
           }}>
           <StackRoot.Navigator
             screenOptions={{
-              headerShown: true,
+              headerShown: false,
             }}>
             <StackRoot.Screen
               name={'Playground'}
