@@ -19,33 +19,3 @@ export const AppNavigation = {
     navigationRef.current?.dispatch(StackActions.push(name, params));
   },
 };
-
-export function _resetToHome(navigation: any) {
-  const _reset = navigation ? navigation.reset : AppNavigation.reset;
-  _reset({
-    index: 0,
-    routes: [
-      {
-        name: 'SlideDraw',
-        params: {
-          name: 'Main',
-          params: {
-            screen: 'TabOneNavigator',
-          },
-        },
-      },
-    ],
-  } as NavigationState);
-}
-
-export function _resetToLogin(navigation: any) {
-  const _reset = navigation ? navigation.reset : AppNavigation.reset;
-  _reset({
-    index: 0,
-    routes: [
-      {
-        name: 'Login',
-      },
-    ],
-  } as NavigationState);
-}

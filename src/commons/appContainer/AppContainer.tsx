@@ -1,5 +1,4 @@
 import React from 'react';
-import {StyleSheet} from 'react-native';
 import {
   Edge,
   NativeSafeAreaViewProps,
@@ -30,7 +29,13 @@ export function AppContainer({
   return (
     <SafeAreaView
       edges={EdgesValues[edges]}
-      style={[styles.container, style]}
+      style={[
+        {
+          flex: 1,
+          justifyContent: 'flex-start',
+        },
+        style,
+      ]}
       {...safeViewProps}>
       {interaction ? (
         children
@@ -54,10 +59,3 @@ const EdgesValues: Record<EdgesType, ReadonlyArray<Edge>> = {
   lrb: ['left', 'right', 'bottom'],
   lrtb: ['left', 'right', 'top', 'bottom'],
 };
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'flex-start',
-  },
-});

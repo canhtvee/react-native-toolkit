@@ -1,85 +1,171 @@
-import React, {useRef, useState} from 'react';
+import React, {useRef} from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
   Text,
-  LayoutRectangle,
   StyleProp,
   TextStyle,
   ViewStyle,
 } from 'react-native';
 
-import {CommonStyles, Sizes, useAppContext} from '@utils';
+import {Sizes, useAppContext} from '@utils';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
 
-type ContainerSizeType = Partial<LayoutRectangle>;
-export interface AppButtonNormalProps extends Omit<AppTouchableProps, 'style'> {
-  label: string | JSX.Element;
-  textLabelStyle?: StyleProp<TextStyle>;
-  loadingLabel?: JSX.Element;
+export interface AppButtonNormalProps
+  extends Omit<AppTouchableProps, 'style' | 'onPress'> {
+  title?: string;
+  titleStyle?: StyleProp<TextStyle>;
+
+  /**
+   * Icon in every positions maybe icon or image
+   */
+  iconLeft?: JSX.Element;
+  iconRight?: JSX.Element;
+  iconTop?: JSX.Element;
+  iconBottom?: JSX.Element;
+
   containerStyle?: StyleProp<Omit<ViewStyle, 'opacity'>>;
-  spinnerSize?: number;
+  spinnerSize?: number | 'small' | 'large' | undefined;
+  /**
+   * To show loading state
+   */
   isLoading?: boolean;
+  /**
+   * To wrap onPress to support immediately ui blocking
+   */
+  useBlockUi?: boolean;
+  onPress?: (() => Promise<void>) | (() => void);
+
+  /**
+   * To specify a rich ui label
+   */
+  label?: JSX.Element;
+  loadingLabel?: JSX.Element;
+  /**
+   * To specify solid button type
+   */
+  primaryButton?: boolean;
+  /**
+   * To specify text button type
+   */
+  textButton?: boolean;
+  /**
+   * To specify bordered button type
+   */
+  borderedButton?: boolean;
 }
 
 export function AppButtonNormal({
-  label,
-  textLabelStyle,
+  title,
+  titleStyle,
+  iconLeft,
+  iconRight,
+  iconTop,
+  iconBottom,
   containerStyle,
-  loadingLabel,
   spinnerSize,
-  disabled,
+  label,
+  loadingLabel,
   isLoading,
+  disabled,
   hitSlop = true,
+  onPress,
+  useBlockUi,
+  primaryButton,
+  textButton,
+  borderedButton,
   ...touchProps
 }: AppButtonNormalProps) {
   const {Colors} = useAppContext();
-  const [size, setSize] = useState<ContainerSizeType>();
-  const {current: btnRef} = useRef({init: true});
+  const comRef = useRef({isHandlingPress: false});
 
-  const _textStyle = StyleSheet.flatten(textLabelStyle || []);
-  if (!_textStyle?.color) {
-    _textStyle.color = Colors.onPrimary;
-  }
+  const _titleStyle = StyleSheet.flatten([
+    primaryButton && {color: Colors.onPrimary},
+    (borderedButton || textButton) && {color: Colors.primary},
+    titleStyle,
+  ]);
 
   let _contentElement;
-
   if (isLoading) {
     _contentElement = loadingLabel || (
-      <ActivityIndicator color={_textStyle.color} size={spinnerSize} />
+      <ActivityIndicator color={_titleStyle.color} size={spinnerSize} />
     );
-  } else if (typeof label === 'string') {
-    _contentElement = (
-      <Text style={[{fontSize: Sizes.button}, _textStyle]}>{label}</Text>
-    );
-  } else if (React.isValidElement(label)) {
-    _contentElement = label;
   } else {
-    _contentElement = null;
+    _contentElement = (
+      <>
+        {iconTop}
+        {iconLeft}
+        <Text style={[{fontSize: Sizes.button}, _titleStyle]}>{title}</Text>
+        {iconBottom}
+        {iconRight}
+        {label}
+      </>
+    );
+  }
+
+  // To block press event immediately if make api request
+  let _onPress = null;
+  if (typeof onPress === 'function') {
+    _onPress = !useBlockUi
+      ? onPress
+      : async () => {
+          if (comRef.current.isHandlingPress) {
+            return;
+          }
+          comRef.current.isHandlingPress = true;
+          await (onPress && onPress());
+          comRef.current.isHandlingPress = false;
+        };
   }
 
   return (
     <AppTouchable
-      onLayout={({nativeEvent}) => {
-        if (btnRef.init) {
-          setSize({
-            width: nativeEvent.layout.width,
-            height: nativeEvent.layout.height,
-          });
-          btnRef.init = false;
-        }
-      }}
       hitSlop={hitSlop}
       disabled={disabled || isLoading}
       style={[
-        CommonStyles.solidButtonContainer,
-        {backgroundColor: Colors.primary},
+        primaryButton && [
+          styles.primaryButton,
+          {backgroundColor: Colors.primary},
+        ],
+        textButton && [
+          styles.textButton,
+          {backgroundColor: Colors.background, borderColor: Colors.primary},
+        ],
+        borderedButton && [
+          styles.borderedButton,
+          {backgroundColor: Colors.background, borderColor: Colors.primary},
+        ],
+        {
+          flexDirection: iconLeft || iconRight ? 'row' : 'column',
+        },
         containerStyle,
-        {width: size?.width, height: size?.height},
       ]}
+      onPress={_onPress}
       {...touchProps}>
       {_contentElement}
     </AppTouchable>
   );
 }
+
+const styles = StyleSheet.create({
+  primaryButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: Sizes.wpx(40),
+    paddingHorizontal: Sizes.padding * 2,
+    borderRadius: Sizes.borderRadius,
+  },
+
+  borderedButton: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    height: Sizes.wpx(40),
+    paddingHorizontal: Sizes.padding * 2,
+    borderRadius: Sizes.borderRadius,
+    borderWidth: Sizes.borderWidth,
+  },
+  textButton: {
+    borderBottomWidth: Sizes.borderWidth,
+  },
+});

@@ -10,7 +10,7 @@ const circle = (borderRadius: number, borderWidth?: number) => {
     overflow: 'hidden',
     justifyContent: 'center',
     alignItems: 'center',
-    borderWidth,
+    borderWidth: Sizes.wpx(borderWidth || 0),
   } as ViewStyle;
 };
 
@@ -32,23 +32,10 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
   },
 
-  solidButtonContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    paddingVertical: Sizes.padding,
-    paddingHorizontal: Sizes.padding * 2,
-    borderRadius: Sizes.borderRadius,
-  },
-
-  textButtonContainer: {
-    paddingVertical: 2,
-    paddingHorizontal: 4,
-    borderRadius: 2,
-  },
   textInputPadding: {
     paddingVertical: Platform.select({
       ios: Sizes.wpx(12),
-      android: undefined,
+      android: Sizes.wpx(4),
     }),
     paddingHorizontal: Sizes.paddinglx,
   },
