@@ -31,3 +31,4 @@ export * from './appInputImage';
 export * from './appModal';
 export * from './appSearch';
 export * from './appBottomSheetModal';
+export * from './appVersion';

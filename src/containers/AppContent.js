@@ -46,7 +46,7 @@ export function AppContent() {
               component={AppScreens.ComingSoon}
             />
 
-            <StackRoot.Screen
+            {/* <StackRoot.Screen
               options={{
                 presentation: 'modal',
                 headerShown: false,
@@ -68,7 +68,7 @@ export function AppContent() {
               }}
               name={'Search'}
               component={AppScreens.Search}
-            />
+            /> */}
           </StackRoot.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>

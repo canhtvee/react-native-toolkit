@@ -10,26 +10,26 @@ const appVersion = Platform.select({ios: '0.0.1', android: '0.0.1'});
 
 const host = {
   api: 'http://api.com',
-}; //dev
+}; //stg
 
 // const host = {
 //   api: 'https://api.app.com',
 // }; //pro
 
-//dev
+//stg
 const appKeys = {
   codePush: Platform.select({
-    ios: 'key',
-    android: 'key',
+    ios: '0Flb9VF_ReYEFMaCRKL2HLsd_cfwmN4XQE4E_',
+    android: 'N1orohLsv5oTtuuW_sbML90rdQQqJry5edTTj',
   }),
   otherKey: 'demo',
 };
 // pro
 // const appKeys = {
 //   codePush: Platform.select({
-//     ios: 'ZLhrOXs4uTtedmXnCLoLmJ4pGULUAjI6SKrno',
-//     android: 'cmoAvGTcgrrAMwcNAk_cRxgear96GkLVFw62D',
+//     ios: 'QWyGnBfz2KLiqua0QK7VHsEFpoEFHZyahtJlO',
+//     android: '5Xu-qtJ9OT88tQC8FWEkOx0_BIGBB64yvf_dr',
 //   }),
 // };
 
-export const System = {host, isIOS, deviceType, appVersion, appKeys};
+export {host, isIOS, deviceType, appVersion, appKeys};
