@@ -45,30 +45,6 @@ export function AppContent() {
               name={'ComingSoon'}
               component={AppScreens.ComingSoon}
             />
-
-            {/* <StackRoot.Screen
-              options={{
-                presentation: 'modal',
-                headerShown: false,
-                headerTitleStyle: {display: 'none'},
-                // headerLeft: () => (
-                //   <AppSearchInput
-                //     containerStyle={{
-                //       width: Sizes.width(80),
-                //       marginLeft: Sizes.padding,
-                //       borderWidth: 0,
-                //       backgroundColor: Colors.hover,
-                //     }}
-                //   />
-                // ),
-                // headerStyle: {
-                //   backgroundColor: 'white',
-                //   borderBottomWidth: 0,
-                // },
-              }}
-              name={'Search'}
-              component={AppScreens.Search}
-            /> */}
           </StackRoot.Navigator>
         </NavigationContainer>
       </GestureHandlerRootView>
