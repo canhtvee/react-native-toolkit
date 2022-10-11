@@ -3,12 +3,10 @@ import {View} from 'react-native';
 
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 
-import {Sizes, Svgs, useAppLanguage, useAppTheme} from '../utils';
-import {AppText} from '../elements';
+import {Sizes, Svgs, useAppLanguage, useAppTheme} from '@utils';
+import {AppText} from '@commons';
 
 import AllStackNavigator from './AllStackNavigator';
-import TabOneNavigator from './TabOneNavigator';
-import {BottomTabBar} from './items';
 
 const Tab = createBottomTabNavigator();
 
@@ -29,20 +27,12 @@ const renderLabel =
     );
   };
 
-function MainNavigator({navigation}) {
+function BottomTabNavigator({navigation}) {
   const {Colors} = useAppTheme();
   const {Strings} = useAppLanguage();
 
   return (
     <Tab.Navigator
-      tabBar={props => {
-        return (
-          <BottomTabBar
-            getTabBarStyle={AllStackNavigator.getTabBarStyle}
-            {...props}
-          />
-        );
-      }}
       screenOptions={({route}) => ({
         tabBarActiveTintColor: Colors.background,
         tabBarInactiveTintColor: Colors.text,
@@ -54,7 +44,7 @@ function MainNavigator({navigation}) {
       })}>
       <Tab.Screen
         name="TabOneNavigator"
-        component={TabOneNavigator}
+        component={AllStackNavigator}
         options={({route, focused}) => ({
           // tabBarShowLabel: false,
           tabBarIcon: ({focused}) => {
@@ -68,6 +58,9 @@ function MainNavigator({navigation}) {
             label: Strings.Products_list,
           }),
         })}
+        initialParams={{
+          initialRouteName: 'TopPage',
+        }}
       />
 
       <Tab.Screen
@@ -103,10 +96,10 @@ function MainNavigator({navigation}) {
           }),
         })}
         initialParams={{
-          initialRouteName: 'WarningHistory',
+          initialRouteName: 'ComminSoon',
         }}
       />
     </Tab.Navigator>
   );
 }
-export default MainNavigator;
+export default BottomTabNavigator;
