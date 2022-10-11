@@ -22,7 +22,7 @@ const appKeys = {
     ios: '0Flb9VF_ReYEFMaCRKL2HLsd_cfwmN4XQE4E_',
     android: 'N1orohLsv5oTtuuW_sbML90rdQQqJry5edTTj',
   }),
-  otherKey: 'demo',
+  admobId: 'admobId',
 };
 // pro
 // const appKeys = {

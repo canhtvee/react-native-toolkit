@@ -24,7 +24,7 @@ export function AppVersion() {
         alignSelf: 'center',
         marginBottom: Math.max(insets.bottom, Sizes.padding),
       }}>
-      {'version: '}
+      {'Version: '}
       {_appVersion}
     </AppText>
   );

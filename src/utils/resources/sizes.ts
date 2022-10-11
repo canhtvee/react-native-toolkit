@@ -29,7 +29,7 @@ const _hpxToDP = (inPixel: number) => {
 };
 
 const Sizes = {
-  deviceWigth: screenWidth,
+  deviceWidth: screenWidth,
   deviceHeight: screenHeight,
   width: (per: number) => wp(per),
   height: (per: number) => hp(per),
