@@ -5,7 +5,7 @@ import {} from 'react-native';
 import {} from '@utils';
 import {AppContainer} from '@commons';
 
-import {TemplateHeading} from './items';
+import {TemplateHeading} from './modules';
 
 export function Template() {
   const methods = useForm({mode: 'all'});
