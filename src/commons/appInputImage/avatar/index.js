@@ -6,7 +6,7 @@ import FastImage from 'react-native-fast-image';
 import {getResourceImage, Sizes, useAppContext} from '@utils';
 
 import {AppIcon} from '../../appIcon';
-import {AppViewLoading} from '../../appViewLoading';
+import {AppLoading} from '../../appView';
 
 import {ImageAvatarSource} from './ImageAvatarSource';
 import {Status} from '../modules';
@@ -82,7 +82,7 @@ function ImageInputAvatar({onChange, value, imageContainerStyle}) {
       </FastImage>
       {(imageResource?.status === Status.UPLOADING ||
         imageResource?.status === Status.UPLOAD_SUCCESSUL) && (
-        <AppViewLoading overlay loadingText="Uploading..." />
+        <AppLoading overlay loadingText="Uploading..." />
       )}
       <AppIcon
         size={20}

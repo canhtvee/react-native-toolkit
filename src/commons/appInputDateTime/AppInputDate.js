@@ -31,9 +31,7 @@ export function AppInputDate({
   ...pickerProps
 }) {
   const {Colors, Strings} = useAppContext();
-  const methods = useFormContext();
-  const _control = control || methods.control;
-  const {errors} = useFormState({_control, name});
+  const {errors} = useFormState({control, name});
   const pickerRef = useRef();
 
   const _calendarIcon = (

@@ -2,71 +2,68 @@
 
 `Philosophy`: all things are JS modules, applications only contains `views` and `views's dependencies = utils`
 
-1. `utils` is independent
-2. `commons` only depend on `utils`
-   - `commons's child` depend on `utils` and `siblings`
-3. `screens` only depend on `commons` and `utils`
-   - `screens's child` depend on `utils` and `commons`
-   - `siblings` are independent of each other
+1. `utils` contains base Js modules, and it has no dependencies
+2. `commons` contains common Js modules, and only depends on `utils`
+   - `commons's childs` depend on `utils`
+   - `common module and it's siblings` depend on each other
+3. `screens` contains screens of application, and only depends on `commons` and `utils`
+   - `screens's childs` depend on `commons` and `utils`
+   - `screen and it's siblings` are independent of each other
 4. `containers` depend on `screens`, `commons`, and `utils`
 
 ## containers node
 
 ```
 containers
-      |__navigator
-      |__navigator
-      |__...
-      :
-      :
+    |___navigator
+    |___navigator
+    |___...
+    :
 ```
 
 ## screens node
 
 ```
 screens
-      |__screen
-      |        |__items
-      |        |      |__component
-      |        |      |__component
-      |        |      |__...
-      |        |
-      |        |__modules
-      |        |      |__hook
-      |        |      |__service
-      |        |      :
-      |        |______|__...
-      :
-      :
+    |___screen
+    |   |___modules
+    |   |   |___services
+    |   |   |___hooks
+    |   |   |
+    |   |___component
+    |   |___component
+    |   |___...
+    |   |
+    |
+    :
 ```
 
 ## commons node
 
 ```
 commons
-      |__module
-      |        |__component
-      |        |__service
-      |        :
-      :        |__..
-      :
-      |__...
+    |___modules
+    |   |___component
+    |   |___service
+    |   :
+    :
 ```
 
 ## utils node
 
 ```
 utils
-    |__resources
-    |         |__colors
-    |         |__strings
-    |         :
-    |         |__...
-    |__modules
-    |         |__theme
-    |         |__language
-    |         :
-    |         |__...
+    |___resources
+    |   |___colors
+    |   |___strings
+    |   :
     |
-    |__hooks
+    |
+    |___modules
+    |   |___theme
+    |   |___language
+    |   :
+    |
+    |
+    |___hooks
 ```

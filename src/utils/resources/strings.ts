@@ -12,6 +12,7 @@ const StringsEnglish = {
   serverError: 'Server is maintaining \nPlease try again later!',
   somethingWrong: 'Something wrong \nPlease try again later!',
   search: 'Search...',
+  emptyContent: 'There is no content to display',
 };
 const StringsVietnamese = {};
 

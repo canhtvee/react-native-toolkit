@@ -13,19 +13,6 @@ const RequestQueue = {
 };
 
 /**
- * Utils function
- */
-const _checkHttpErrors = response => {
-  if (
-    response.status === 500 ||
-    response.status === 502 ||
-    response.status === 504
-  ) {
-    throw new Error(Constants.http.SERVER_ERROR);
-  }
-};
-
-/**
  * Refesh token routine
  */
 async function refreshToken() {
@@ -49,11 +36,11 @@ async function refreshToken() {
   const result = await response.json();
   console.log('refreshToken-result', result);
   if (response.status === 200 || (response.status === 201 && result?.token)) {
+    AppAccount.set(result);
     return result;
   }
 
   _resetToLogin();
-  RequestQueue.refreshToken = false;
   throw new Error(Constants.http.SESSION_EXPIRED);
 }
 
@@ -79,13 +66,10 @@ const commonCall = async (url, header, option) => {
     withToken && (headers.Authorization = `Bearer ${account.token}`);
 
     const _header = {...header, headers};
-    const response = await fetch(url, _header);
+    let response = await fetch(url, _header);
+    let result = await response.json();
     console.log('_header', header);
     console.log('response', response);
-
-    _checkHttpErrors(response);
-
-    const result = await response.json();
     console.log('result', result);
 
     // If refresh token
@@ -96,41 +80,42 @@ const commonCall = async (url, header, option) => {
       (result?.error?.code === Constants.http_code.INVALID_TOKEN ||
         result?.error?.code === Constants.http_code.TOKEN_EXPIRED)
     ) {
-      RequestQueue.refreshToken = true;
-      const refreshTokenResult = await refreshToken();
+      RequestQueue.refreshToken = await refreshToken();
 
-      AppAccount.set(refreshTokenResult);
-      RequestQueue.refreshToken = false;
+      const newToken = RequestQueue.refreshToken?.access_token;
+      RequestQueue.refreshToken = undefined;
 
       // To refetch api
-      _header.Authorization = `Bearer ${refreshTokenResult.token}`;
-      const refetchResponse = await fetch(url, _header);
-
-      console.log('refetchResponse', refetchResponse);
-      console.log('refetchResponse', refetchResponse);
-
-      _checkHttpErrors(refetchResponse);
-
-      const refetchResult = await refetchResponse.json();
-      console.log('refetchResult', refetchResult);
-
-      return refetchResult;
+      _header.Authorization = `Bearer ${newToken}`;
+      response = await fetch(url, _header);
+      result = await response.json();
+      console.log('refetchResponse', response);
+      console.log('refetchResult', result);
     }
+
+    if (
+      response.status === 500 ||
+      response.status === 502 ||
+      response.status === 504
+    ) {
+      throw new Error(Constants.http.SERVER_ERROR);
+    }
+
     return result;
   } catch (error) {
     console.log('commonCall-error', error);
     throw error;
   }
 };
-const handleException = (error, Strings, title = null) => {
+const handleCommonCallException = (error, Strings, title = null) => {
   switch (error?.message) {
-    case Constants.http.NETWORK_REQUEST_FAILED:
+    case Constants.NETWORK_REQUEST_FAILED:
       Alert.alert(title, Strings.networkRequestFailed);
       break;
-    case Constants.http.SERVER_ERROR:
+    case Constants.SERVER_ERROR:
       Alert.alert(title, Strings.serverError);
       break;
-    case Constants.http.SESSION_EXPIRED:
+    case Constants.SESSION_EXPIRED:
       Alert.alert(title, Strings.sessionExpired);
       break;
     default:
@@ -139,4 +124,9 @@ const handleException = (error, Strings, title = null) => {
   }
 };
 
-export {commonCall, handleException};
+const authOption = {
+  withToken: false,
+  withRereshToken: false,
+};
+
+export {commonCall, authOption, handleCommonCallException};

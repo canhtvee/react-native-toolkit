@@ -22,19 +22,18 @@ export function AppText({
   activeBackgroundColor,
   activeOpacity,
   containerStyle,
-
   children,
   style,
   ...props
 }: AppTextProps) {
-  const {Colors, Styles} = useAppContext();
+  const {Colors} = useAppContext();
 
   if (onPress) {
     return (
       <AppTouchable
         activeBackgroundColor={activeBackgroundColor || true}
         activeOpacity={activeOpacity}
-        style={[Styles.textButton, containerStyle]}
+        style={[containerStyle]}
         onPress={onPress}>
         <Text
           style={[{fontSize: Sizes.button, color: Colors.primary}, style]}

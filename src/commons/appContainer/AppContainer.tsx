@@ -6,14 +6,14 @@ import {
 } from 'react-native-safe-area-context';
 import {useInteractionManager} from '@react-native-community/hooks';
 
-import {AppViewLoading, AppViewLoadingProps} from '../appViewLoading';
+import {AppLoading, AppLoadingProps} from '../appView';
 
 type EdgesType = 'lr' | 'lrt' | 'lrb' | 'lrtb';
 
 export interface AppContainerProps
   extends Omit<NativeSafeAreaViewProps, 'edges'> {
   edges?: EdgesType;
-  loadingProps: AppViewLoadingProps;
+  loadingProps: AppLoadingProps;
 }
 
 //TODO: include AppKeyBoardAccessory as default
@@ -40,7 +40,7 @@ export function AppContainer({
       {interaction ? (
         children
       ) : (
-        <AppViewLoading
+        <AppLoading
           {...loadingProps}
           containerStyle={{
             flex: 1,

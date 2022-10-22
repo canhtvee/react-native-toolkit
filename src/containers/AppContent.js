@@ -10,6 +10,7 @@ import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {AppNavigation, useAppContext} from '@utils';
 import * as AppScreens from '@screens';
+import linking from './linking';
 
 const StackRoot = createStackNavigator();
 
@@ -20,6 +21,7 @@ export function AppContent() {
     <SafeAreaProvider initialWindowMetrics={initialWindowMetrics}>
       <GestureHandlerRootView style={{flex: 1}}>
         <NavigationContainer
+          linking={linking}
           ref={AppNavigation.navigationRef}
           theme={{
             ...DefaultTheme,

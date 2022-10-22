@@ -1,94 +1,158 @@
-import React, {useEffect, useRef, useState} from 'react';
-import {ModalProps, Modal, View} from 'react-native';
+import React, {
+  createRef,
+  forwardRef,
+  RefObject,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
+} from 'react';
+import {
+  ModalProps,
+  Modal,
+  StyleProp,
+  TextStyle,
+  ViewStyle,
+  View,
+  StyleSheet,
+} from 'react-native';
 import {useBackHandler} from '@react-native-community/hooks';
 
-import {useAppContext} from '@utils';
+import {Sizes, useAppContext} from '@utils';
+import {AppIcon} from '../appIcon';
+import {AppText} from '../appText';
 
-/**
- * To use onHide event on both Android and iOS
- */
-function AppModalContentContainer({
-  onUnmount,
-  children,
-}: {
-  onUnmount?: () => void;
+export type ModalDataType = {
+  config?: ModalProps;
+  title?: string;
+  titleStyle?: StyleProp<TextStyle>;
+  description?: string;
+  descriptionStyle?: StyleProp<TextStyle>;
+  containerStyle?: StyleProp<ViewStyle>;
   children?: JSX.Element;
-}) {
-  const {Colors} = useAppContext();
-
-  useEffect(() => {
-    return onUnmount;
-  }, []);
-
-  return (
-    <View
-      style={{
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-        backgroundColor: Colors.placeholder,
-      }}>
-      {children}
-    </View>
-  );
-}
+  onHide?: () => void;
+};
 
 export type ModalStateType = {
   config?: ModalProps;
   children?: JSX.Element;
 };
 
-type ModalRefType = {
-  onOpenModal?: (props: ModalStateType) => void;
-  onCloseModal?: () => void;
+export type AppModalServiceType = {
+  openModal: (data: ModalDataType) => void;
+  closeModal: () => void;
 };
 
-const modalRef: {current?: ModalRefType} = {
-  current: undefined,
-};
+const modalViewRef: RefObject<AppModalServiceType> = createRef();
 
-function ModalView() {
-  const [isOpen, setIsOpen] = useState(false);
-  const modalStateRef = useRef<ModalStateType>();
+const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
+  (props, ref) => {
+    const {Colors} = useAppContext();
+    const [isOpen, setIsOpen] = useState(false);
+    const modalStateRef = useRef<ModalStateType | null>();
+    const timeOutRef = useRef<NodeJS.Timer>();
 
-  if (!modalRef.current) {
-    modalRef.current = {
-      onOpenModal: (props: ModalStateType) => {
-        modalStateRef.current = props;
+    useImperativeHandle(ref, () => ({
+      openModal: (data: ModalDataType) => {
+        if (modalStateRef.current && modalStateRef.current !== data) {
+          setIsOpen(false);
+          timeOutRef.current && clearTimeout(timeOutRef.current);
+          timeOutRef.current = setTimeout(() => {
+            modalStateRef.current = data;
+            setIsOpen(true);
+          }, 300);
+          return;
+        }
+
+        modalStateRef.current = data;
         setIsOpen(true);
       },
-      onCloseModal: () => setIsOpen(false),
-    };
-  }
 
-  useEffect(() => {
-    return () => {
-      modalRef.current = undefined;
-    };
-  }, []);
+      closeModal: () => setIsOpen(false),
+    }));
 
-  useBackHandler(() => false);
+    useEffect(() => {
+      if (isOpen) {
+        return;
+      }
+      props?.onHide?.();
+      modalStateRef.current = null;
+    }, [isOpen]);
 
-  return (
-    <Modal
-      animationType="fade"
-      visible={isOpen}
-      style={{position: 'absolute', flex: 1}}
-      transparent={true}
-      {...modalStateRef.current?.config}>
-      <AppModalContentContainer
-        onUnmount={() => (modalStateRef.current = undefined)}>
-        {modalStateRef.current?.children}
-      </AppModalContentContainer>
-    </Modal>
-  );
-}
+    useBackHandler(() => false);
+
+    const {title, titleStyle, description, descriptionStyle, config, children} =
+      props;
+
+    return (
+      <Modal
+        animationType="fade"
+        visible={isOpen}
+        style={{position: 'absolute', flex: 1}}
+        transparent={true}
+        {...config}>
+        <View
+          style={{
+            flex: 1,
+            alignItems: 'center',
+            justifyContent: 'center',
+            backgroundColor: Colors.placeholder,
+          }}>
+          <AppIcon
+            name={{antDesign: 'closecircle'}}
+            iconContainerStyle={{
+              alignSelf: 'flex-end',
+              padding: Sizes.paddinglxx,
+            }}
+            onPress={() => {
+              setIsOpen(false);
+            }}
+          />
+          {!!title && (
+            <AppText style={[styles.title, titleStyle]}>{title}</AppText>
+          )}
+          {!!description && (
+            <AppText style={[styles.description, descriptionStyle]}>
+              {description}
+            </AppText>
+          )}
+          {children}
+        </View>
+      </Modal>
+    );
+  },
+);
+const styles = StyleSheet.create({
+  container: {
+    alignItems: 'center',
+    borderRadius: Sizes.borderRadius * 1.5,
+    paddingBottom: Sizes.width(40),
+    width: Sizes.width(343),
+    marginTop: Sizes.width(160),
+    minHeight: Sizes.width(200),
+  },
+  title: {
+    fontWeight: 'bold',
+    marginHorizontal: Sizes.width(30),
+    marginTop: Sizes.width(20),
+    marginBottom: Sizes.width(30),
+    textAlign: 'center',
+  },
+  description: {
+    fontSize: Sizes.regular,
+    marginHorizontal: Sizes.width(40),
+    marginBottom: Sizes.width(40),
+    textAlign: 'center',
+  },
+});
+
+/**
+ * Using an additional level of abstraction to make this module more compact and declarative
+ */
 
 export const AppModal = {
   View: ModalView,
-  ref: modalRef,
-  openModal: (props: ModalStateType) =>
-    modalRef.current?.onOpenModal && modalRef.current?.onOpenModal(props),
-  closeModal: () =>
-    modalRef.current?.onCloseModal && modalRef.current?.onCloseModal(),
+  ref: modalViewRef,
+  openModal: (data: ModalDataType) => modalViewRef.current?.openModal(data),
+  closeModal: () => modalViewRef.current?.closeModal(),
 };

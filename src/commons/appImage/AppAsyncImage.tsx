@@ -9,7 +9,7 @@ import FastImage, {
 
 import {CommonStyles, Constants, Sizes, useAppContext} from '@utils';
 
-import {AppViewLoading} from '../appViewLoading';
+import {AppLoading} from '../appView';
 import {AppIcon} from '../appIcon';
 
 export type AppAsyncImageSourceType = Source | number;
@@ -49,11 +49,11 @@ export function AppAsyncImage({
 }: AppAsyncImageProps) {
   const {Colors} = useAppContext();
   const [imageStatus, setImageStatus] = useState(() =>
-    isLoading || source ? Constants.status.LOADING : Constants.status.ERROR,
+    isLoading || source ? Constants.LOADING : Constants.ERROR,
   );
 
   useEffect(() => {
-    setImageStatus(source ? Constants.status.LOADING : Constants.status.ERROR);
+    setImageStatus(source ? Constants.LOADING : Constants.ERROR);
   }, [source]);
 
   const _imageStyle = StyleSheet.flatten(imageStyle);
@@ -64,20 +64,20 @@ export function AppAsyncImage({
       source={source}
       resizeMode={_getResizeMode(resizeMode)}
       onLoadStart={() => {
-        setImageStatus(Constants.status.LOADING);
+        setImageStatus(Constants.LOADING);
         onLoadStart && onLoadStart();
       }}
       onLoad={() => {
-        setImageStatus(Constants.status.SUCCESSFUL);
+        setImageStatus(Constants.SUCCESSFUL);
         onLoadSuccess && onLoadSuccess();
       }}
       onError={() => {
-        setImageStatus(Constants.status.ERROR);
+        setImageStatus(Constants.ERROR);
         onLoadError && onLoadError();
       }}
       {...imageProps}>
-      {imageStatus === Constants.status.LOADING && (
-        <AppViewLoading
+      {imageStatus === Constants.LOADING && (
+        <AppLoading
           spinnerSize={spinnerSize}
           spinnerColor={spinnerColor || Colors.onBackground}
           containerStyle={[
@@ -90,7 +90,7 @@ export function AppAsyncImage({
           ]}
         />
       )}
-      {imageStatus === Constants.status.ERROR &&
+      {imageStatus === Constants.ERROR &&
         (placeholder ? (
           placeholder
         ) : (

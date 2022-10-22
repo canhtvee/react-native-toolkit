@@ -1,18 +1,18 @@
 import React from 'react';
 import {render, cleanup} from '@testing-library/react-native';
-import {AppViewLoading} from './index';
+import {AppLoading} from './index';
 
 /**
  * Run test command
- * yarn test -u -t="AppViewLoading"
+ * yarn test -u -t="AppLoading"
  */
 
 afterAll(cleanup);
 
-describe('AppViewLoading', () => {
+describe('AppLoading', () => {
   test('should render correctly', () => {
     const tree = render(
-      <AppViewLoading
+      <AppLoading
         containerStyle={{backgroundColor: 'red', margin: 30}}
         spinnerSize={80}
         spinnerColor={'blue'}

@@ -5,7 +5,7 @@ import CodePush from 'react-native-code-push';
 import {QueryClient, QueryClientProvider} from 'react-query';
 
 import {AppContextProvider, appKeys} from '@utils';
-import {AppContent} from '@containers';
+import {AppContent} from './containers/AppContent';
 
 enableScreens();
 const queryClient = new QueryClient();

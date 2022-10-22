@@ -15,7 +15,7 @@ import {Sizes, useAppContext} from '@utils';
 
 type SpinnerSizeType = number | 'small' | 'large' | undefined;
 
-export interface AppViewLoadingProps {
+export interface AppLoadingProps {
   loadingText?: string;
   loadingTextStyle?: StyleProp<TextStyle>;
   spinnerColor?: string;
@@ -24,14 +24,14 @@ export interface AppViewLoadingProps {
   containerStyle: StyleProp<ViewStyle>;
 }
 
-export function AppViewLoading({
+export function AppLoading({
   loadingText,
   loadingTextStyle,
   containerStyle,
   spinnerColor,
   spinnerSize,
   overlay,
-}: AppViewLoadingProps) {
+}: AppLoadingProps) {
   const {Colors} = useAppContext();
 
   const _spinner = (

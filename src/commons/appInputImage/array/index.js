@@ -4,7 +4,7 @@ import {useFieldArray} from 'react-hook-form';
 
 import {Sizes} from '@utils';
 
-import {AppViewLoading} from '../../appViewLoading';
+import {AppLoading} from '../../appView';
 import {Status} from '../modules';
 
 import {ImageArraySource} from './ImageArraySource';
@@ -52,7 +52,7 @@ export function AppInputImageArray({control, name}) {
       </View>
       {(imageResourceStatus === Status.UPLOADING ||
         imageResourceStatus === Status.UPLOAD_SUCCESSUL) && (
-        <AppViewLoading overlay loadingText="Uploading..." />
+        <AppLoading overlay loadingText="Uploading..." />
       )}
       <ImageArraySource
         ref={sourceRef}
