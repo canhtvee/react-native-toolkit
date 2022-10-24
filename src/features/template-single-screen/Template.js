@@ -3,9 +3,9 @@ import {FormProvider, useForm} from 'react-hook-form';
 import {} from 'react-native';
 
 import {} from '@utils';
-import {AppContainer} from '@commons';
+import {AppContainer} from '../../commons';
 
-import {TemplateHeading} from './modules';
+import {TemplateHeading} from './TemplateHeading';
 
 export function Template() {
   const methods = useForm({mode: 'all'});

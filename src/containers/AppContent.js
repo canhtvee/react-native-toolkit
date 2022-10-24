@@ -9,7 +9,7 @@ import {
 import {GestureHandlerRootView} from 'react-native-gesture-handler';
 
 import {AppNavigation, useAppContext} from '@utils';
-import * as AppScreens from '@screens';
+import * as AppScreens from '/features';
 import linking from './linking';
 
 const StackRoot = createStackNavigator();

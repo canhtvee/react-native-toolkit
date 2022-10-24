@@ -1,10 +1,11 @@
 import React from 'react';
 import {View} from 'react-native';
 
-import {AppContainer, AppVersion} from '@commons';
+import {AppContainer, AppVersion} from '../../commons';
 import {Sizes} from '@utils';
 
-import {PlaygroundBody, PlaygroundHeader} from './modules';
+import {PlaygroundHeader} from './PlaygroundHeader';
+import {PlaygroundBody} from './PlaygroundBody';
 
 export function Playground({navigation}) {
   return (

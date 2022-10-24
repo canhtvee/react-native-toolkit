@@ -1,6 +1,6 @@
 import React, {useRef, useState} from 'react';
 import {Text, View, Animated} from 'react-native';
-import {AppButtonNormal, AppContainer} from '@commons';
+import {AppButtonNormal, AppContainer} from '../../../commons';
 import {Sizes} from '../../resources';
 import {useAppContext} from '../Context';
 

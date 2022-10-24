@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {AppButtonNormal} from '@commons';
+import {AppButtonNormal} from '../../commons';
 import {View} from 'react-native';
 
 export function PlaygroundBody() {
