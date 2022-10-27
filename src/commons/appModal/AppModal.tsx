@@ -22,7 +22,7 @@ import {Sizes, useAppContext} from '@utils';
 import {AppIcon} from '../appIcon';
 import {AppText} from '../appText';
 
-export type ModalDataType = {
+export type ModalStateType = {
   config?: ModalProps;
   title?: string;
   titleStyle?: StyleProp<TextStyle>;
@@ -33,19 +33,14 @@ export type ModalDataType = {
   onHide?: () => void;
 };
 
-export type ModalStateType = {
-  config?: ModalProps;
-  children?: JSX.Element;
-};
-
 export type AppModalServiceType = {
-  openModal: (data: ModalDataType) => void;
+  openModal: (data: ModalStateType) => void;
   closeModal: () => void;
 };
 
 const modalViewRef: RefObject<AppModalServiceType> = createRef();
 
-const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
+const ModalView = forwardRef<AppModalServiceType, ModalStateType>(
   (props, ref) => {
     const {Colors} = useAppContext();
     const [isOpen, setIsOpen] = useState(false);
@@ -53,7 +48,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
     const timeOutRef = useRef<NodeJS.Timer>();
 
     useImperativeHandle(ref, () => ({
-      openModal: (data: ModalDataType) => {
+      openModal: (data: ModalStateType) => {
         if (modalStateRef.current && modalStateRef.current !== data) {
           setIsOpen(false);
           timeOutRef.current && clearTimeout(timeOutRef.current);
@@ -81,8 +76,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
 
     useBackHandler(() => false);
 
-    const {title, titleStyle, description, descriptionStyle, config, children} =
-      props;
+    const _props = modalStateRef.current;
 
     return (
       <Modal
@@ -90,7 +84,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
         visible={isOpen}
         style={{position: 'absolute', flex: 1}}
         transparent={true}
-        {...config}>
+        {..._props?.config}>
         <View
           style={{
             flex: 1,
@@ -108,15 +102,17 @@ const ModalView = forwardRef<AppModalServiceType, ModalDataType>(
               setIsOpen(false);
             }}
           />
-          {!!title && (
-            <AppText style={[styles.title, titleStyle]}>{title}</AppText>
-          )}
-          {!!description && (
-            <AppText style={[styles.description, descriptionStyle]}>
-              {description}
+          {!!_props?.title && (
+            <AppText style={[styles.title, _props?.titleStyle]}>
+              {_props.title}
             </AppText>
           )}
-          {children}
+          {!!_props?.description && (
+            <AppText style={[styles.description, _props.descriptionStyle]}>
+              {_props.description}
+            </AppText>
+          )}
+          {_props?.children}
         </View>
       </Modal>
     );
@@ -153,6 +149,6 @@ const styles = StyleSheet.create({
 export const AppModal = {
   View: ModalView,
   ref: modalViewRef,
-  openModal: (data: ModalDataType) => modalViewRef.current?.openModal(data),
+  openModal: (data: ModalStateType) => modalViewRef.current?.openModal(data),
   closeModal: () => modalViewRef.current?.closeModal(),
 };
