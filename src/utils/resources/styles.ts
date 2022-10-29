@@ -35,7 +35,7 @@ const styles = StyleSheet.create({
   textInputPadding: {
     paddingVertical: Platform.select({
       ios: Sizes.wpx(12),
-      android: Sizes.wpx(4),
+      android: Sizes.wpx(6),
     }),
     paddingHorizontal: Sizes.paddinglx,
   },

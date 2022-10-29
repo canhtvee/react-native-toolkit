@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {
   StyleProp,
   StyleSheet,
@@ -40,7 +40,7 @@ export function AppSearchInput({
   const [textValue, setTextValue] = useState('');
   const inputRef = useRef<TextInput>(null);
 
-  const onChangeText = React.useCallback(
+  const onChangeText = useCallback(
     (text: string) => {
       setTextValue(text);
       AppSearchService.onChange({

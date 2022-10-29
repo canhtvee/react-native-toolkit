@@ -8,10 +8,7 @@ import {_resetToLogin} from './Navigation';
 /**
  * To advoid duplicated refresh token
  */
-const RequestQueue = {
-  refreshToken: undefined,
-};
-
+let refreshTokenQueue;
 /**
  * Refesh token routine
  */
@@ -29,19 +26,29 @@ async function refreshToken() {
     }),
   };
 
-  const response = await fetch(api, header);
-  console.log('refreshToken-header', header);
-  console.log('refreshToken-response', response);
+  try {
+    const response = await fetch(api, header);
+    console.log('refreshToken-header', header);
+    console.log('refreshToken-response', response);
 
-  const result = await response.json();
-  console.log('refreshToken-result', result);
-  if (response.status === 200 || (response.status === 201 && result?.token)) {
+    const result = await response.json();
+    console.log('refreshToken-result', result);
+    if (!(response.status === 200 || response.status === 201)) {
+      throw new Error(Constants.SESSION_EXPIRED);
+    }
+
+    if (result.status === 401 || !result?.token) {
+      throw new Error(Constants.ACCOUNT_DEACTIVATE);
+    }
+
     AppAccount.set(result);
+    refreshTokenQueue = undefined;
     return result;
+  } catch (error) {
+    _resetToLogin();
+    refreshTokenQueue = undefined;
+    throw error;
   }
-
-  _resetToLogin();
-  throw new Error(Constants.http.SESSION_EXPIRED);
 }
 
 /**
@@ -74,16 +81,16 @@ const commonCall = async (url, header, option) => {
 
     // If refresh token
     if (
-      withRefreshToken &&
-      !RequestQueue.refreshToken &&
       response.status === 401 &&
-      (result?.error?.code === Constants.http_code.INVALID_TOKEN ||
-        result?.error?.code === Constants.http_code.TOKEN_EXPIRED)
+      (result?.error?.code === Constants.INVALID_TOKEN ||
+        result?.error?.code === Constants.TOKEN_EXPIRED) &&
+      withRefreshToken
     ) {
-      RequestQueue.refreshToken = await refreshToken();
-
-      const newToken = RequestQueue.refreshToken?.access_token;
-      RequestQueue.refreshToken = undefined;
+      if (!refreshTokenQueue) {
+        refreshTokenQueue = refreshToken();
+      }
+      const refreshTokenResult = await refreshTokenQueue;
+      const newToken = await refreshTokenResult?.access_token;
 
       // To refetch api
       _header.Authorization = `Bearer ${newToken}`;
@@ -98,7 +105,7 @@ const commonCall = async (url, header, option) => {
       response.status === 502 ||
       response.status === 504
     ) {
-      throw new Error(Constants.http.SERVER_ERROR);
+      throw new Error(Constants.SERVER_ERROR);
     }
 
     return result;
@@ -115,13 +122,11 @@ const handleCommonCallException = (error, Strings, title = null) => {
     case Constants.SERVER_ERROR:
       Alert.alert(title, Strings.serverError);
       break;
-    case Constants.SESSION_EXPIRED:
-      Alert.alert(title, Strings.sessionExpired);
-      break;
     default:
       Alert.alert(title, Strings.somethingWrong);
       break;
   }
+  return;
 };
 
 const authOption = {

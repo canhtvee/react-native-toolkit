@@ -26,14 +26,9 @@ const AppAccount = {
 };
 
 function useAppAccount() {
-  const [value, setValue] = useMMKVStorage(mmkvKey, MMKVwithID);
+  const [account, setAccount] = useMMKVStorage(mmkvKey, MMKVwithID);
 
-  let account = MMKVwithID.getMap(mmkvKey);
-
-  if (value) {
-    account = value;
-  }
-  return {account, setValue};
+  return [account, setAccount];
 }
 
 export {useAppAccount, AppAccount};

@@ -7,8 +7,8 @@ import {
   ThemCodeType,
 } from '../../resources';
 
-import {useLanguage, LanguagueService} from './Language';
-import {useTheme, ThemeService} from './Theme';
+import {useLanguage} from './Language';
+import {useTheme} from './Theme';
 
 type AppContextType = {
   Colors: ColorsType;
@@ -48,4 +48,4 @@ function useAppContext() {
   return context;
 }
 
-export {useAppContext, AppContextProvider, LanguagueService, ThemeService};
+export {useAppContext, AppContextProvider};

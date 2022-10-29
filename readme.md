@@ -6,10 +6,10 @@
 2. `commons` contains common Js modules, and only depends on `utils`
    - `commons's childs` depend on `utils`
    - `common module and it's siblings` depend on each other
-3. `screens` contains screens of application, and only depends on `commons` and `utils`
-   - `screens's childs` depend on `commons` and `utils`
-   - `screen and it's siblings` are independent of each other
-4. `containers` depend on `screens`, `commons`, and `utils`
+3. `features` contains screens of application, and only depends on `commons` and `utils`
+   - `features's childs` depend on `commons` and `utils`
+   - `feature and it's siblings` are independent of each other
+4. `containers` depend on `features`, `commons`, and `utils`
 
 ## containers node
 
@@ -21,19 +21,22 @@ containers
     :
 ```
 
-## screens node
+## features node
 
 ```
-screens
-    |___screen
-    |   |___modules
-    |   |   |___services
-    |   |   |___hooks
-    |   |   |
-    |   |___component
+features
+    |___feature
+    |   |___service
+    |   |___hook
     |   |___component
     |   |___...
-    |   |
+    |
+    |___feature
+    |   |___screen
+    |   |   |___service
+    |   |   |___hook
+    |   |   |___component
+    |___|___|___...
     |
     :
 ```

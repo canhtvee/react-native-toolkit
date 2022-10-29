@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React from 'react';
 import {
   ActivityIndicator,
   StyleSheet,
@@ -34,8 +34,7 @@ export interface AppButtonNormalProps
   /**
    * To wrap onPress to support immediately ui blocking
    */
-  useBlockUi?: boolean;
-  onPress?: (() => Promise<void>) | (() => void);
+  onPress?: () => void;
 
   /**
    * To specify a rich ui label
@@ -71,14 +70,12 @@ export function AppButtonNormal({
   disabled,
   hitSlop = true,
   onPress,
-  useBlockUi,
   primaryButton,
   textButton,
   borderedButton,
   ...touchProps
 }: AppButtonNormalProps) {
   const {Colors} = useAppContext();
-  const comRef = useRef({isHandlingPress: false});
 
   const _titleStyle = StyleSheet.flatten([
     primaryButton && {color: Colors.onPrimary},
@@ -104,21 +101,6 @@ export function AppButtonNormal({
     );
   }
 
-  // To block press event immediately if make api request
-  let _onPress = null;
-  if (typeof onPress === 'function') {
-    _onPress = !useBlockUi
-      ? onPress
-      : async () => {
-          if (comRef.current.isHandlingPress) {
-            return;
-          }
-          comRef.current.isHandlingPress = true;
-          await (onPress && onPress());
-          comRef.current.isHandlingPress = false;
-        };
-  }
-
   return (
     <AppTouchable
       hitSlop={hitSlop}
@@ -141,7 +123,7 @@ export function AppButtonNormal({
         },
         containerStyle,
       ]}
-      onPress={_onPress}
+      onPress={onPress}
       {...touchProps}>
       {_contentElement}
     </AppTouchable>

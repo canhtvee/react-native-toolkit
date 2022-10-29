@@ -1,4 +1,4 @@
-export type ResourceStatusType = 'loading' | 'error' | 'successful' | undefined;
+export type ResourceStatusType = 'LOADING' | 'ERROR' | 'SUCCESSFUL' | undefined;
 export type ResourceType<T> = {
   status?: ResourceStatusType;
   data?: T;
