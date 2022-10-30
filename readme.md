@@ -8,7 +8,7 @@
    - `common module and it's siblings` depend on each other
 3. `features` contains screens of application, and only depends on `commons` and `utils`
    - `features's childs` depend on `commons` and `utils`
-   - `feature and it's siblings` are independent of each other
+   - `feature and it's siblings` may depend on each other
 4. `containers` depend on `features`, `commons`, and `utils`
 
 ## containers node
