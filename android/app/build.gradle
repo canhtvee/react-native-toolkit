@@ -233,7 +233,7 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            applicationIdSuffix ".staging"
+            // applicationIdSuffix ".staging"
 
         }
         release {
@@ -242,7 +242,7 @@ android {
             signingConfig signingConfigs.debug
             minifyEnabled enableProguardInReleaseBuilds
             proguardFiles getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro"                        
-            applicationIdSuffix ".staging"
+            // applicationIdSuffix ".staging"
 
         }
     }

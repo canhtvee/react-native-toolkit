@@ -9,8 +9,8 @@
     "start": "react-native start",
     "test": "jest --forceExit --detectOpenHandles",
     "lint": "eslint .",
-    "codepush-ios": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNToolkit-iOS -d Staging",
-    "codepush-android": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNTookit-Android -d Staging"
+    "codepush-ios": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNToolkit-iOS -d Production",
+    "codepush-android": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNTookit-Android -d Production"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.2",
