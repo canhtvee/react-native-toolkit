@@ -1,9 +1,9 @@
 type EventType = {
   eventName: string;
-  data: object;
+  data?: object;
 };
 
-type ListenerType = (data: object) => void;
+type ListenerType<E extends EventType> = (event: E) => void;
 
 /**
  * createEventService function is reusable, it only depends on the eventType
@@ -12,26 +12,23 @@ export function createEventService<E extends EventType>(
   initialData: E['data'],
 ) {
   let current: E['data'] = {...initialData};
-  let listeners: Record<string, Array<ListenerType>> = {};
+  let listeners: Record<string, Array<ListenerType<E>>> = {};
 
-  const getContext = () => ({
-    current,
-    listeners,
-  });
-  const resetContext = () => {
+  const get = () => ({...current});
+  const reset = () => {
     current = {...initialData};
     listeners = {};
   };
 
-  const subcribe = (eventName: E['eventName'], cb: ListenerType) => {
+  const subcribe = (eventName: E['eventName'], listener: ListenerType<E>) => {
     if (!listeners[eventName]) {
       listeners[eventName] = [];
     }
 
-    listeners[eventName].push(cb);
+    listeners[eventName].push(listener);
     const subscription = {
       unsub: () => {
-        const _listenters = listeners[eventName].filter(_l => _l !== cb);
+        const _listenters = listeners[eventName].filter(_l => _l !== listener);
         listeners[eventName] = _listenters;
       },
     };
@@ -42,20 +39,52 @@ export function createEventService<E extends EventType>(
     let event: E;
 
     if (typeof emittingEvent === 'function') {
-      event = emittingEvent(current);
+      event = emittingEvent({...current});
     } else {
       event = emittingEvent;
     }
 
-    const {data = {}, eventName} = event;
-    current = {...current, ...data};
-    listeners[eventName].forEach(_l => _l(event));
+    if (event?.data) {
+      current = {...current, ...event.data};
+    }
+
+    if (!listeners[event.eventName]) {
+      return;
+    }
+
+    listeners[event.eventName].forEach(_l => _l(event));
   };
 
   return {
     subcribe,
     emit,
-    getContext,
-    resetContext,
+    get,
+    reset,
   };
 }
+
+// type NotiEventDataType = {
+//   badge?: number;
+//   lastReadIds?: Array<number>;
+// };
+
+// type NotiEventType = {
+//   eventName: 'newNotiOnForeground' | 'updateBadge' | 'readNotiSuccess';
+//   data: NotiEventDataType;
+// };
+
+// const NotiService = createEventService<NotiEventType>({
+//   badge: undefined,
+//   lastReadIds: [],
+// });
+
+// const subscription = NotiService.subcribe('updateBadge', ({data}) =>
+//   console.log(data.badge),
+// );
+// subscription.unsub();
+
+// NotiService.emit(({badge}) => {
+//   return {eventName: 'updateBadge', data: {badge: badge ? badge + 1 : 1}};
+// });
+
+// const {badge, lastReadIds} = NotiService.get();
