@@ -4,3 +4,4 @@ export * from './Fetching';
 export * from './Account';
 export * from './Testing';
 export * from './Event';
+export * from './ValidateData';

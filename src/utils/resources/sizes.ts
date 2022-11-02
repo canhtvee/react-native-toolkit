@@ -45,6 +45,14 @@ const Sizes = {
   button: _wpxToDP(15),
   icon: _wpxToDP(18),
 
+  sz15: _hpxToDP(15),
+  sz16: _hpxToDP(16),
+  sz18: _hpxToDP(18),
+  sz20: _hpxToDP(20),
+  sz22: _hpxToDP(22),
+  sz24: _hpxToDP(24),
+  sz26: _hpxToDP(26),
+
   borderWidth: 1,
   borderWidthlx: 0.5,
 

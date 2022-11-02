@@ -8,7 +8,9 @@
     "pod": "cd ios; pod install",
     "start": "react-native start",
     "test": "jest --forceExit --detectOpenHandles",
-    "lint": "eslint ."
+    "lint": "eslint .",
+    "codepush-ios": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNToolkit-iOS -d Staging",
+    "codepush-android": "appcenter codepush release-react -a canhtv.ee-gmail.com/RNTookit-Android -d Staging"
   },
   "dependencies": {
     "@gorhom/bottom-sheet": "^4.4.2",
@@ -26,7 +28,7 @@
     "react-native": "0.68.2",
     "react-native-code-push": "^7.0.5",
     "react-native-date-picker": "^4.2.5",
-    "react-native-device-info": "^10.0.2",
+    "react-native-device-info": "^10.3.0",
     "react-native-dropdown-picker": "^5.4.2",
     "react-native-fast-image": "^8.5.11",
     "react-native-gesture-handler": "^2.5.0",
@@ -48,7 +50,8 @@
     "react-native-vector-icons": "^9.2.0",
     "react-native-webview": "^11.23.0",
     "react-query": "3.34.7",
-    "use-sync-external-store": "^1.2.0"
+    "use-sync-external-store": "^1.2.0",
+    "xdate": "^0.8.2"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

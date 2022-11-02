@@ -280,3 +280,7 @@
 // };
 
 // export {Validate};
+
+export function _isHTML(text) {
+  return /<[a-z/][\s\S]*>/i.test(text);
+}
