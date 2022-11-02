@@ -1,4 +1,0 @@
-<resources>
-    <string name="app_name">Toolkit</string>
-    <string moduleConfig="true" name="CodePushDeploymentKey">DeploymentKey</string>
-</resources>
