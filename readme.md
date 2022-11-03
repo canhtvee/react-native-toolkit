@@ -1,4 +1,7 @@
-## This branch is dedicated for the documentation of engineering progress
+## This branch is dedicated to reinforce the methodology of engineering progress
+
+Checkout the [develop](https://github.com/canhtvee/react-native-toolkit/tree/develop) branch for latest update
+
 
 [Philosophy of Design](#philosophy-of-design)
 
@@ -10,6 +13,8 @@
 
 [Coding Convention](#coding-convention)
 
+[Repo Managemnent](#repo-managemnent)
+ 
 [Case Study](#case-study)
 
 [UI Best Practice](#ui-best-practice)
@@ -23,6 +28,7 @@
 ## Project Structure
 
 ## Coding Convention
+## Repo Managemnent
 
 ## Case Study
 
