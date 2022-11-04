@@ -1,8 +1,9 @@
 import React, {useCallback} from 'react';
 import {View, Text, Pressable} from 'react-native';
 
-import {useAppContext} from '@utils';
-import {AppIcon} from '../AppIcon';
+import {Sizes, useAppContext} from '@utils';
+import {AppIcon} from '../appIcon';
+
 import {styles} from './styles';
 import {formatJapaneseMonth, sameMonth} from './dateHelpers';
 

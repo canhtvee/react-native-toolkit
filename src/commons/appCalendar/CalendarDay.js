@@ -4,7 +4,7 @@ import dayjs from 'dayjs';
 
 import {useAppContext} from '@utils';
 
-import {AppIcon} from '../AppIcon';
+import {AppIcon} from '../appIcon';
 
 import {getState} from './dateHelpers';
 import {styles} from './styles';
