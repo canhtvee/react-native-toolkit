@@ -15,7 +15,7 @@ describe('AppIcon', () => {
   test('should render correctly', () => {
     const tree = render(
       <AppIcon
-        name={{antDesign: 'camera'}}
+        name={'camera'}
         size={80}
         color={'red'}
         iconStyle={{backgroundColor: 'blue'}}
@@ -32,7 +32,7 @@ describe('AppIcon', () => {
     const onPressMock = jest.fn();
     const {root} = create(
       <AppIcon
-        name={{antDesign: 'leftcircle'}}
+        name={'arrowLeft'}
         size={80}
         color={'red'}
         iconStyle={{backgroundColor: 'blue'}}

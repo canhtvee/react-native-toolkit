@@ -2,11 +2,12 @@ import React from 'react';
 import {View, StyleProp, TextStyle, ViewStyle} from 'react-native';
 
 import {AppTouchable, AppTouchableProps} from '../appTouchable';
+import {AppIconNames, AppIconNameType} from './AppIconNames';
 
 import {VectorIcon, VectorIconProps} from './VectorIcon';
 
 export interface AppIconProps
-  extends Omit<VectorIconProps, 'style'>,
+  extends Omit<VectorIconProps, 'style' | 'name'>,
     Pick<
       AppTouchableProps,
       | 'onPress'
@@ -15,6 +16,7 @@ export interface AppIconProps
       | 'activeOpacity'
       | 'activeBackgroundColor'
     > {
+  name: AppIconNameType;
   iconStyle?: StyleProp<TextStyle>;
   iconContainerStyle?: StyleProp<ViewStyle>;
 }
@@ -27,9 +29,14 @@ export function AppIcon({
   activeOpacity,
   activeBackgroundColor,
   hitSlop = true,
+  name,
   ...iconProps
 }: AppIconProps) {
-  const _iconElement = <VectorIcon style={iconStyle} {...iconProps} />;
+  const _iconName = AppIconNames[name];
+
+  const _iconElement = (
+    <VectorIcon style={iconStyle} name={_iconName} {...iconProps} />
+  );
 
   if (onPress) {
     return (
@@ -51,19 +58,3 @@ export function AppIcon({
 
   return _iconElement;
 }
-
-// export const AppIconNames = {
-//   'eye-off': {feather: 'eye-off'},
-//   eye: {feather: 'eye'},
-//   closecircle: {antDesign: 'closecircle'},
-//   closecircleo: {antDesign: 'closecircleo'},
-//   'arrow-down': {feather: 'chevron-down'},
-//   'arrow-up': {feather: 'chevron-up'},
-//   calendar: {feather: 'calendar'},
-//   search: {antDesign: 'search1'},
-//   'alert-triangle': {feather: 'alert-triangle'},
-//   pluscircleo: {antDesign: 'pluscircleo'},
-//   camera: {feather: 'camera'},
-//   image: {feather: 'image'},
-//   'edit-avatar': {feather: 'edit'},
-// };

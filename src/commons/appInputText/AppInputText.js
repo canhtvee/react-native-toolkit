@@ -76,7 +76,7 @@ export function AppInputText({
 
         {secureTextEntry && (
           <AppIcon
-            name={{feather: secure ? 'eye' : 'eye-off'}}
+            name={secure ? 'eyes' : 'eyesOff'}
             iconContainerStyle={{paddingRight: Sizes.paddinglx}}
             onPress={() => setSecure(prev => !prev)}
           />

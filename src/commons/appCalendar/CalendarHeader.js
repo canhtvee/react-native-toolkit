@@ -41,7 +41,7 @@ export function CalendarHeader({
           alignItems: 'center',
         }}>
         <AppIcon
-          name={{feather: 'chevron-left'}}
+          name={'arrowLeft'}
           style={{
             color: Colors.icon,
             marginRight: styles.headerSizes.marginIcon,
@@ -62,7 +62,7 @@ export function CalendarHeader({
           {Strings.Next_month}
         </Text>
         <AppIcon
-          name={{feather: 'chevron-right'}}
+          name={'arrowLeft'}
           style={{
             color: Colors.icon,
             marginLeft: styles.headerSizes.marginIcon,

@@ -16,7 +16,7 @@ import {AppTouchable} from '../appTouchable';
 type SearchEventNameType = 'onChangeSearchTerm' | 'onRequestSearch';
 
 type SearchEventDataType = {
-  searchTerm?: string;
+  searchTerm?: string | null;
 };
 
 type SearchEventType = {
@@ -24,7 +24,9 @@ type SearchEventType = {
   data: SearchEventDataType;
 };
 
-export const AppSearchService = createEventService<SearchEventType>();
+export const AppSearchService = createEventService<SearchEventType>({
+  searchTerm: null,
+});
 
 export interface AppSearchInputProps extends Omit<TextInputProps, 'style'> {
   inputStyle?: StyleProp<TextStyle>;
@@ -43,7 +45,7 @@ export function AppSearchInput({
   const onChangeText = useCallback(
     (text: string) => {
       setTextValue(text);
-      AppSearchService.onChange({
+      AppSearchService.emit({
         eventName: 'onChangeSearchTerm',
         data: {searchTerm: text},
       });
@@ -52,7 +54,7 @@ export function AppSearchInput({
   );
 
   useEffect(() => {
-    return AppSearchService.resetContext;
+    return AppSearchService.reset;
   }, []);
 
   return (
@@ -66,11 +68,7 @@ export function AppSearchInput({
       ]}
       activeOpacity={1}
       onPress={() => inputRef.current?.focus()}>
-      <AppIcon
-        name={{feather: 'search'}}
-        color={Colors.border}
-        size={Sizes.icon}
-      />
+      <AppIcon name={'search'} color={Colors.border} size={Sizes.icon} />
       <TextInput
         ref={inputRef}
         autoCapitalize={'none'}
@@ -92,7 +90,7 @@ export function AppSearchInput({
       {!!textValue && (
         <AppIcon
           size={Sizes.button}
-          name={{antDesign: 'closecircle'}}
+          name={'closeCircle'}
           color={Colors.border}
           onPress={() => onChangeText('')}
         />

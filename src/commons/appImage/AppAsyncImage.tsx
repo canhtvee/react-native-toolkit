@@ -94,7 +94,7 @@ export function AppAsyncImage({
         (placeholder ? (
           placeholder
         ) : (
-          <AppIcon name={{feather: 'alert-triangle'}} size={Sizes.wpx(24)} />
+          <AppIcon name={'alertTriangle'} size={Sizes.wpx(24)} />
         ))}
     </FastImage>
   );

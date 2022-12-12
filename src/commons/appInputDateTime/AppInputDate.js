@@ -36,7 +36,7 @@ export function AppInputDate({
 
   const _calendarIcon = (
     <AppIcon
-      name={{antDesign: 'calendar'}}
+      name={'calendar'}
       size={Sizes.icon}
       color={Colors.placeholder}
       iconStyle={{marginRight: Sizes.paddinglx}}

@@ -42,10 +42,7 @@ export function CalendarDay({day, dayId, markedStamp, currentMonth}) {
         {dayjs(day).format('D')}
       </Text>
       {markedStamp?.markIds?.length > dimensions.maxYIndex + 1 && (
-        <AppIcon
-          name={{materialCommunityIcons: 'dots-vertical'}}
-          size={styles.threeDots.size}
-        />
+        <AppIcon name={'dotsVertical'} size={styles.threeDots.size} />
       )}
     </View>
   );

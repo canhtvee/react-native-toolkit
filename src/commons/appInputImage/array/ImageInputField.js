@@ -44,14 +44,14 @@ export function ImageInputField({
           }}
           style={[Styles.border, styles.image]}>
           {imageStatus === Status.LOAD_FAILED && (
-            <AppIcon name="pluscircleo" size={Sizes.icon} />
+            <AppIcon name="plusCircleo" size={Sizes.icon} />
           )}
         </FastImage>
       </AppTouchable>
 
       <AppIcon
         size={Sizes.icon}
-        name={'closecircle'}
+        name={'closeCircle'}
         color={Colors.background}
         iconContainerStyle={[
           styles.clearIcon,

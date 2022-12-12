@@ -23,7 +23,7 @@ export function ClearableTextInput({
     () =>
       showClearIcon && (
         <AppIcon
-          name={{antDesign: 'closecircle'}}
+          name={'closeCircle'}
           size={Sizes.button}
           color={Colors.border}
           iconContainerStyle={{paddingRight: Sizes.paddinglx}}

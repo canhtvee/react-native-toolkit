@@ -11,10 +11,6 @@ export function AppDrawerButton({onPress}) {
   };
 
   return (
-    <AppIcon
-      name={{antDesign: 'menufold'}}
-      hitSlop
-      onPress={onPress || onOpenDrawer}
-    />
+    <AppIcon name={'menuFold'} hitSlop onPress={onPress || onOpenDrawer} />
   );
 }

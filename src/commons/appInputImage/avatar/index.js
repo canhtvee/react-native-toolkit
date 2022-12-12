@@ -86,7 +86,7 @@ function ImageInputAvatar({onChange, value, imageContainerStyle}) {
       )}
       <AppIcon
         size={20}
-        name={'edit-avatar'}
+        name={'editAvatar'}
         color={Colors.onBackground}
         iconContainerStyle={[
           Styles.circle(4),

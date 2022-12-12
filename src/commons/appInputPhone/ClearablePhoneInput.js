@@ -21,7 +21,7 @@ export function ClearablePhoneInput({
     () =>
       showClearIcon && (
         <AppIcon
-          name={{antDesign: 'closecircle'}}
+          name={'closeCircle'}
           size={Sizes.regular}
           iconStyle={{color: Colors.placeholder}}
           iconContainerStyle={{

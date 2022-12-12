@@ -93,7 +93,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalStateType>(
             backgroundColor: Colors.placeholder,
           }}>
           <AppIcon
-            name={{antDesign: 'closecircle'}}
+            name={'closeCircle'}
             iconContainerStyle={{
               alignSelf: 'flex-end',
               padding: Sizes.paddinglxx,
