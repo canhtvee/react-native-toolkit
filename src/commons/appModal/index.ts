@@ -1,1 +1,3 @@
-export * from './AppModal';
+import {AppModal} from './AppModal';
+
+export {AppModal};

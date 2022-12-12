@@ -1,3 +1,4 @@
-export * from './AppIcon';
-export * from './AppIconNames';
-export * from './VectorIcon';
+import {VectorIcon} from './VectorIcon';
+import {AppIcon} from './AppIcon';
+
+export {VectorIcon, AppIcon};

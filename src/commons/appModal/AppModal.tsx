@@ -34,8 +34,8 @@ export type ModalStateType = {
 };
 
 export type AppModalServiceType = {
-  openModal: (data: ModalStateType) => void;
-  closeModal: () => void;
+  show: (data: ModalStateType) => void;
+  hide: () => void;
 };
 
 const modalViewRef: RefObject<AppModalServiceType> = createRef();
@@ -48,7 +48,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalStateType>(
     const timeOutRef = useRef<NodeJS.Timer>();
 
     useImperativeHandle(ref, () => ({
-      openModal: (data: ModalStateType) => {
+      show: (data: ModalStateType) => {
         if (modalStateRef.current && modalStateRef.current !== data) {
           setIsOpen(false);
           timeOutRef.current && clearTimeout(timeOutRef.current);
@@ -63,7 +63,7 @@ const ModalView = forwardRef<AppModalServiceType, ModalStateType>(
         setIsOpen(true);
       },
 
-      closeModal: () => setIsOpen(false),
+      hide: () => setIsOpen(false),
     }));
 
     useEffect(() => {
@@ -149,6 +149,6 @@ const styles = StyleSheet.create({
 export const AppModal = {
   View: ModalView,
   ref: modalViewRef,
-  openModal: (data: ModalStateType) => modalViewRef.current?.openModal(data),
-  closeModal: () => modalViewRef.current?.closeModal(),
+  show: (data: ModalStateType) => modalViewRef.current?.show(data),
+  hide: () => modalViewRef.current?.hide(),
 };

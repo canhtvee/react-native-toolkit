@@ -1,1 +1,3 @@
-export * from './AppSearchInput';
+import {AppSearchInput, AppSearchService} from './AppSearchInput';
+
+export {AppSearchInput, AppSearchService};

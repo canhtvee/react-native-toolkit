@@ -1,2 +1,4 @@
-export * from './AppText';
-export * from './AppRichText';
+import {AppText} from './AppText';
+import {AppRichText} from './AppRichText';
+
+export {AppText, AppRichText};
