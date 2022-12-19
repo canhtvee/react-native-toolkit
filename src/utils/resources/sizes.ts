@@ -1,8 +1,4 @@
 import {Dimensions, PixelRatio} from 'react-native';
-import {
-  widthPercentageToDP as wp,
-  heightPercentageToDP as hp,
-} from 'react-native-responsive-screen';
 
 /**
  * base screen size = 700:380
@@ -31,12 +27,11 @@ const _hpxToDP = (inPixel: number) => {
 const Sizes = {
   deviceWidth: screenWidth,
   deviceHeight: screenHeight,
-  width: (per: number) => wp(per),
-  height: (per: number) => hp(per),
 
   wpx: (px: number) => _wpxToDP(px),
   hpx: (px: number) => _hpxToDP(px),
 
+  padding2x: _wpxToDP(16),
   padding: _wpxToDP(12),
   paddinglx: _wpxToDP(8),
   paddinglxx: _wpxToDP(4),
@@ -45,13 +40,14 @@ const Sizes = {
   button: _wpxToDP(15),
   icon: _wpxToDP(18),
 
-  sz15: _hpxToDP(15),
-  sz16: _hpxToDP(16),
-  sz18: _hpxToDP(18),
-  sz20: _hpxToDP(20),
-  sz22: _hpxToDP(22),
-  sz24: _hpxToDP(24),
-  sz26: _hpxToDP(26),
+  headline3x: _wpxToDP(26),
+  headline2x: _wpxToDP(24),
+  headline: _wpxToDP(22),
+
+  title3x: _wpxToDP(20),
+  title2x: _wpxToDP(18),
+  title: _wpxToDP(16),
+  body: _wpxToDP(15),
 
   borderWidth: 1,
   borderWidthlx: 0.5,

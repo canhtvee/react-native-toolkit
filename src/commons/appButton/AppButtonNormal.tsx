@@ -40,6 +40,7 @@ export interface AppButtonNormalProps
    * To specify a rich ui label
    */
   label?: JSX.Element;
+  children?: JSX.Element;
   loadingLabel?: JSX.Element;
   /**
    * To specify solid button type
@@ -50,9 +51,18 @@ export interface AppButtonNormalProps
    */
   textButton?: boolean;
   /**
+   * To specify secondary text button type
+   */
+  secondaryTextButton?: boolean;
+  /**
    * To specify bordered button type
    */
   borderedButton?: boolean;
+
+  /**
+   * To specify maxWidth button
+   */
+  fullSize?: boolean;
 }
 
 export function AppButtonNormal({
@@ -65,38 +75,54 @@ export function AppButtonNormal({
   containerStyle,
   spinnerSize,
   label,
+  children,
   loadingLabel,
   isLoading,
   disabled,
   hitSlop = true,
   onPress,
-  primaryButton,
+  fullSize,
+  primaryButton = true,
   textButton,
   borderedButton,
+  secondaryTextButton,
   ...touchProps
 }: AppButtonNormalProps) {
   const {Colors} = useAppContext();
 
   const _titleStyle = StyleSheet.flatten([
+    styles.title,
+
     primaryButton && {color: Colors.onPrimary},
-    (borderedButton || textButton) && {color: Colors.primary},
+
+    (borderedButton || textButton) && {
+      color: Colors.primary,
+    },
+
+    secondaryTextButton && {color: Colors.icon},
+
     titleStyle,
-  ]);
+  ]) as TextStyle;
 
   let _contentElement;
   if (isLoading) {
     _contentElement = loadingLabel || (
-      <ActivityIndicator color={_titleStyle.color} size={spinnerSize} />
+      <ActivityIndicator
+        color={_titleStyle?.color || Colors.onPrimary}
+        size={spinnerSize}
+      />
     );
+  } else if (label) {
+    _contentElement = label;
   } else {
     _contentElement = (
       <>
         {iconTop}
         {iconLeft}
-        <Text style={[{fontSize: Sizes.button}, _titleStyle]}>{title}</Text>
+        <Text style={_titleStyle}>{title}</Text>
         {iconBottom}
         {iconRight}
-        {label}
+        {children}
       </>
     );
   }
@@ -110,14 +136,19 @@ export function AppButtonNormal({
           styles.primaryButton,
           {backgroundColor: Colors.primary},
         ],
-        textButton && [
+
+        (textButton || secondaryTextButton) && [
           styles.textButton,
-          {backgroundColor: Colors.background, borderColor: Colors.primary},
+          {backgroundColor: Colors.background},
         ],
+
         borderedButton && [
           styles.borderedButton,
           {backgroundColor: Colors.background, borderColor: Colors.primary},
         ],
+
+        fullSize && styles.fullSize,
+
         {
           flexDirection: iconLeft || iconRight ? 'row' : 'column',
         },
@@ -139,6 +170,11 @@ const styles = StyleSheet.create({
     borderRadius: Sizes.borderRadius,
   },
 
+  fullSize: {
+    alignSelf: 'center',
+    width: Sizes.wpx(340),
+  },
+
   borderedButton: {
     justifyContent: 'center',
     alignItems: 'center',
@@ -150,4 +186,5 @@ const styles = StyleSheet.create({
   textButton: {
     borderBottomWidth: Sizes.borderWidth,
   },
+  title: {fontSize: Sizes.button, fontWeight: '600'},
 });
